@@ -1,7 +1,7 @@
 ﻿using Nickel;
 using System.Reflection;
 
-namespace AuthorName.DemoMod.Artifacts;
+namespace JyGein.Elestrals.Artifacts;
 
 internal sealed class DemoArtifactCounting : Artifact, IDemoArtifact
 {
@@ -16,9 +16,9 @@ internal sealed class DemoArtifactCounting : Artifact, IDemoArtifact
                 owner = Deck.colorless,
                 pools = [ArtifactPool.Common]
             },
-            Sprite = helper.Content.Sprites.RegisterSprite(ModEntry.Instance.Package.PackageRoot.GetRelativeFile("assets/artifacts/counting.png")).Sprite,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["artifact", "Counting", "name"]).Localize,
-            Description = ModEntry.Instance.AnyLocalizations.Bind(["artifact", "Counting", "description"]).Localize
+            Sprite = helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile("assets/artifacts/counting.png")).Sprite,
+            Name = Elestrals.Instance.AnyLocalizations.Bind(["artifact", "Counting", "name"]).Localize,
+            Description = Elestrals.Instance.AnyLocalizations.Bind(["artifact", "Counting", "description"]).Localize
         });
     }
 

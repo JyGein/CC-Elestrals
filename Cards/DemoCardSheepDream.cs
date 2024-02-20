@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace AuthorName.DemoMod.Cards;
+namespace JyGein.Elestrals.Cards;
 
 internal sealed class DemoCardSheepDream : Card, IDemoCard
 {
@@ -13,11 +13,11 @@ internal sealed class DemoCardSheepDream : Card, IDemoCard
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new()
             {
-                deck = ModEntry.Instance.DemoMod_Deck.Deck,
+                deck = Elestrals.Instance.DemoMod_Deck.Deck,
                 rarity = Rarity.common,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "SheepDream", "name"]).Localize
+            Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "SheepDream", "name"]).Localize
         });
     }
     public override CardData GetData(State state)
@@ -28,7 +28,7 @@ internal sealed class DemoCardSheepDream : Card, IDemoCard
             exhaust = true,
             /* In a similar manner to how we localized card names, we'll localize their descriptions
              * For example, if Sheep Dream is upgraded to B, this description would try getting information from card > SheepDream > Description > B in the locale file */
-            description = ModEntry.Instance.Localizations.Localize(["card", "SheepDream", "description", upgrade.ToString()])
+            description = Elestrals.Instance.Localizations.Localize(["card", "SheepDream", "description", upgrade.ToString()])
         };
         return data;
     }

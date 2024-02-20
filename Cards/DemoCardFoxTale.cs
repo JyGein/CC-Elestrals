@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Reflection;
 
 /* Like other namespaces, this can be named whatever
- * However it's recommended that you follow the structure defined by ModEntry of <AuthorName>.<ModName> or <AuthorName>.<ModName>.Cards*/
-namespace AuthorName.DemoMod.Cards;
+ * However it's recommended that you follow the structure defined by ModEntry of <JyGein>.<ModName> or <JyGein>.<ModName>.Cards*/
+namespace JyGein.Elestrals.Cards;
 
 internal sealed class DemoCardFoxTale : Card, IDemoCard
 {
@@ -17,7 +17,7 @@ internal sealed class DemoCardFoxTale : Card, IDemoCard
             Meta = new()
             {
                 /* We don't assign cards to characters, but rather to decks! It's important to keep that in mind */
-                deck = ModEntry.Instance.DemoMod_Deck.Deck,
+                deck = Elestrals.Instance.DemoMod_Deck.Deck,
 
                 /* The vanilla rarities are Rarity.common, Rarity.uncommon, Rarity.rare */
                 rarity = Rarity.common,
@@ -26,7 +26,7 @@ internal sealed class DemoCardFoxTale : Card, IDemoCard
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
             /* AnyLocalizations.Bind().Localize will find the 'name' of 'Foxtale' in 'card', in the locale file, and feed it here. The output for english in-game from this is 'Fox Tale' */
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["card", "FoxTale", "name"]).Localize
+            Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "FoxTale", "name"]).Localize
         });
     }
     public override CardData GetData(State state)
@@ -65,6 +65,10 @@ internal sealed class DemoCardFoxTale : Card, IDemoCard
                         statusAmount = 1,
                         targetPlayer = true
                     },
+                    new ASpawn()
+                    {
+
+                    }
                 };
                 /* Remember to always break it up! */
                 break;
@@ -93,7 +97,7 @@ internal sealed class DemoCardFoxTale : Card, IDemoCard
                         /* AAttacks can have flags indicating some extra effect. In this case, stunEnemy = true will stun the ship part hit. */
                         stunEnemy = true,
                         /* We can also give it our modded statuses, by getting it from our own code */
-                        status = ModEntry.Instance.AutododgeLeftNextTurn.Status,
+                        status = Elestrals.Instance.AutododgeLeftNextTurn.Status,
                         statusAmount = 1
                     },
                     new ADrawCard()

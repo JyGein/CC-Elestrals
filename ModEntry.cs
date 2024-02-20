@@ -1,7 +1,7 @@
 ﻿using Nickel;
 using HarmonyLib;
-using AuthorName.DemoMod.Cards;
-using AuthorName.DemoMod.Artifacts;
+using JyGein.Elestrals.Cards;
+using JyGein.Elestrals.Artifacts;
 using Microsoft.Extensions.Logging;
 using Nanoray.PluginManager;
 using System;
@@ -10,13 +10,13 @@ using System.Linq;
 
 /* In the Cobalt Core modding community it is common for namespaces to be <Author>.<ModName>
  * This is helpful to know at a glance what mod we're looking at, and who made it */
-namespace AuthorName.DemoMod;
+namespace JyGein.Elestrals;
 
 /* ModEntry is the base for our mod. Others like to name it Manifest, and some like to name it <ModName>
  * Notice the ': SimpleMod'. This means ModEntry is a subclass (child) of the superclass SimpleMod (parent) from Nickel. This will help us use Nickel's functions more easily! */
-public sealed class ModEntry : SimpleMod
+public sealed class Elestrals : SimpleMod
 {
-    internal static ModEntry Instance { get; private set; } = null!;
+    internal static Elestrals Instance { get; private set; } = null!;
     internal IKokoroApi KokoroApi { get; }
     internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
     internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
@@ -52,13 +52,21 @@ public sealed class ModEntry : SimpleMod
     internal static IReadOnlyList<Type> DemoCharacter_CommonCard_Types { get; } = [
 
     ];
+    internal static IReadOnlyList<Type> DemoCharacter_UncommonCard_Types { get; } = [
+
+    ];
+    internal static IReadOnlyList<Type> DemoCharacter_RareCard_Types { get; } = [
+
+    ];
 
     /* We can use an IEnumerable to combine the lists we made above, and modify it if needed
      * Maybe you created a new list for Uncommon cards, and want to add it.
      * If so, you can .Concat(TheUncommonListYouMade) */
     internal static IEnumerable<Type> DemoMod_AllCard_Types
         => DemoCharacter_StarterCard_Types
-        .Concat(DemoCharacter_CommonCard_Types);
+        .Concat(DemoCharacter_CommonCard_Types)
+        .Concat(DemoCharacter_UncommonCard_Types)
+        .Concat(DemoCharacter_RareCard_Types);
 
     /* We'll organize our artifacts the same way: making lists and then feed those to an IEnumerable */
     internal static IReadOnlyList<Type> DemoCharacter_CommonArtifact_Types { get; } = [
@@ -72,9 +80,10 @@ public sealed class ModEntry : SimpleMod
         .Concat(DemoShip_Artifact_Types);
 
 
-    public ModEntry(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
+    public Elestrals(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
     {
         Instance = this;
+
 
         /* We use Kokoro to handle our statuses. This means Kokoro is a Dependency, and our mod will fail to work without it.
          * We take from Kokoro what we need and put in our own project. Head to ExternalAPI/StatusLogicHook.cs if you're interested in what, exactly, we use.
@@ -216,7 +225,7 @@ public sealed class ModEntry : SimpleMod
          * 4. How to make statuses */
 
         /* 1. CARDS
-         * DemoMod comes with a neat folder called Cards where all the .cs files for our cards are stored. Take a look.
+         * Elestrals comes with a neat folder called Cards where all the .cs files for our cards are stored. Take a look.
          * You can decide to not use the folder, or to add more folders to further organize your cards. That is up to you.
          * We do recommend keeping files organized, however. It's way easier to traverse a project when the paths are clear and meaningful */
 

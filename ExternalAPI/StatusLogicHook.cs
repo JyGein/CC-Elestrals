@@ -1,4 +1,4 @@
-﻿namespace AuthorName.DemoMod;
+﻿namespace JyGein.Elestrals;
 public partial interface IKokoroApi
 {
     void RegisterStatusLogicHook(IStatusLogicHook hook, double priority);

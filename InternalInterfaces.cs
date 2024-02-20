@@ -1,6 +1,6 @@
 ﻿using Nickel;
 
-namespace AuthorName.DemoMod;
+namespace JyGein.Elestrals;
 
 /* Much like a namespace, these interfaces can be named whatever you'd like.
  * We recommend using descriptive names for what they're supposed to do.

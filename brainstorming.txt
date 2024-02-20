@@ -1,0 +1,122 @@
+EQUILYNX
+
+Based on midrow objects that want to be destroyed, midrow distruction, midrow movement, and a few random ideas from other earth cards in elestrals
+
+New actions:
+Rupture M - Destroy Midrow in front of Missile Bay
+Rupture C - Destroy Midrow in front of Cannon
+New Midrow:
+Mini Earth Stone - When destroyed attacks for 1
+Earth Stone - When destroyed attacks for 2
+Big Earth Stone - When destroyed attacks for 3
+Flower Stone - When destroyed draw 1 card
+Power Stone - When destroyed destroyer gains 1 Overdrive
+New Effects:
+Earth Stone Deposit - At the start of its turn, this ship launches X Mini Earth Stones out of its Missile Bay.
+Flower Stone Deposit - At the start of its turn, this ship launches X Flower Stones out of its Missile Bay. 
+
+COMMON (Goal 10)
+
+Starters{
+-	Nexus Blast
+	1, Destroy midrows in the 3 spaces infront of missile bay; 1 Temp Shield
+	A: 0, --
+	B: 1, Flippable; Shift midrow left 1; ...
+
+-	Earth Stone
+	1, Spawn 1 Earth Stone (Midrow that when destroyed attacks for 2)
+	A: 1, Spawn 1 Big Earth Stone (Midrow that when destroyed attacks for 3)
+	B: 1, ...Gain 1 midrow shift
+}
+
+- 	Nexus Shift
+	0, Flippable; Shift midrow left 1
+	A: 0, ...Attack for 1 from missile bay
+	B: 0, ...Draw 1 card
+
+-	Flower Stone
+	0, Spawn 1 Flower Stone (Midrow that when destroyed you draw 1 card)
+	A: 0, Spawn 2 Flower Stones (one to the right)
+	B: 2, Exhaust; Spawn 5 Flower Stones (2 to the left, 1 to the left, straight ahead, 1 to the right, 2 to the right) 
+
+-	Power Stone
+	1, Spawn 1 Power Stone (Midrow that when destroyed gives the destroyer 1 Overdrive)
+	A: 1, Flippable; Move midrow left; Spawn 1 Power Stone
+	B: 2, Exhaust; Spawn 2 Power Stones (one to the right)
+
+-	Nexus Swipe
+	1, Quad; Shift midrow left 2/Shift midrow right 2/Shift midrow left 1/Shift midrow right 1
+	A: 0, --
+	B: ?, ???
+
+UNCOMMON (Goal 7)
+
+-	Break Through
+	2, Destroy midrow infront of Cannon(s); Attack for 4
+	A: 2, ...Attack for 4 Piercing
+	B: 1, ...Attack for 2
+
+-	Ambrosia
+	1, Single Use; Heal 3
+	A: 1, Exhaust; Heal 1
+	B: 2, Exhaust; Draw 1 X = # of Exhausted Cards Heal X (maybe single use?)
+
+-	Earth(?)quake (named based off of the card earthquake but like an earthquake in space is funny)
+	2, Exhaust; Destroy all midrow
+	A: 2, -Exhaust; --
+	B: 3, Exhaust; All midrow attacks for 1; Destroy all midrow (rupture?)
+
+-	Golden Apple of Discord
+	1, Exhaust; Discard 1 card; Attack for 0 stun; outgoing -2 overdrive
+	A: 1, Exhaust; Discard 1 card; Attack for 0 stun; outgoing -2 overdrive
+	B: 2, -Exhaust; --
+
+
+RARE (Goal 5)
+
+-	Earth Stone Deposit
+	2, Exhaust; Gain 1 Earth Stone Deposit (At the start of its turn, this ship launches X Mini Earth Stones (Midrow that when destroyed attacks for 1) out of its Missile Bay.)
+	A: 1, Exhaust; Gain 1 Earth Stone Deposit
+	B: 3, Exhaust; Gain 2 Earth Stone Deposit
+
+-	Flower Stone Deposit
+	2, Exhaust; Gain 1 Flower Stone Deposit (At the start of its turn, this ship launches X Flower Stones out of its Missile Bay.)
+	A: 1, Exhaust; Gain 1 Flower Stone Deposit
+	B: 3, Exhaust; Gain 2 Flower Stone Deposit
+
+-	Channel
+	2, X = # of (non-natural) midrow objects; Attack for X
+	A: 2, X = # of (non-natural) midrow objects; Attack for X+3
+	B: 3, Exhaust; Retain; X = # of (non-natural) midrow objects; Attack for 2X
+
+
+
+ARTIFACTS
+
+COMMON (Goal 4)
+
+-	Foloi Forest
+	Gain 1 Overdrive next turn the second time you spawn a midrow object each turn
+
+
+BOSS (Goal 2)
+
+-	Poison Tipped Arrow
+	Every 3rd piercing attack applies corrode
+
+-	Stellar
+	+2 energy per turn, -2 Powerdrive at start of combat
+
+FORMATS:
+
+-	Card Name
+	Normal Effect
+	Upgrade A
+	Upgrade B
+
+Effect Template:
+Cost, Properties Effect
+
+"Thing" = temp name
+
+New Thing (description)

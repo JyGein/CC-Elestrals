@@ -1,10 +1,10 @@
-﻿using AuthorName.DemoMod.Cards;
+﻿using JyGein.Elestrals.Cards;
 using Nickel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace AuthorName.DemoMod.Artifacts;
+namespace JyGein.Elestrals.Artifacts;
 
 internal sealed class DemoArtifactBookOfTails : Artifact, IDemoArtifact
 {
@@ -15,12 +15,12 @@ internal sealed class DemoArtifactBookOfTails : Artifact, IDemoArtifact
             ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new()
             {
-                owner = ModEntry.Instance.DemoMod_Deck.Deck,
+                owner = Elestrals.Instance.DemoMod_Deck.Deck,
                 pools = [ArtifactPool.Common]
             },
-            Sprite = helper.Content.Sprites.RegisterSprite(ModEntry.Instance.Package.PackageRoot.GetRelativeFile("assets/artifacts/bookoftails.png")).Sprite,
-            Name = ModEntry.Instance.AnyLocalizations.Bind(["artifact", "BookOfTails", "name"]).Localize,
-            Description = ModEntry.Instance.AnyLocalizations.Bind(["artifact", "BookOfTails", "description"]).Localize
+            Sprite = helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile("assets/artifacts/bookoftails.png")).Sprite,
+            Name = Elestrals.Instance.AnyLocalizations.Bind(["artifact", "BookOfTails", "name"]).Localize,
+            Description = Elestrals.Instance.AnyLocalizations.Bind(["artifact", "BookOfTails", "description"]).Localize
         });
     }
 

@@ -1,7 +1,7 @@
-﻿namespace AuthorName.DemoMod;
+﻿namespace JyGein.Elestrals;
 internal sealed class AutododgeLeftNextTurnManager : IStatusLogicHook
 {
-    public static ModEntry Instance => ModEntry.Instance;
+    public static Elestrals Instance => Elestrals.Instance;
     public AutododgeLeftNextTurnManager()
     {
         /* We task Kokoro with the job to register our status into the game */
