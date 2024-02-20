@@ -5,54 +5,76 @@ Based on midrow objects that want to be destroyed, midrow distruction, midrow mo
 New actions:
 Rupture M - Destroy Midrow in front of Missile Bay
 Rupture C - Destroy Midrow in front of Cannon
+Rupture A - Destroy all Midrow
 New Midrow:
 Mini Earth Stone - When destroyed attacks for 1
 Earth Stone - When destroyed attacks for 2
 Big Earth Stone - When destroyed attacks for 3
 Flower Stone - When destroyed draw 1 card
 Power Stone - When destroyed destroyer gains 1 Overdrive
+Mini Repair Kit - When destroyed destroyer restores 1 hull. 
 New Effects:
 Earth Stone Deposit - At the start of its turn, this ship launches X Mini Earth Stones out of its Missile Bay.
 Flower Stone Deposit - At the start of its turn, this ship launches X Flower Stones out of its Missile Bay. 
+Overheat - This ship can only attack once per turn, Decreases by 1 at end of turn
 
 COMMON (Goal 10)
 
 Starters{
 -	Nexus Blast
-	1, Destroy midrows in the 3 spaces infront of missile bay; 1 Temp Shield
+	1, Rupture M Left 1; Rupture M; Rupture M Right 1; 1 Temp Shield
 	A: 0, --
-	B: 1, Flippable; Shift midrow left 1; ...
+	B: 1, Flippable; Shift midrow Left 1; ...
 
 -	Earth Stone
-	1, Spawn 1 Earth Stone (Midrow that when destroyed attacks for 2)
-	A: 1, Spawn 1 Big Earth Stone (Midrow that when destroyed attacks for 3)
+	1, Launch 1 Earth Stone
+	A: 1, Launch 1 Big Earth Stone
 	B: 1, ...Gain 1 midrow shift
 }
 
 - 	Nexus Shift
-	0, Flippable; Shift midrow left 1
+	0, Flippable; Shift midrow Left 1
 	A: 0, ...Attack for 1 from missile bay
 	B: 0, ...Draw 1 card
 
 -	Flower Stone
-	0, Spawn 1 Flower Stone (Midrow that when destroyed you draw 1 card)
-	A: 0, Spawn 2 Flower Stones (one to the right)
-	B: 2, Exhaust; Spawn 5 Flower Stones (2 to the left, 1 to the left, straight ahead, 1 to the right, 2 to the right) 
+	1, Launch 1 Flower Stone
+	A: 1, Launch 1 Flower Stone; Gain 1 Movement
+	B: 1, Exhaust; Launch 1 Flower Stone Right 1; Launch 1 Flower Stone
 
 -	Power Stone
-	1, Spawn 1 Power Stone (Midrow that when destroyed gives the destroyer 1 Overdrive)
-	A: 1, Flippable; Move midrow left; Spawn 1 Power Stone
-	B: 2, Exhaust; Spawn 2 Power Stones (one to the right)
+	1, Launch 1 Power Stone
+	A: 1, Flippable; Move midrow Left; Launch 1 Power Stone
+	B: 1, Exhaust; Launch 1 Power Stone Right 1; Launch 1 Power Stone
 
 -	Nexus Swipe
-	1, Quad; Shift midrow left 2/Shift midrow right 2/Shift midrow left 1/Shift midrow right 1
+	1, Quad; Shift midrow Left 2/Shift midrow Right 2/Shift midrow Left 1/Shift midrow Right 1
 	A: 0, --
 	B: ?, ???
+
+-	Scrappy Repair Kit
+	1, Exhaust; Launch 1 Mini Repair Kit
+	A: 0, --
+	B: 1, Exhaust; Rupture M; Launch 1 Mini Repair Kit
+
+-	Beatdown
+	2, Attack for 5
+	A: 2, Attack for 7
+	B: 2, Exhaust Attack for 5 Weaken
+
+-	"Shift Shot"
+	1, Attack for 1; Shift midrow left 1
+	A: 1, Attack for 2; ...
+	B: 1, Flippable; ...
+
+-	
+
+-	
 
 UNCOMMON (Goal 7)
 
 -	Break Through
-	2, Destroy midrow infront of Cannon(s); Attack for 4
+	2, Rupture C; Attack for 4
 	A: 2, ...Attack for 4 Piercing
 	B: 1, ...Attack for 2
 
@@ -62,25 +84,33 @@ UNCOMMON (Goal 7)
 	B: 2, Exhaust; Draw 1 X = # of Exhausted Cards Heal X (maybe single use?)
 
 -	Earth(?)quake (named based off of the card earthquake but like an earthquake in space is funny)
-	2, Exhaust; Destroy all midrow
+	2, Exhaust; Rupture A
 	A: 2, -Exhaust; --
-	B: 3, Exhaust; All midrow attacks for 1; Destroy all midrow (rupture?)
+	B: 3, Exhaust; All midrow attacks for 1; Rupture A
 
 -	Golden Apple of Discord
 	1, Exhaust; Discard 1 card; Attack for 0 stun; outgoing -2 overdrive
 	A: 1, Exhaust; Discard 1 card; Attack for 0 stun; outgoing -2 overdrive
 	B: 2, -Exhaust; --
 
+-	Bloom
+	3, Exhaust; Launch 1 Flower Stone Left 1; Launch 1 Flower Stone; Launch 1 Flower Stone Right 1
+	A: 2, --
+	B: 3, Exhaust; Launch 1 Flower Stone Left 2; Launch 1 Flower Stone Left 1; Launch 1 Flower Stone; Launch 1 Flower Stone Right 1; Launch 1 Flower Stone Right 2;
+
+-	
+
+-	
 
 RARE (Goal 5)
 
 -	Earth Stone Deposit
-	2, Exhaust; Gain 1 Earth Stone Deposit (At the start of its turn, this ship launches X Mini Earth Stones (Midrow that when destroyed attacks for 1) out of its Missile Bay.)
+	2, Exhaust; Gain 1 Earth Stone Deposit
 	A: 1, Exhaust; Gain 1 Earth Stone Deposit
 	B: 3, Exhaust; Gain 2 Earth Stone Deposit
 
 -	Flower Stone Deposit
-	2, Exhaust; Gain 1 Flower Stone Deposit (At the start of its turn, this ship launches X Flower Stones out of its Missile Bay.)
+	2, Exhaust; Gain 1 Flower Stone Deposit
 	A: 1, Exhaust; Gain 1 Flower Stone Deposit
 	B: 3, Exhaust; Gain 2 Flower Stone Deposit
 
@@ -89,7 +119,15 @@ RARE (Goal 5)
 	A: 2, X = # of (non-natural) midrow objects; Attack for X+3
 	B: 3, Exhaust; Retain; X = # of (non-natural) midrow objects; Attack for 2X
 
+-	Blossom
+	1, Turn all midrow into Flower Stones
+	A: 0, --
+	B: 2, Turn all midrow into Flower Stones; Launch 1 Flower Stone Left 1; Launch 1 Flower Stone Right 1;
 
+-	Demeter's Aid
+	1, Exhaust; Gain 3 Overpower; Gain 3 Overheat
+	A: 1, Exhaust; Gain 4 Overpower; Gain 3 Overheat
+	B: 2, Exhaust; Gain 5 Overpower; Gain 3 Overheat
 
 ARTIFACTS
 
@@ -98,6 +136,13 @@ COMMON (Goal 4)
 -	Foloi Forest
 	Gain 1 Overdrive next turn the second time you spawn a midrow object each turn
 
+-	Scythe of Demeter
+	Gain 1 Shield when you destroy a midrow object
+
+-	Teratlas
+	Gain 1 Energy at start of turn if any midrow object is an earth stone
+
+-	
 
 BOSS (Goal 2)
 
