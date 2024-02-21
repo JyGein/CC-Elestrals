@@ -39,5 +39,21 @@
       "name": "Autododge Left Next Turn",
       "description": "At the start of next turn, gain <c=boldPink>{0}</c> <c=status>AUTODODGE LEFT</c>."
     }
+  },
+  "midrow": {
+    "EarthStones": {
+      "Mini": {
+        "name": "Mini Earth Stone",
+        "description": "When destroyed this attacks for <c=boldPink>1</c> in the same direction."
+      },
+      "Normal": {
+        "name": "Earth Stone",
+        "description": "When destroyed this attacks for <c=boldPink>2</c> in the same direction."
+      },
+      "Big": {
+        "name": "Big Earth Stone",
+        "description": "When destroyed this attacks for <c=boldPink>3</c> in the same direction."
+      }
+    }
   }
 }

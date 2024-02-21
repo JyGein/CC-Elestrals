@@ -17,6 +17,7 @@ namespace JyGein.Elestrals;
 public sealed class Elestrals : SimpleMod
 {
     internal static Elestrals Instance { get; private set; } = null!;
+    internal Harmony Harmony { get; }
     internal IKokoroApi KokoroApi { get; }
     internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
     internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
@@ -40,6 +41,9 @@ public sealed class Elestrals : SimpleMod
     internal IDeckEntry DemoMod_Deck { get; }
     internal IShipEntry DemoMod_Ship { get; }
     internal IStatusEntry AutododgeLeftNextTurn { get; }
+    internal ISpriteEntry EarthStoneSprite { get; }
+    //internal ISpriteEntry MiniEarthStoneSprite { get; }
+    //internal ISpriteEntry BigEarthStoneSprite { get; }
     internal static IReadOnlyList<Type> DemoCharacter_StarterCard_Types { get; } = [
         /* Add more starter cards here if you'd like. */
         typeof(DemoCardFoxTale),
@@ -90,6 +94,9 @@ public sealed class Elestrals : SimpleMod
          * If you're interested in more fancy stuff, make sure to peek at the Kokoro repository found online. */
         KokoroApi = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!;
 
+        Harmony = new(package.Manifest.UniqueName);
+        CustomTTGlossary.ApplyPatches(Harmony);
+
         /* These localizations lists help us organize our mod's text and messages by language.
          * For general use, prefer AnyLocalizations, as that will provide an easier time to potential localization submods that are made for your mod 
          * IMPORTANT: These localizations are found in the i18n folder (short for internationalization). The Demo Mod comes with a barebones en.json localization file that you might want to check out before continuing 
@@ -120,6 +127,8 @@ public sealed class Elestrals : SimpleMod
         DemoMod_Character_Squint_2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/demomod_character_squint_2.png"));
         DemoMod_Character_Squint_3 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/demomod_character_squint_3.png"));
 
+        EarthStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/earthStone.png"));
+
         /* Decks are assigned separate of the character. This is because the game has decks like Trash which is not related to a playable character
          * Do note that Color accepts a HEX string format (like Color("a1b2c3")) or a Float RGB format (like Color(0.63, 0.7, 0.76). It does NOT allow a traditional RGB format (Meaning Color(161, 178, 195) will NOT work) */
         DemoMod_Deck = helper.Content.Decks.RegisterDeck("DemoDeck", new DeckConfiguration()
@@ -130,11 +139,11 @@ public sealed class Elestrals : SimpleMod
                  * It is used as the deck's rarity 'shine'
                  * If a playable character uses this deck, the character Name will use this color
                  * If a playable character uses this deck, the character mini panel will use this color */
-                color = new Color("cd6a00"),
+                color = new Color("254d0c"),
 
                 /* This color is for the card name in-game
                  * Make sure it has a good contrast against the CardFrame, and take rarity 'shine' into account as well */
-                titleColor = new Color("000000")
+                titleColor = new Color("ffffff")
             },
             /* We give it a default art and border some Sprite types by adding '.Sprite' at the end of the ISpriteEntry definitions we made above. */
             DefaultCardArt = DemoMod_Character_CardBackground.Sprite,
@@ -143,6 +152,7 @@ public sealed class Elestrals : SimpleMod
             /* Since this deck will be used by our Demo Character, we'll use their name. */
             Name = AnyLocalizations.Bind(["character", "DemoCharacter", "name"]).Localize,
         });
+
 
         /* Let's create some animations, because if you were to boot up this mod from what you have above,
          * DemoCharacter would be a blank void inside a box, we haven't added their sprites yet! 

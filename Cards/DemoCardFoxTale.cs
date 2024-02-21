@@ -1,4 +1,5 @@
-﻿using Nickel;
+﻿using JyGein.Elestrals.Midrow;
+using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -67,7 +68,10 @@ internal sealed class DemoCardFoxTale : Card, IDemoCard
                     },
                     new ASpawn()
                     {
-
+                        thing = new EarthStone()
+                        {
+                            Type = EarthStone.EarthStoneType.Normal
+                        }
                     }
                 };
                 /* Remember to always break it up! */
@@ -85,6 +89,13 @@ internal sealed class DemoCardFoxTale : Card, IDemoCard
                         targetPlayer = true,
                         /* Make sure to flag AHeal card actions as canRunAfterKill = true, unless you want people to wonder why a healing card didn't heal them */
                         canRunAfterKill = true
+                    },
+                    new ASpawn()
+                    {
+                        thing = new EarthStone()
+                        {
+                            Type = EarthStone.EarthStoneType.Big
+                        }
                     }
                 };
                 break;
@@ -103,6 +114,13 @@ internal sealed class DemoCardFoxTale : Card, IDemoCard
                     new ADrawCard()
                     {
                         count = 2
+                    },
+                    new ASpawn()
+                    {
+                        thing = new EarthStone()
+                        {
+                            Type = EarthStone.EarthStoneType.Normal
+                        }
                     }
                 };
                 break;

@@ -2,7 +2,6 @@
   "UniqueName": "JyGein.Elestrals",
   "Version": "0.0.1",
   "Author": "JyGein",
-  "Description": "I like Elestrals. I like Colbalt Core. Lets combine them!",
   "RequiredApiVersion": "0.7.0",
   "EntryPointAssembly": "Elestrals.dll",
   "Dependencies": [
