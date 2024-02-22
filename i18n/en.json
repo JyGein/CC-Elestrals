@@ -1,8 +1,8 @@
 {
   "character": {
-    "DemoCharacter": {
-      "name": "DemoCharacter",
-      "description": "<c=cd6a00>DEMOCHARACTER</c>\nThis is a demo character. <c=boldPink>Am I cool or am I cool?</c>"
+    "Equilynx": {
+      "name": "Equilynx",
+      "description": "<c=254d0c>Equilynx</c>\nFrom Elestria, it brings the power of the Earth element with it specializing in <c=boldPink>Midrow that want to be Destroyed</c> and <c=boldPink>instant Midrow movement.</c>"
     }
   },
   "artifact": {
@@ -16,14 +16,13 @@
     }
   },
   "ship": {
-    "DemoShip": {
-      "name": "DemoShip",
-      "description": "This is a demo ship.\n <c=boldPink>Isn't this cool?</c>"
-    }
   },
   "card": {
-    "FoxTale": {
-      "name": "Fox Tale"
+    "EarthStone": {
+      "name": "Earth Stone"
+    },
+    "FlowerStone": {
+      "name": "Flower Stone"
     },
     "SheepDream": {
       "name": "Sheep Dream",
@@ -54,6 +53,18 @@
         "name": "Big Earth Stone",
         "description": "When destroyed this attacks for <c=boldPink>3</c> in the same direction."
       }
+    },
+    "FlowerStone": {
+      "name": "Flower Stone",
+      "description": "When destroyed you draw <c=boldPink>1</c> card."
+    },
+    "PowerStone": {
+      "name": "Power Stone",
+      "description": "When destroyed you Gain <c=boldPink>1</c> <c=status>OVERDRIVE</c>."
+    },
+    "MiniRepairKit": {
+      "name": "Mini Repair Kit",
+      "description": "When destroyed you heal <c=boldPink>1</c>."
     }
   }
 }

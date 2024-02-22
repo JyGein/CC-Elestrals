@@ -39,7 +39,7 @@ public sealed class Elestrals : SimpleMod
     internal ISpriteEntry DemoMod_Character_Squint_2 { get; }
     internal ISpriteEntry DemoMod_Character_Squint_3 { get; }
     internal IDeckEntry DemoMod_Deck { get; }
-    internal IShipEntry DemoMod_Ship { get; }
+    /*internal IShipEntry DemoMod_Ship { get; }*/
     internal IStatusEntry AutododgeLeftNextTurn { get; }
     internal ISpriteEntry EarthStoneSprite { get; }
     //internal ISpriteEntry MiniEarthStoneSprite { get; }
@@ -47,9 +47,15 @@ public sealed class Elestrals : SimpleMod
     internal ISpriteEntry EarthStoneIcon { get; }
     //internal ISpriteEntry MiniEarthStoneIcon { get; }
     //internal ISpriteEntry BigEarthStoneIcon { get; }
+    internal ISpriteEntry FlowerStoneSprite { get; }
+    internal ISpriteEntry FlowerStoneIcon { get; }
+    //internal ISpriteEntry PowerStoneSprite { get; }
+    //internal ISpriteEntry PowerStoneIcon { get; }
+    //internal ISpriteEntry MiniRepairKitSprite { get; }
+    //internal ISpriteEntry MiniRepairKitIcon { get; }
     internal static IReadOnlyList<Type> DemoCharacter_StarterCard_Types { get; } = [
         /* Add more starter cards here if you'd like. */
-        typeof(DemoCardFoxTale),
+        typeof(EquilynxEarthStoneCard),
         typeof(DemoCardSheepDream)
     ];
 
@@ -57,7 +63,7 @@ public sealed class Elestrals : SimpleMod
      * We recommend having a Starter Cards list, a Common Cards list, an Uncommon Cards list, and a Rare Cards list
      * However you can be more detailed, or you can be more loose, if that's your style */
     internal static IReadOnlyList<Type> DemoCharacter_CommonCard_Types { get; } = [
-
+        typeof(EquilynxFlowerStoneCard)
     ];
     internal static IReadOnlyList<Type> DemoCharacter_UncommonCard_Types { get; } = [
 
@@ -136,6 +142,12 @@ public sealed class Elestrals : SimpleMod
         EarthStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/earthStone.png"));
         //MiniEarthStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/earthStoneMini.png"));
         //BigEarthStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/earthStoneBig.png"));
+        FlowerStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/flowerStone.png"));
+        FlowerStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/flowerStone.png"));
+        //PowerStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/powerStone.png"));
+        //PowerStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/powerStone.png"));
+        //MiniRepairKitSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/miniRepairKit.png"));
+        //MiniRepairKitIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/miniRepairKit.png"));
 
         /* Decks are assigned separate of the character. This is because the game has decks like Trash which is not related to a playable character
          * Do note that Color accepts a HEX string format (like Color("a1b2c3")) or a Float RGB format (like Color(0.63, 0.7, 0.76). It does NOT allow a traditional RGB format (Meaning Color(161, 178, 195) will NOT work) */
@@ -158,7 +170,7 @@ public sealed class Elestrals : SimpleMod
             BorderSprite = DemoMod_Character_CardFrame.Sprite,
 
             /* Since this deck will be used by our Demo Character, we'll use their name. */
-            Name = AnyLocalizations.Bind(["character", "DemoCharacter", "name"]).Localize,
+            Name = AnyLocalizations.Bind(["character", "Equilynx", "name"]).Localize,
         });
 
 
@@ -228,7 +240,7 @@ public sealed class Elestrals : SimpleMod
 
             /* This is the little blurb that appears when you hover over the character in-game.
              * You can make it fluff, use it as a way to tell players about the character's playstyle, or a little bit of both! */
-            Description = AnyLocalizations.Bind(["character", "DemoCharacter", "description"]).Localize,
+            Description = AnyLocalizations.Bind(["character", "Equilynx", "description"]).Localize,
 
             /* This is the fancy panel that encapsulates your character while in active combat.
              * It's recommended that it follows the same color scheme as the character and deck, for cohesion */
@@ -268,7 +280,7 @@ public sealed class Elestrals : SimpleMod
 
         /* Let's start with registering the ship parts, so we don't have to do it while making the ship proper
          * You may notice these assets are copies of the vanilla parts. Don't worry, you can get wild with your own designs! */
-        var demoShipPartWing = helper.Content.Ships.RegisterPart("DemoPart.Wing", new PartConfiguration()
+        /*var demoShipPartWing = helper.Content.Ships.RegisterPart("DemoPart.Wing", new PartConfiguration()
         {
             Sprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/ships/demowing.png")).Sprite
         });
@@ -287,20 +299,20 @@ public sealed class Elestrals : SimpleMod
         var demoShipSpriteChassis = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/ships/demochassis.png")).Sprite;
 
         /* With the parts and sprites done, we can now create our Ship a bit more easily */
-        DemoMod_Ship = helper.Content.Ships.RegisterShip("DemoShip", new ShipConfiguration()
+        /*DemoMod_Ship = helper.Content.Ships.RegisterShip("DemoShip", new ShipConfiguration()
         {
             Ship = new StarterShip()
             {
                 ship = new Ship()
                 {
                     /* This is how much hull the ship will start a run with. We recommend matching hullMax */
-                    hull = 12,
+                    /*hull = 12,
                     hullMax = 12,
                     shieldMaxBase = 4,
                     parts =
                     {
                         /* This is the order in which the ship parts will be arranged in-game, from left to right. Part1 -> Part2 -> Part3 */
-                        new Part
+                        /*new Part
                         {
                             type = PType.wing,
                             skin = demoShipPartWing.UniqueName
@@ -332,7 +344,7 @@ public sealed class Elestrals : SimpleMod
                 },
 
                 /* These are cards and artifacts the ship will start a run with. The recommended card amount is 4, and the recommended artifact amount is 2 to 3 */
-                cards =
+                /*cards =
                 {
                     new CannonColorless(),
                     new DodgeColorless()
@@ -354,7 +366,7 @@ public sealed class Elestrals : SimpleMod
             ExclusiveArtifactTypes = new HashSet<Type>()
             {
                 /* If you make some artifacts that you want only this ship to encounter in a run, here is where you place them */
-                typeof(DemoArtifactCounting)
+                /*typeof(DemoArtifactCounting)
             },
 
             UnderChassisSprite = demoShipSpriteChassis,

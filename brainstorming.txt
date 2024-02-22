@@ -3,8 +3,8 @@ EQUILYNX
 Based on midrow objects that want to be destroyed, midrow distruction, midrow movement, and a few random ideas from other earth cards in elestrals
 
 New actions:
-Rupture M - Destroy Midrow in front of Missile Bay
-Rupture C - Destroy Midrow in front of Cannon
+Rupture M - Destroy Midrow in front of Missile Bays
+Rupture C - Destroy Midrow in front of Cannons
 Rupture A - Destroy all Midrow
 -DestroyedMidrowAttack - An attack for a destroyed midrow
 
@@ -12,9 +12,9 @@ New Midrow:
 sprite-Mini Earth Stone - When destroyed attacks for 1
 -Earth Stone - When destroyed attacks for 2
 sprite-Big Earth Stone - When destroyed attacks for 3
-Flower Stone - When destroyed draw 1 card
-Power Stone - When destroyed destroyer gains 1 Overdrive
-Mini Repair Kit - When destroyed destroyer restores 1 hull. 
+-Flower Stone - When destroyed draw 1 card
+sprite-Power Stone - When destroyed destroyer gains 1 Overdrive
+sprite-Mini Repair Kit - When destroyed destroyer restores 1 hull. 
 
 New Effects:
 Earth Stone Deposit - At the start of its turn, this ship launches X Mini Earth Stones out of its Missile Bay.
@@ -29,10 +29,10 @@ Starters{
 	A: 0, --
 	B: 1, Flippable; Shift midrow Left 1; ...
 
--	Earth Stone
+--	Earth Stone
 	1, Launch 1 Earth Stone
 	A: 1, Launch 1 Big Earth Stone
-	B: 1, ...Gain 1 midrow shift
+	B: 1, ...Gain 1 midrow shift <- instant movement to fit character?
 }
 
 - 	Nexus Shift
@@ -40,9 +40,9 @@ Starters{
 	A: 0, ...Attack for 1 from missile bay
 	B: 0, ...Draw 1 card
 
--	Flower Stone
+--	Flower Stone
 	1, Launch 1 Flower Stone
-	A: 1, Launch 1 Flower Stone; Gain 1 Movement
+	A: 1, Launch 1 Flower Stone; Gain 1 Movement <- this is quite good
 	B: 1, Exhaust; Launch 1 Flower Stone Right 1; Launch 1 Flower Stone
 
 -	Power Stone

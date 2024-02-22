@@ -29,7 +29,7 @@ internal sealed class DemoArtifactBookOfTails : Artifact, IDemoArtifact
         {
             new TTCard
             {
-                card = new DemoCardFoxTale
+                card = new EquilynxEarthStoneCard
                 {
                     temporaryOverride = true
                 }
@@ -44,7 +44,7 @@ internal sealed class DemoArtifactBookOfTails : Artifact, IDemoArtifact
         c.QueueImmediate([
             new AAddCard
             {
-                card = new DemoCardFoxTale
+                card = new EquilynxEarthStoneCard
                 {
                     temporaryOverride = true
                 },

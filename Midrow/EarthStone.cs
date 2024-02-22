@@ -8,7 +8,6 @@ using JyGein.Elestrals;
 using JyGein.Elestrals.Actions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace JyGein.Elestrals.Midrow
 {
