@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JyGein.Elestrals.Midrow;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,17 +53,6 @@ namespace JyGein.Elestrals.Actions
 
         public List<CardAction>? onKillActions;
 
-        private int? GetFromX(State s, Combat c)
-        {
-            int num = (targetPlayer ? c.otherShip : s.ship).parts.FindIndex((Part p) => p.type == PType.cannon && p.active);
-            if (num != -1)
-            {
-                return num;
-            }
-
-            return null;
-        }
-
         public override void Begin(G g, State s, Combat c)
         {
             Ship ship = (targetPlayer ? s.ship : c.otherShip);
@@ -72,7 +62,6 @@ namespace JyGein.Elestrals.Actions
                 return;
             }
 
-            int? num = GetFromX(s, c);
             RaycastResult raycastResult = CombatUtils.RaycastGlobal(c, ship, fromDrone: true, fromDroneX);
             
             if (raycastResult != null && ApplyAutododge(c, ship, raycastResult))
@@ -100,7 +89,6 @@ namespace JyGein.Elestrals.Actions
                     {
                         item4.OnPlayerAttack(s, c);
                     }
-
                     return;
                 }
             }
@@ -237,127 +225,131 @@ namespace JyGein.Elestrals.Actions
                         targetPlayer = targetPlayer
                     });
                 }
+            }
 
-                if (!isBeam)
+            if (!isBeam)
+            {
+                if (targetPlayer)
                 {
-                    if (targetPlayer)
+                    if (!raycastResult.hitShip && !raycastResult.hitDrone)
                     {
-                        if (!raycastResult.hitShip && !raycastResult.hitDrone)
-                        {
-                            g.state.storyVars.enemyShotJustMissed = true;
-                        }
+                        g.state.storyVars.enemyShotJustMissed = true;
+                    }
 
-                        if (raycastResult.hitShip)
-                        {
-                            g.state.storyVars.enemyShotJustHit = true;
-                        }
+                    if (raycastResult.hitShip)
+                    {
+                        g.state.storyVars.enemyShotJustHit = true;
+                    }
 
-                        foreach (Artifact item6 in s.EnumerateAllArtifacts())
-                        {
-                            item6.OnEnemyAttack(s, c);
-                        }
+                    foreach (Artifact item6 in s.EnumerateAllArtifacts())
+                    {
+                        item6.OnEnemyAttack(s, c);
+                    }
 
-                        if (!raycastResult.hitShip && !raycastResult.hitDrone)
+                    if (!raycastResult.hitShip && !raycastResult.hitDrone)
+                    {
+                        foreach (Artifact item7 in s.EnumerateAllArtifacts())
                         {
-                            foreach (Artifact item7 in s.EnumerateAllArtifacts())
-                            {
-                                item7.OnPlayerDodgeHit(s, c);
-                            }
+                            item7.OnPlayerDodgeHit(s, c);
                         }
+                    }
+                }
+                else
+                {
+                    if (raycastResult.hitDrone)
+                    {
+                        g.state.storyVars.playerJustShotAMidrowObject = true;
+                    }
+
+                    if (!raycastResult.hitShip && !raycastResult.hitDrone)
+                    {
+                        g.state.storyVars.playerShotJustMissed = true;
                     }
                     else
                     {
-                        if (raycastResult.hitDrone)
-                        {
-                            g.state.storyVars.playerJustShotAMidrowObject = true;
-                        }
-
-                        if (!raycastResult.hitShip && !raycastResult.hitDrone)
-                        {
-                            g.state.storyVars.playerShotJustMissed = true;
-                        }
-                        else
-                        {
-                            g.state.storyVars.playerShotJustMissed = false;
-                        }
-
-                        if (raycastResult.hitShip)
-                        {
-                            g.state.storyVars.playerShotJustHit = true;
-                        }
-
-                        g.state.storyVars.playerShotWasFromStrafe = storyFromStrafe;
-                        g.state.storyVars.playerShotWasFromPayback = storyFromPayback;
-
-                        if (raycastResult.hitShip)
-                        {
-                            /*if (c.otherShip.ai != null)
-                            {
-                                c.otherShip.ai.OnHitByAttack(s, c, raycastResult.worldX, this);
-                            } this might be necessary commenting out for now*/
-
-                            foreach (Artifact item9 in s.EnumerateAllArtifacts())
-                            {
-                                item9.OnEnemyGetHit(s, c, c.otherShip.GetPartAtWorldX(raycastResult.worldX));
-                            }
-                        }
-
-                        if (!raycastResult.hitShip && !raycastResult.hitDrone)
-                        {
-                            bool flag3 = false;
-                            for (int i = -1; i <= 1; i += 2)
-                            {
-                                if (CombatUtils.RaycastGlobal(c, ship, fromDrone: true, raycastResult.worldX + i).hitShip)
-                                {
-                                    flag3 = true;
-                                }
-                            }
-
-                            if (flag3)
-                            {
-                                foreach (Artifact item11 in s.EnumerateAllArtifacts())
-                                {
-                                    item11.OnEnemyDodgePlayerAttackByOneTile(s, c);
-                                }
-                            }
-                        }
+                        g.state.storyVars.playerShotJustMissed = false;
                     }
 
-                    if (ship.hull <= 0 && onKillActions != null)
+                    if (raycastResult.hitShip)
                     {
-                        List<CardAction> list = Mutil.DeepCopy(onKillActions);
-                        foreach (CardAction item12 in list)
+                        g.state.storyVars.playerShotJustHit = true;
+                    }
+
+                    g.state.storyVars.playerShotWasFromStrafe = storyFromStrafe;
+                    g.state.storyVars.playerShotWasFromPayback = storyFromPayback;
+
+                    if (raycastResult.hitShip)
+                    {
+                        /*if (c.otherShip.ai != null)
                         {
-                            item12.canRunAfterKill = true;
+                            c.otherShip.ai.OnHitByAttack(s, c, raycastResult.worldX, this);
+                        } this might be necessary commenting out for now*/
+
+                        foreach (Artifact item9 in s.EnumerateAllArtifacts())
+                        {
+                            item9.OnEnemyGetHit(s, c, c.otherShip.GetPartAtWorldX(raycastResult.worldX));
+                        }
+                    }
+
+                    if (!raycastResult.hitShip && !raycastResult.hitDrone)
+                    {
+                        bool flag3 = false;
+                        for (int i = -1; i <= 1; i += 2)
+                        {
+                            if (CombatUtils.RaycastGlobal(c, ship, fromDrone: true, raycastResult.worldX + i).hitShip)
+                            {
+                                flag3 = true;
+                            }
                         }
 
-                        c.QueueImmediate(list);
+                        if (flag3)
+                        {
+                            foreach (Artifact item11 in s.EnumerateAllArtifacts())
+                            {
+                                item11.OnEnemyDodgePlayerAttackByOneTile(s, c);
+                            }
+                        }
                     }
                 }
 
-                c.stuff.TryGetValue(fromDroneX, out StuffBase? value);
-                if (value is AttackDrone attackDrone)
+                if (ship.hull <= 0 && onKillActions != null)
                 {
-                    attackDrone.pulse = 1.0;
-                }
+                    List<CardAction> list = Mutil.DeepCopy(onKillActions);
+                    foreach (CardAction item12 in list)
+                    {
+                        item12.canRunAfterKill = true;
+                    }
 
-                if (value is EnergyDrone energyDrone)
-                {
-                    energyDrone.pulse = 1.0;
+                    c.QueueImmediate(list);
                 }
-
-                if (value is ShieldDrone shieldDrone)
-                {
-                    shieldDrone.pulse = 1.0;
-                }
-
-                if (value is JupiterDrone jupiterDrone)
-                {
-                    jupiterDrone.pulse = 1.0;
-                }
-
-                EffectSpawner.Cannon(g, targetPlayer, raycastResult, dmg, isBeam);
             }
+
+            c.stuff.TryGetValue(fromDroneX, out StuffBase? value);
+            if (value is AttackDrone attackDrone)
+            {
+                attackDrone.pulse = 1.0;
+            }
+
+            if (value is EnergyDrone energyDrone)
+            {
+                energyDrone.pulse = 1.0;
+            }
+
+            if (value is ShieldDrone shieldDrone)
+            {
+                shieldDrone.pulse = 1.0;
+            }
+
+            if (value is JupiterDrone jupiterDrone)
+            {
+                jupiterDrone.pulse = 1.0;
+            }
+
+            if (value is EarthStone earthStone)
+            {
+                earthStone.pulse = 1.0;
+            }
+            EffectSpawner.Cannon(g, targetPlayer, raycastResult, dmg, isBeam);
         }
 
         private bool ApplyAutododge(Combat c, Ship target, RaycastResult ray)
@@ -506,16 +498,6 @@ namespace JyGein.Elestrals.Actions
             }
 
             return false;
-        }
-
-        private void DoLibraEffect(Combat c, Ship source)
-        {
-            c.QueueImmediate(new AStatus
-            {
-                targetPlayer = !targetPlayer,
-                status = Status.tempShield,
-                statusAmount = source.Get(Status.libra)
-            });
         }
 
         public override Icon? GetIcon(State s)
