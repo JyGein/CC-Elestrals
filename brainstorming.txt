@@ -6,12 +6,12 @@ New actions:
 Rupture M - Destroy Midrow in front of Missile Bay
 Rupture C - Destroy Midrow in front of Cannon
 Rupture A - Destroy all Midrow
-DestroyedMidrowAttack - An attack for a destroyed midrow
+-DestroyedMidrowAttack - An attack for a destroyed midrow
 
 New Midrow:
-Mini Earth Stone - When destroyed attacks for 1
-Earth Stone - When destroyed attacks for 2
-Big Earth Stone - When destroyed attacks for 3
+sprite-Mini Earth Stone - When destroyed attacks for 1
+-Earth Stone - When destroyed attacks for 2
+sprite-Big Earth Stone - When destroyed attacks for 3
 Flower Stone - When destroyed draw 1 card
 Power Stone - When destroyed destroyer gains 1 Overdrive
 Mini Repair Kit - When destroyed destroyer restores 1 hull. 

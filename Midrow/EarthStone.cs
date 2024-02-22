@@ -23,7 +23,7 @@ namespace JyGein.Elestrals.Midrow
         [JsonProperty]
         public EarthStoneType Type = EarthStoneType.Normal;
 
-        public override Spr? GetIcon() => new Spr?(Spr.icons_drone);
+        public override Spr? GetIcon() => Elestrals.Instance.EarthStoneIcon.Sprite;
 
         public override string GetDialogueTag() => "earthStone";
 

@@ -44,6 +44,9 @@ public sealed class Elestrals : SimpleMod
     internal ISpriteEntry EarthStoneSprite { get; }
     //internal ISpriteEntry MiniEarthStoneSprite { get; }
     //internal ISpriteEntry BigEarthStoneSprite { get; }
+    internal ISpriteEntry EarthStoneIcon { get; }
+    //internal ISpriteEntry MiniEarthStoneIcon { get; }
+    //internal ISpriteEntry BigEarthStoneIcon { get; }
     internal static IReadOnlyList<Type> DemoCharacter_StarterCard_Types { get; } = [
         /* Add more starter cards here if you'd like. */
         typeof(DemoCardFoxTale),
@@ -128,6 +131,11 @@ public sealed class Elestrals : SimpleMod
         DemoMod_Character_Squint_3 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/demomod_character_squint_3.png"));
 
         EarthStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/earthStone.png"));
+        //MiniEarthStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/earthStoneMini.png"));
+        //BigEarthStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/earthStoneBig.png"));
+        EarthStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/earthStone.png"));
+        //MiniEarthStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/earthStoneMini.png"));
+        //BigEarthStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/earthStoneBig.png"));
 
         /* Decks are assigned separate of the character. This is because the game has decks like Trash which is not related to a playable character
          * Do note that Color accepts a HEX string format (like Color("a1b2c3")) or a Float RGB format (like Color(0.63, 0.7, 0.76). It does NOT allow a traditional RGB format (Meaning Color(161, 178, 195) will NOT work) */
