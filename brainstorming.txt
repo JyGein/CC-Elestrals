@@ -3,10 +3,9 @@ EQUILYNX
 Based on midrow objects that want to be destroyed, midrow distruction, midrow movement, and a few random ideas from other earth cards in elestrals
 
 New actions:
-Rupture M - Destroy Midrow in front of Missile Bays
-Rupture C - Destroy Midrow in front of Cannons
-Rupture A - Destroy all Midrow
+Rupture - Destroy All Midrow/Midrow in front of Cannons/Missile Bays
 -DestroyedMidrowAttack - An attack for a destroyed midrow
+Blossom - Set All Midroe to Flower Stones
 
 New Midrow:
 sprite-Mini Earth Stone - When destroyed attacks for 1
@@ -20,6 +19,7 @@ New Effects:
 Earth Stone Deposit - At the start of its turn, this ship launches X Mini Earth Stones out of its Missile Bay.
 Flower Stone Deposit - At the start of its turn, this ship launches X Flower Stones out of its Missile Bay. 
 Overheat - This ship can only attack once per turn, Decreases by 1 at end of turn
+Overdrive Next Turn - Gain X Overdrive Next Turn
 
 COMMON (Goal 10)
 
@@ -154,6 +154,10 @@ BOSS (Goal 2)
 
 -	Stellar
 	+2 energy per turn, -2 Powerdrive at start of combat
+
+EXTRA
+
+-	Gotta make an Equilynx.EXE card
 
 FORMATS:
 
