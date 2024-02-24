@@ -7,7 +7,7 @@ using System.Reflection;
  * However it's recommended that you follow the structure defined by ModEntry of <JyGein>.<ModName> or <JyGein>.<ModName>.Cards*/
 namespace JyGein.Elestrals.Cards;
 
-internal sealed class EquilynxEarthStoneCard : Card, IDemoCard
+internal sealed class EquilynxEarthStoneCard : Card, IElestralsCard
 {
     /* For a bit more info on the Register Method, look at InternalInterfaces.cs and 1. CARDS section in ModEntry */
     public static void Register(IModHelper helper)

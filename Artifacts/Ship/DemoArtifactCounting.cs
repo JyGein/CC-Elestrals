@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace JyGein.Elestrals.Artifacts;
 
-internal sealed class DemoArtifactCounting : Artifact, IDemoArtifact
+internal sealed class DemoArtifactCounting : Artifact, IElestralsArtifact
 {
     public int counter = 0;
     public static void Register(IModHelper helper)

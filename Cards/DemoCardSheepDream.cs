@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace JyGein.Elestrals.Cards;
 
-internal sealed class DemoCardSheepDream : Card, IDemoCard
+internal sealed class DemoCardSheepDream : Card, IElestralsCard
 {
     public static void Register(IModHelper helper)
     {

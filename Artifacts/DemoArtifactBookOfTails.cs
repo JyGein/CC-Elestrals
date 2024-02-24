@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace JyGein.Elestrals.Artifacts;
 
-internal sealed class DemoArtifactBookOfTails : Artifact, IDemoArtifact
+internal sealed class DemoArtifactBookOfTails : Artifact, IElestralsArtifact
 {
     public static void Register(IModHelper helper)
     {

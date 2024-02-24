@@ -273,14 +273,14 @@ public sealed class Elestrals : SimpleMod
          * Each card in the IEnumerable 'DemoMod_AllCard_Types' will be asked to run their 'Register' method. Open a card's .cs file, and see what it does 
          * We *can* instead register characts one by one, like what we did with the sprites. If you'd like an example of what that looks like, check out the Randall mod by Arin! */
         foreach (var cardType in DemoMod_AllCard_Types)
-            AccessTools.DeclaredMethod(cardType, nameof(IDemoCard.Register))?.Invoke(null, [helper]);
+            AccessTools.DeclaredMethod(cardType, nameof(IElestralsCard.Register))?.Invoke(null, [helper]);
 
         /* 2. ARTIFACTS
          * Creating artifacts is pretty similar to creating Cards
          * Take a look at the Artifacts folder for demo artifacts!
          * You may also notice we're using the other interface from InternalInterfaces.cs, IDemoArtifact, to help us out */
         foreach (var artifactType in DemoMod_AllArtifact_Types)
-            AccessTools.DeclaredMethod(artifactType, nameof(IDemoArtifact.Register))?.Invoke(null, [helper]);
+            AccessTools.DeclaredMethod(artifactType, nameof(IElestralsArtifact.Register))?.Invoke(null, [helper]);
 
         /* 3. SHIPS
          * Creating a ship is much like creating a character
