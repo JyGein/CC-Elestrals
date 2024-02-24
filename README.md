@@ -19,9 +19,8 @@ This README was made using Louis3797's awesome-readme-template
 ### :dart: Features
 
 - 1 Character
-- 1 Ship
-- 2 Cards
-- 2 Artifacts
-- 1 Status
+- 22 Cards (only 2 right now)
+- 6 Artifacts (0 so far)
+- 4 Statuses (0 so far)
 
 (more coming soon!)
