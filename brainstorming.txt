@@ -5,20 +5,20 @@ Based on midrow objects that want to be destroyed, midrow distruction, midrow mo
 New actions:
 Rupture - Destroy All Midrow/Midrow in front of Cannons/Missile Bays
 -DestroyedMidrowAttack - An attack for a destroyed midrow
-Blossom - Set All Midroe to Flower Stones
+Blossom - Set All Midrow to Flower Stones
 
 New Midrow:
-sprite-Mini Earth Stone - When destroyed attacks for 1
+needs sprite-Mini Earth Stone - When destroyed attacks for 1
 -Earth Stone - When destroyed attacks for 2
-sprite-Big Earth Stone - When destroyed attacks for 3
+needs sprite-Big Earth Stone - When destroyed attacks for 3
 -Flower Stone - When destroyed draw 1 card
-sprite-Power Stone - When destroyed destroyer gains 1 Overdrive
-sprite-Mini Repair Kit - When destroyed destroyer restores 1 hull. 
+needs sprite-Power Stone - When destroyed destroyer gains 1 Overdrive
+needs sprite-Mini Repair Kit - When destroyed destroyer restores 1 hull. 
 
 New Effects:
 Earth Stone Deposit - At the start of its turn, this ship launches X Mini Earth Stones out of its Missile Bay.
 Flower Stone Deposit - At the start of its turn, this ship launches X Flower Stones out of its Missile Bay. 
-Overheat - This ship can only attack once per turn, Decreases by 1 at end of turn
+Hyper Focus - This ship can only attack once per turn, Decreases by 1 at end of turn
 Overdrive Next Turn - Gain X Overdrive Next Turn
 
 COMMON (Goal 10)
@@ -128,9 +128,9 @@ RARE (Goal 5)
 	B: 2, Turn all midrow into Flower Stones; Launch 1 Flower Stone Left 1; Launch 1 Flower Stone Right 1;
 
 -	Demeter's Aid
-	1, Exhaust; Gain 3 Overpower; Gain 3 Overheat
-	A: 1, Exhaust; Gain 4 Overpower; Gain 3 Overheat
-	B: 2, Exhaust; Gain 5 Overpower; Gain 3 Overheat
+	1, Exhaust; Gain 3 Overdrive; Gain 3 Hyper Focus
+	A: 1, Exhaust; Gain 4 Overdrive; Gain 3 Hyper Focus
+	B: 2, Exhaust; Gain 5 Overdrive; Gain 3 Hyper Focus
 
 ARTIFACTS
 

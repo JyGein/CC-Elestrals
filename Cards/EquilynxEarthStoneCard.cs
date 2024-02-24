@@ -47,7 +47,6 @@ internal sealed class EquilynxEarthStoneCard : Card, IDemoCard
         /* The meat of the card, this is where we define what a card does, and some would say the most fun part of modding Cobalt Core happens here! */
         List<CardAction> actions = new();
 
-        /* Since we want to have different actions for each Upgrade, we use a switch that covers the Upgrade paths we've defined */
         actions.Add(new ASpawn
         {
             thing = new EarthStone

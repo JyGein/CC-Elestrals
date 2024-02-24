@@ -44,14 +44,19 @@ public sealed class Elestrals : SimpleMod
     //internal ISpriteEntry MiniEarthStoneSprite { get; }
     //internal ISpriteEntry BigEarthStoneSprite { get; }
     internal ISpriteEntry EarthStoneIcon { get; }
-    //internal ISpriteEntry MiniEarthStoneIcon { get; }
-    //internal ISpriteEntry BigEarthStoneIcon { get; }
+    internal ISpriteEntry MiniEarthStoneIcon { get; }
+    internal ISpriteEntry BigEarthStoneIcon { get; }
     internal ISpriteEntry FlowerStoneSprite { get; }
     internal ISpriteEntry FlowerStoneIcon { get; }
     //internal ISpriteEntry PowerStoneSprite { get; }
     //internal ISpriteEntry PowerStoneIcon { get; }
     //internal ISpriteEntry MiniRepairKitSprite { get; }
     //internal ISpriteEntry MiniRepairKitIcon { get; }
+    internal ISpriteEntry EarthStoneDeposit { get; }
+    internal ISpriteEntry FlowerStoneDeposit { get; }
+    internal ISpriteEntry RuptureA { get; }
+    internal ISpriteEntry RuptureC { get; }
+    internal ISpriteEntry RuptureM { get; }
 
     /* You can create many IReadOnlyList<Type> as a way to organize your content.
      * We recommend having a Starter Cards list, a Common Cards list, an Uncommon Cards list, and a Rare Cards list
@@ -134,14 +139,19 @@ public sealed class Elestrals : SimpleMod
         //MiniEarthStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/earthStoneMini.png"));
         //BigEarthStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/earthStoneBig.png"));
         EarthStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/earthStone.png"));
-        //MiniEarthStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/earthStoneMini.png"));
-        //BigEarthStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/earthStoneBig.png"));
+        MiniEarthStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/miniEarthStone.png"));
+        BigEarthStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/bigEarthStone.png"));
         FlowerStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/flowerStone.png"));
         FlowerStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/flowerStone.png"));
         //PowerStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/powerStone.png"));
         //PowerStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/powerStone.png"));
         //MiniRepairKitSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/miniRepairKit.png"));
         //MiniRepairKitIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/miniRepairKit.png"));
+        FlowerStoneDeposit = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/flowerStoneDeposit.png"));
+        EarthStoneDeposit = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/earthStoneDeposit.png"));
+        RuptureA = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureA.png"));
+        RuptureC = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureC.png"));
+        RuptureM = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureM.png"));
 
         /* Decks are assigned separate of the character. This is because the game has decks like Trash which is not related to a playable character
          * Do note that Color accepts a HEX string format (like Color("a1b2c3")) or a Float RGB format (like Color(0.63, 0.7, 0.76). It does NOT allow a traditional RGB format (Meaning Color(161, 178, 195) will NOT work) */
