@@ -7,6 +7,7 @@ using Nanoray.PluginManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JyGein.Elestrals.Features;
 
 /* In the Cobalt Core modding community it is common for namespaces to be <Author>.<ModName>
  * This is helpful to know at a glance what mod we're looking at, and who made it */
@@ -37,7 +38,7 @@ public sealed class Elestrals : SimpleMod
     internal ISpriteEntry Equilynx_Character_Squint_1 { get; }
     internal ISpriteEntry Equilynx_Character_Squint_2 { get; }
     internal ISpriteEntry Equilynx_Character_Squint_3 { get; }
-    internal IDeckEntry DemoMod_Deck { get; }
+    internal IDeckEntry Equilynx_Deck { get; }
     /*internal IShipEntry DemoMod_Ship { get; }*/
     internal IStatusEntry AutododgeLeftNextTurn { get; }
     internal ISpriteEntry EarthStoneSprite { get; }
@@ -49,21 +50,21 @@ public sealed class Elestrals : SimpleMod
     internal ISpriteEntry FlowerStoneSprite { get; }
     internal ISpriteEntry FlowerStoneIcon { get; }
     //internal ISpriteEntry PowerStoneSprite { get; }
-    //internal ISpriteEntry PowerStoneIcon { get; }
+    internal ISpriteEntry PowerStoneIcon { get; }
     //internal ISpriteEntry MiniRepairKitSprite { get; }
-    //internal ISpriteEntry MiniRepairKitIcon { get; }
+    internal ISpriteEntry MiniRepairKitIcon { get; }
     internal ISpriteEntry EarthStoneDeposit { get; }
     internal ISpriteEntry FlowerStoneDeposit { get; }
-    internal ISpriteEntry RuptureA { get; }
-    internal ISpriteEntry RuptureC { get; }
-    internal ISpriteEntry RuptureM { get; }
+    internal ISpriteEntry RuptureAIcon { get; }
+    internal ISpriteEntry RuptureCIcon { get; }
+    internal ISpriteEntry RuptureMIcon { get; }
 
     /* You can create many IReadOnlyList<Type> as a way to organize your content.
      * We recommend having a Starter Cards list, a Common Cards list, an Uncommon Cards list, and a Rare Cards list
      * However you can be more detailed, or you can be more loose, if that's your style */
     internal static IReadOnlyList<Type> DemoCharacter_CommonCard_Types { get; } = [
         typeof(EquilynxEarthStoneCard),
-        typeof(DemoCardSheepDream),
+        typeof(EquilynxNexusBlastCard),
         typeof(EquilynxFlowerStoneCard)
     ];
     internal static IReadOnlyList<Type> DemoCharacter_UncommonCard_Types { get; } = [
@@ -105,6 +106,7 @@ public sealed class Elestrals : SimpleMod
 
         Harmony = new(package.Manifest.UniqueName);
         CustomTTGlossary.ApplyPatches(Harmony);
+        RuptureManager.ApplyPatches(Harmony);
 
         /* These localizations lists help us organize our mod's text and messages by language.
          * For general use, prefer AnyLocalizations, as that will provide an easier time to potential localization submods that are made for your mod 
@@ -144,18 +146,18 @@ public sealed class Elestrals : SimpleMod
         FlowerStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/flowerStone.png"));
         FlowerStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/flowerStone.png"));
         //PowerStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/powerStone.png"));
-        //PowerStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/powerStone.png"));
+        PowerStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/powerStone.png"));
         //MiniRepairKitSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/miniRepairKit.png"));
-        //MiniRepairKitIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/miniRepairKit.png"));
+        MiniRepairKitIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/miniRepairKit.png"));
         FlowerStoneDeposit = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/flowerStoneDeposit.png"));
         EarthStoneDeposit = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/earthStoneDeposit.png"));
-        RuptureA = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureA.png"));
-        RuptureC = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureC.png"));
-        RuptureM = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureM.png"));
+        RuptureAIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureA.png"));
+        RuptureCIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureC.png"));
+        RuptureMIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureM.png"));
 
         /* Decks are assigned separate of the character. This is because the game has decks like Trash which is not related to a playable character
          * Do note that Color accepts a HEX string format (like Color("a1b2c3")) or a Float RGB format (like Color(0.63, 0.7, 0.76). It does NOT allow a traditional RGB format (Meaning Color(161, 178, 195) will NOT work) */
-        DemoMod_Deck = helper.Content.Decks.RegisterDeck("DemoDeck", new DeckConfiguration()
+        Equilynx_Deck = helper.Content.Decks.RegisterDeck("EquilynxDeck", new DeckConfiguration()
         {
             Definition = new DeckDef()
             {
@@ -189,7 +191,7 @@ public sealed class Elestrals : SimpleMod
         {
             /* What we registered above was an IDeckEntry object, but when you register a character animation the Helper will ask for you to provide its Deck 'id'
              * This is simple enough, as you can get it from DemoMod_Deck */
-            Deck = DemoMod_Deck.Deck,
+            Deck = Equilynx_Deck.Deck,
 
             /* The Looptag is the 'name' of the animation. When making shouts and events, and you want your character to show emotions, the LoopTag is what you want
              * In vanilla Cobalt Core, there are 4 'animations' looptags that any character should have: "neutral", "mini", "squint" and "gameover",
@@ -207,7 +209,7 @@ public sealed class Elestrals : SimpleMod
         });
         helper.Content.Characters.RegisterCharacterAnimation(new CharacterAnimationConfiguration()
         {
-            Deck = DemoMod_Deck.Deck,
+            Deck = Equilynx_Deck.Deck,
             LoopTag = "mini",
             Frames = new[]
             {
@@ -217,7 +219,7 @@ public sealed class Elestrals : SimpleMod
         });
         helper.Content.Characters.RegisterCharacterAnimation(new CharacterAnimationConfiguration()
         {
-            Deck = DemoMod_Deck.Deck,
+            Deck = Equilynx_Deck.Deck,
             LoopTag = "squint",
             Frames = new[]
             {
@@ -235,7 +237,7 @@ public sealed class Elestrals : SimpleMod
         helper.Content.Characters.RegisterCharacter("DemoCharacter", new CharacterConfiguration()
         {
             /* Same as animations, we want to provide the appropiate Deck type */
-            Deck = DemoMod_Deck.Deck,
+            Deck = Equilynx_Deck.Deck,
 
             /* The Starter Card Types are, as the name implies, the cards you will start a DemoCharacter run with. 
              * You could provide vanilla cards if you want, but it's way more fun to create your own cards! */
@@ -243,7 +245,7 @@ public sealed class Elestrals : SimpleMod
             {
                 cards = [
                     new EquilynxEarthStoneCard(),
-                    new DemoCardSheepDream()
+                    new EquilynxNexusBlastCard()
                 ]
             },
 
@@ -401,5 +403,6 @@ public sealed class Elestrals : SimpleMod
         });
         /* Check this out in Features/AutododgeLeftNextTurn.cs */
         _ = new AutododgeLeftNextTurnManager();
+
     }
 }

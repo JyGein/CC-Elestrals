@@ -15,7 +15,7 @@ internal sealed class DemoArtifactBookOfTails : Artifact, IElestralsArtifact
             ArtifactType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new()
             {
-                owner = Elestrals.Instance.DemoMod_Deck.Deck,
+                owner = Elestrals.Instance.Equilynx_Deck.Deck,
                 pools = [ArtifactPool.Common]
             },
             Sprite = helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile("assets/artifacts/bookoftails.png")).Sprite,

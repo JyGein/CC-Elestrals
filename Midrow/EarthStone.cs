@@ -20,7 +20,7 @@ namespace JyGein.Elestrals.Midrow
         }
 
         [JsonProperty]
-        public EarthStoneType Type = EarthStoneType.Normal;
+        public EarthStoneType StoneType = EarthStoneType.Normal;
 
         public override Spr? GetIcon() => Elestrals.Instance.EarthStoneIcon.Sprite;
 
@@ -34,7 +34,7 @@ namespace JyGein.Elestrals.Midrow
 
         private int AttackDamage()
         {
-            switch (this.Type)
+            switch (this.StoneType)
             {
                 case EarthStoneType.Mini:
                     return 1;
@@ -50,12 +50,12 @@ namespace JyGein.Elestrals.Midrow
         {
             List<Tooltip> tooltips = [
                 new CustomTTGlossary(
-                CustomTTGlossary.GlossaryType.midrow,
-                () => GetIcon()!,
-                () => Elestrals.Instance.Localizations.Localize(["midrow", "EarthStones", Type.ToString(), "name"]),
-                () => Elestrals.Instance.Localizations.Localize(["midrow", "EarthStones", Type.ToString(), "description"])
-            )
-        ];
+                    CustomTTGlossary.GlossaryType.midrow,
+                    () => GetIcon()!,
+                    () => Elestrals.Instance.Localizations.Localize(["midrow", "EarthStones", StoneType.ToString(), "name"]),
+                    () => Elestrals.Instance.Localizations.Localize(["midrow", "EarthStones", StoneType.ToString(), "description"])
+                )
+            ];
             if (this.bubbleShield)
                 tooltips.Add((Tooltip)new TTGlossary("midrow.bubbleShield", Array.Empty<object>()));
             return tooltips;

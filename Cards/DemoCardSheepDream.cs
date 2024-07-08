@@ -14,7 +14,7 @@ internal sealed class DemoCardSheepDream : Card, IElestralsCard
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new()
             {
-                deck = Elestrals.Instance.DemoMod_Deck.Deck,
+                deck = Elestrals.Instance.Equilynx_Deck.Deck,
                 rarity = Rarity.common,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },

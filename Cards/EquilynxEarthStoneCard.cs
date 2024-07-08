@@ -18,7 +18,7 @@ internal sealed class EquilynxEarthStoneCard : Card, IElestralsCard
             Meta = new()
             {
                 /* We don't assign cards to characters, but rather to decks! It's important to keep that in mind */
-                deck = Elestrals.Instance.DemoMod_Deck.Deck,
+                deck = Elestrals.Instance.Equilynx_Deck.Deck,
 
                 /* The vanilla rarities are Rarity.common, Rarity.uncommon, Rarity.rare */
                 rarity = Rarity.common,
@@ -51,7 +51,7 @@ internal sealed class EquilynxEarthStoneCard : Card, IElestralsCard
         {
             thing = new EarthStone
             {
-                Type = upgrade != Upgrade.A ? EarthStone.EarthStoneType.Normal : EarthStone.EarthStoneType.Big
+                StoneType = upgrade != Upgrade.A ? EarthStone.EarthStoneType.Normal : EarthStone.EarthStoneType.Big
             }
         });
         if(upgrade == Upgrade.B)

@@ -27,7 +27,7 @@ Starters{
 -	Nexus Blast
 	1, Rupture M Left 1; Rupture M; Rupture M Right 1; 1 Temp Shield
 	A: 0, --
-	B: 1, Flippable; Shift midrow Left 1; ...
+	B: 1, Flippable; instant Shift midrow 1; ...
 
 --	Earth Stone
 	1, Launch 1 Earth Stone

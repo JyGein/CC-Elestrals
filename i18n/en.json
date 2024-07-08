@@ -24,6 +24,9 @@
     "FlowerStone": {
       "name": "Flower Stone"
     },
+    "NexusBlast": {
+      "name": "Nexus Blast"
+    },
     "SheepDream": {
       "name": "Sheep Dream",
       "description": {
@@ -65,6 +68,20 @@
     "MiniRepairKit": {
       "name": "Mini Repair Kit",
       "description": "When destroyed you heal <c=boldPink>1</c>."
+    }
+  },
+  "action": {
+    "Rupture": {
+      "name": "Rupture",
+      "offset": {
+        "description": "Destroy an <c=midrow>object</c> <c=boldPink>{0}</c> spaces to the {1} of your {2}."
+      },
+      "notOffset": {
+        "description": "Destroy an <c=midrow>object</c> in front of your {2}."
+      },
+      "all": {
+        "description": "Destroy all non-natural <c=midrow>objects</c>."
+      }
     }
   }
 }
