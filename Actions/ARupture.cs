@@ -126,7 +126,7 @@ namespace JyGein.Elestrals.Actions
 
                     list.Add(new CustomTTGlossary(
                         CustomTTGlossary.GlossaryType.action,
-                        () => offset == 0 ? Elestrals.Instance.RuptureArrowIcon.Sprite : offset < 0 ? Elestrals.Instance.RuptureOffsetLeftArrowIcon.Sprite : Elestrals.Instance.RuptureOffsetRightArrowIcon.Sprite,
+                        () => offset == 0 ? RuptureManager.RuptureArrowIcon.Sprite : offset < 0 ? RuptureManager.RuptureOffsetLeftArrowIcon.Sprite : RuptureManager.RuptureOffsetRightArrowIcon.Sprite,
                         () => Elestrals.Instance.Localizations.Localize(["action", "Rupture", "name"]),
                         () => string.Format(Elestrals.Instance.Localizations.Localize(["action", "Rupture", offset == 0 ? "notOffset" : "offset", "description"]), Math.Abs(offset).ToString(), offset < 0 ? "left" : "right", "cannon")
                     ));
@@ -151,7 +151,7 @@ namespace JyGein.Elestrals.Actions
                     }
                     list.Add(new CustomTTGlossary(
                         CustomTTGlossary.GlossaryType.action,
-                        () => offset == 0 ? Elestrals.Instance.RuptureArrowIcon.Sprite : offset < 0 ? Elestrals.Instance.RuptureOffsetLeftArrowIcon.Sprite : Elestrals.Instance.RuptureOffsetRightArrowIcon.Sprite,
+                        () => offset == 0 ? RuptureManager.RuptureArrowIcon.Sprite : offset < 0 ? RuptureManager.RuptureOffsetLeftArrowIcon.Sprite : RuptureManager.RuptureOffsetRightArrowIcon.Sprite,
                         () => Elestrals.Instance.Localizations.Localize(["action", "Rupture", "name"]),
                         () => string.Format(Elestrals.Instance.Localizations.Localize(["action", "Rupture", offset == 0 ? "notOffset" : "offset", "description"]), Math.Abs(offset).ToString(), offset < 0 ? "left" : "right", "missile bay")
                     ));
@@ -164,7 +164,7 @@ namespace JyGein.Elestrals.Actions
                     }
                     list.Add(new CustomTTGlossary(
                         CustomTTGlossary.GlossaryType.action,
-                        () => offset == 0 ? Elestrals.Instance.RuptureArrowIcon.Sprite : offset < 0 ? Elestrals.Instance.RuptureOffsetLeftArrowIcon.Sprite : Elestrals.Instance.RuptureOffsetRightArrowIcon.Sprite,
+                        () => offset == 0 ? RuptureManager.RuptureArrowIcon.Sprite : offset < 0 ? RuptureManager.RuptureOffsetLeftArrowIcon.Sprite : RuptureManager.RuptureOffsetRightArrowIcon.Sprite,
                         () => Elestrals.Instance.Localizations.Localize(["action", "Rupture", "name"]),
                         () => Elestrals.Instance.Localizations.Localize(["action", "Rupture", "all", "description"])
                     ));

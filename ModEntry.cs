@@ -62,36 +62,32 @@ public sealed class Elestrals : SimpleMod
     /* You can create many IReadOnlyList<Type> as a way to organize your content.
      * We recommend having a Starter Cards list, a Common Cards list, an Uncommon Cards list, and a Rare Cards list
      * However you can be more detailed, or you can be more loose, if that's your style */
-    internal static IReadOnlyList<Type> DemoCharacter_CommonCard_Types { get; } = [
+    internal static IReadOnlyList<Type> Equilynx_CommonCard_Types { get; } = [
         typeof(EquilynxEarthStoneCard),
         typeof(EquilynxNexusBlastCard),
         typeof(EquilynxFlowerStoneCard)
     ];
-    internal static IReadOnlyList<Type> DemoCharacter_UncommonCard_Types { get; } = [
-
+    internal static IReadOnlyList<Type> Equilynx_UncommonCard_Types { get; } = [
+        typeof(EquilynxBreakThroughCard)
     ];
-    internal static IReadOnlyList<Type> DemoCharacter_RareCard_Types { get; } = [
+    internal static IReadOnlyList<Type> Equilynx_RareCard_Types { get; } = [
 
     ];
 
     /* We can use an IEnumerable to combine the lists we made above, and modify it if needed
      * Maybe you created a new list for Uncommon cards, and want to add it.
      * If so, you can .Concat(TheUncommonListYouMade) */
-    internal static IEnumerable<Type> DemoMod_AllCard_Types
-        => DemoCharacter_CommonCard_Types
-        .Concat(DemoCharacter_UncommonCard_Types)
-        .Concat(DemoCharacter_RareCard_Types);
+    internal static IEnumerable<Type> Elestrals_AllCard_Types
+        => Equilynx_CommonCard_Types
+        .Concat(Equilynx_UncommonCard_Types)
+        .Concat(Equilynx_RareCard_Types);
 
     /* We'll organize our artifacts the same way: making lists and then feed those to an IEnumerable */
-    internal static IReadOnlyList<Type> DemoCharacter_CommonArtifact_Types { get; } = [
-        typeof(DemoArtifactBookOfTails)
-    ];
-    internal static IReadOnlyList<Type> DemoShip_Artifact_Types { get; } = [
-        typeof(DemoArtifactCounting)
+    internal static IReadOnlyList<Type> Equilynx_CommonArtifact_Types { get; } = [
+
     ];
     internal static IEnumerable<Type> DemoMod_AllArtifact_Types
-        => DemoCharacter_CommonArtifact_Types
-        .Concat(DemoShip_Artifact_Types);
+        => Equilynx_CommonArtifact_Types;
 
 
     public Elestrals(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
@@ -274,7 +270,7 @@ public sealed class Elestrals : SimpleMod
          * Notice the IDemoCard interface, you can find it in InternalInterfaces.cs
          * Each card in the IEnumerable 'DemoMod_AllCard_Types' will be asked to run their 'Register' method. Open a card's .cs file, and see what it does 
          * We *can* instead register characts one by one, like what we did with the sprites. If you'd like an example of what that looks like, check out the Randall mod by Arin! */
-        foreach (var cardType in DemoMod_AllCard_Types)
+        foreach (var cardType in Elestrals_AllCard_Types)
             AccessTools.DeclaredMethod(cardType, nameof(IElestralsCard.Register))?.Invoke(null, [helper]);
 
         /* 2. ARTIFACTS

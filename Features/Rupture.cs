@@ -74,7 +74,7 @@ public class RuptureManager
             __result += 2;
 
             if (!dontDraw)
-                BigNumbers.Render(Math.Abs(ruptureAction.offset), box.rect.x + __result, box.rect.y, color: action.disabled ? new Color("4B4B4B") : new Color("9BF200"));
+                BigNumbers.Render(Math.Abs(ruptureAction.offset), box.rect.x + __result, box.rect.y, color: action.disabled ? new Color("4B4B4B") : new Color("FF0000"));
             __result += Math.Abs(ruptureAction.offset).ToString().Length * 6;
         }
 
