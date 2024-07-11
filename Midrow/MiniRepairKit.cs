@@ -11,7 +11,7 @@ namespace JyGein.Elestrals.Midrow
     internal class MiniRepairKit : StuffBase
     {
         private double particlesToEmit;
-        public override Spr? GetIcon() => Elestrals.Instance.FlowerStoneIcon.Sprite;
+        public override Spr? GetIcon() => Elestrals.Instance.MiniRepairKitIcon.Sprite;
 
         public override string GetDialogueTag() => "miniRepairKit";
 

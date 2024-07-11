@@ -84,6 +84,13 @@ namespace JyGein.Elestrals.Actions
                 {
                     c.DestroyDroneAt(s, existingThing.x, fromPlayer);
                 }
+            } else
+            {
+                s.AddShake(0.5);
+                c.fx.Add((FX)new AsteroidExplosion()
+                {
+                    pos = (new Vec((double)(num1 * 16), 60.0) + new Vec(7.5, 4.0))
+                });
             }
         }
 
@@ -160,11 +167,13 @@ namespace JyGein.Elestrals.Actions
                     if (s.route is Combat route)
                     {
                         foreach (StuffBase stuffBase in route.stuff.Values)
-                            stuffBase.hilight = 2;
+                            if (!RuptureManager.IsNatural(stuffBase)) { 
+                                stuffBase.hilight = 2;
+                            }
                     }
                     list.Add(new CustomTTGlossary(
                         CustomTTGlossary.GlossaryType.action,
-                        () => offset == 0 ? RuptureManager.RuptureArrowIcon.Sprite : offset < 0 ? RuptureManager.RuptureOffsetLeftArrowIcon.Sprite : RuptureManager.RuptureOffsetRightArrowIcon.Sprite,
+                        () => Elestrals.Instance.RuptureAIcon.Sprite,
                         () => Elestrals.Instance.Localizations.Localize(["action", "Rupture", "name"]),
                         () => Elestrals.Instance.Localizations.Localize(["action", "Rupture", "all", "description"])
                     ));

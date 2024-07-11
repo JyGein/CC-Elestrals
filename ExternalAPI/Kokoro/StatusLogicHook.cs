@@ -2,6 +2,7 @@
 public partial interface IKokoroApi
 {
     void RegisterStatusLogicHook(IStatusLogicHook hook, double priority);
+    void UnregisterStatusLogicHook(IStatusLogicHook hook);
 }
 
 public interface IStatusLogicHook
@@ -14,6 +15,7 @@ public enum StatusTurnTriggerTiming
 {
     TurnStart, TurnEnd
 }
+
 
 public enum StatusTurnAutoStepSetStrategy
 {

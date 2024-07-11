@@ -6,11 +6,11 @@ using System.Reflection;
 
 namespace JyGein.Elestrals.Cards;
 
-internal sealed class EquilynxEarthquakeCard : Card, IElestralsCard
+internal sealed class EquilynxBloomCard : Card, IElestralsCard
 {
     public static void Register(IModHelper helper)
     {
-        helper.Content.Cards.RegisterCard("Earthquake", new()
+        helper.Content.Cards.RegisterCard("Bloom", new()
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new()
@@ -19,20 +19,16 @@ internal sealed class EquilynxEarthquakeCard : Card, IElestralsCard
                 rarity = Rarity.uncommon,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "Earthquake", "name"]).Localize
+            Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "Bloom", "name"]).Localize
         });
     }
     public override CardData GetData(State state)
     {
         CardData data = new CardData()
         {
-            cost = upgrade != Upgrade.B ? 2 : 3,
-            exhaust = upgrade != Upgrade.A
+            cost = upgrade != Upgrade.A ? 3 : 2,
+            exhaust = true
         };
-        if (upgrade == Upgrade.B)
-        {
-            data.description = Elestrals.Instance.Localizations.Localize(["card", "Earthquake", "description", "B"], new { Damage = 1 });
-        }
         return data;
     }
     public override List<CardAction> GetActions(State s, Combat c)
@@ -41,16 +37,34 @@ internal sealed class EquilynxEarthquakeCard : Card, IElestralsCard
 
         if (upgrade == Upgrade.B)
         {
-            actions.Add(new AAllMidrowAttack()
+            actions.Add(new ASpawn()
             {
-                damage = 1,
+                thing = new FlowerStone(),
+                offset = -2
             });
         }
-
-        actions.Add(new ARupture()
+        actions.Add(new ASpawn()
         {
-            ruptureType = ARupture.RuptureType.All
+            thing = new FlowerStone(),
+            offset = -1
         });
+        actions.Add(new ASpawn()
+        {
+            thing = new FlowerStone()
+        });
+        actions.Add(new ASpawn()
+        {
+            thing = new FlowerStone(),
+            offset = 1
+        });
+        if (upgrade == Upgrade.B)
+        {
+            actions.Add(new ASpawn()
+            {
+                thing = new FlowerStone(),
+                offset = 2
+            });
+        }
         return actions;
     }
 }

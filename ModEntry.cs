@@ -26,7 +26,8 @@ public sealed class Elestrals : SimpleMod
     /* Woah! what's with the block of code right out the gate???
      * These are our manually declared stuff, isn't it neat?
      * Let's continue down, and you'll start getting a hang of how we utilize these */
-    internal ISpriteEntry Equilynx_Character_CardBackground { get; }
+    internal ISpriteEntry Equilynx_Character_DefaultCardBackground { get; }
+    internal ISpriteEntry Equilynx_Character_NexusCardBackground { get; }
     internal ISpriteEntry Equilynx_Character_CardFrame { get; }
     internal ISpriteEntry Equilynx_Character_Panel { get; }
     internal ISpriteEntry Equilynx_Character_Neutral_0 { get; }
@@ -40,24 +41,26 @@ public sealed class Elestrals : SimpleMod
     internal ISpriteEntry Equilynx_Character_Squint_3 { get; }
     internal IDeckEntry Equilynx_Deck { get; }
     /*internal IShipEntry DemoMod_Ship { get; }*/
-    internal IStatusEntry AutododgeLeftNextTurn { get; }
+    //internal IStatusEntry AutododgeLeftNextTurn { get; }
+    internal IStatusEntry EarthStoneDeposit { get; }
+    internal IStatusEntry FlowerStoneDeposit { get; }
+    //internal IStatusEntry HyperFocus { get; }
     internal ISpriteEntry EarthStoneSprite { get; }
-    //internal ISpriteEntry MiniEarthStoneSprite { get; }
-    //internal ISpriteEntry BigEarthStoneSprite { get; }
+    internal ISpriteEntry MiniEarthStoneSprite { get; }
+    internal ISpriteEntry BigEarthStoneSprite { get; }
     internal ISpriteEntry EarthStoneIcon { get; }
     internal ISpriteEntry MiniEarthStoneIcon { get; }
     internal ISpriteEntry BigEarthStoneIcon { get; }
     internal ISpriteEntry FlowerStoneSprite { get; }
     internal ISpriteEntry FlowerStoneIcon { get; }
-    //internal ISpriteEntry PowerStoneSprite { get; }
+    internal ISpriteEntry PowerStoneSprite { get; }
     internal ISpriteEntry PowerStoneIcon { get; }
     //internal ISpriteEntry MiniRepairKitSprite { get; }
     internal ISpriteEntry MiniRepairKitIcon { get; }
-    internal ISpriteEntry EarthStoneDeposit { get; }
-    internal ISpriteEntry FlowerStoneDeposit { get; }
     internal ISpriteEntry RuptureAIcon { get; }
     internal ISpriteEntry RuptureCIcon { get; }
     internal ISpriteEntry RuptureMIcon { get; }
+    internal ISpriteEntry BlossomIcon { get; }
 
     /* You can create many IReadOnlyList<Type> as a way to organize your content.
      * We recommend having a Starter Cards list, a Common Cards list, an Uncommon Cards list, and a Rare Cards list
@@ -65,13 +68,23 @@ public sealed class Elestrals : SimpleMod
     internal static IReadOnlyList<Type> Equilynx_CommonCard_Types { get; } = [
         typeof(EquilynxEarthStoneCard),
         typeof(EquilynxNexusBlastCard),
-        typeof(EquilynxFlowerStoneCard)
+        typeof(EquilynxFlowerStoneCard),
+        typeof(EquilynxNexusShiftCard),
+        typeof(EquilynxBeatdownCard),
+        typeof(EquilynxNexusSwipeCard),
+        typeof(EquilynxPowerStoneCard)
     ];
     internal static IReadOnlyList<Type> Equilynx_UncommonCard_Types { get; } = [
-        typeof(EquilynxBreakThroughCard)
+        typeof(EquilynxBreakThroughCard),
+        typeof(EquilynxEarthquakeCard),
+        typeof(EquilynxGoldenAppleofDiscordCard),
+        typeof(EquilynxBloomCard)
     ];
     internal static IReadOnlyList<Type> Equilynx_RareCard_Types { get; } = [
-
+        typeof(EquilynxAmbrosiaCard),
+        typeof(EquilynxEarthStoneDepositCard),
+        typeof(EquilynxFlowerStoneDepositCard),
+        typeof(EquilynxBlossomCard)
     ];
 
     /* We can use an IEnumerable to combine the lists we made above, and modify it if needed
@@ -99,7 +112,9 @@ public sealed class Elestrals : SimpleMod
          * We take from Kokoro what we need and put in our own project. Head to ExternalAPI/StatusLogicHook.cs if you're interested in what, exactly, we use.
          * If you're interested in more fancy stuff, make sure to peek at the Kokoro repository found online. */
         KokoroApi = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!;
-
+        _ = new CardScalingManager();
+        _ = new EarthStoneDepositManager();
+        _ = new FlowerStoneDepositManager();
         Harmony = new(package.Manifest.UniqueName);
         CustomTTGlossary.ApplyPatches(Harmony);
         RuptureManager.ApplyPatches(Harmony);
@@ -120,36 +135,36 @@ public sealed class Elestrals : SimpleMod
 
         /* Assigning our ISpriteEntry objects manually. This is the easiest way to do it when starting out!
          * Of note: GetRelativeFile is case sensitive. Double check you've written the file names correctly */
-        Equilynx_Character_CardBackground = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx_character_cardbackground.png"));
-        Equilynx_Character_CardFrame = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx_character_cardframe.png"));
-        Equilynx_Character_Panel = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx_character_panel.png"));
-        Equilynx_Character_Neutral_0 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx_character_neutral_0.png"));
-        Equilynx_Character_Neutral_1 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx_character_neutral_1.png"));
-        Equilynx_Character_Neutral_2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx_character_neutral_2.png"));
-        Equilynx_Character_Neutral_3 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx_character_neutral_3.png"));
-        Equilynx_Character_Mini_0 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx_character_mini_0.png"));
-        Equilynx_Character_Squint_0 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx_character_squint_0.png"));
-        Equilynx_Character_Squint_1 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx_character_squint_1.png"));
-        Equilynx_Character_Squint_2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx_character_squint_2.png"));
-        Equilynx_Character_Squint_3 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx_character_squint_3.png"));
+        Equilynx_Character_DefaultCardBackground = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/equilynx/defaultcardbackground.png"));
+        Equilynx_Character_NexusCardBackground = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/cards/equilynx/NexusTemp.png"));
+        Equilynx_Character_CardFrame = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx/character_cardframe.png"));
+        Equilynx_Character_Panel = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx/character_panel.png"));
+        Equilynx_Character_Neutral_0 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx/character_neutral_0.png"));
+        Equilynx_Character_Neutral_1 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx/character_neutral_1.png"));
+        Equilynx_Character_Neutral_2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx/character_neutral_2.png"));
+        Equilynx_Character_Neutral_3 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx/character_neutral_3.png"));
+        Equilynx_Character_Mini_0 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx/character_mini_0.png"));
+        Equilynx_Character_Squint_0 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx/character_squint_0.png"));
+        Equilynx_Character_Squint_1 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx/character_squint_1.png"));
+        Equilynx_Character_Squint_2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx/character_squint_2.png"));
+        Equilynx_Character_Squint_3 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx/character_squint_3.png"));
 
         EarthStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/earthStone.png"));
-        //MiniEarthStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/earthStoneMini.png"));
-        //BigEarthStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/earthStoneBig.png"));
+        MiniEarthStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/earthStoneMini.png"));
+        BigEarthStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/earthStoneBig.png"));
         EarthStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/earthStone.png"));
         MiniEarthStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/miniEarthStone.png"));
         BigEarthStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/bigEarthStone.png"));
         FlowerStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/flowerStone.png"));
         FlowerStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/flowerStone.png"));
-        //PowerStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/powerStone.png"));
+        PowerStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/powerStone.png"));
         PowerStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/powerStone.png"));
         //MiniRepairKitSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/miniRepairKit.png"));
         MiniRepairKitIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/miniRepairKit.png"));
-        FlowerStoneDeposit = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/flowerStoneDeposit.png"));
-        EarthStoneDeposit = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/earthStoneDeposit.png"));
         RuptureAIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureA.png"));
         RuptureCIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureC.png"));
         RuptureMIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureM.png"));
+        BlossomIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/blossom.png"));
 
         /* Decks are assigned separate of the character. This is because the game has decks like Trash which is not related to a playable character
          * Do note that Color accepts a HEX string format (like Color("a1b2c3")) or a Float RGB format (like Color(0.63, 0.7, 0.76). It does NOT allow a traditional RGB format (Meaning Color(161, 178, 195) will NOT work) */
@@ -165,10 +180,11 @@ public sealed class Elestrals : SimpleMod
 
                 /* This color is for the card name in-game
                  * Make sure it has a good contrast against the CardFrame, and take rarity 'shine' into account as well */
-                titleColor = new Color("9BF200")
+                //titleColor = new Color("9BF200")
+                titleColor = new Color("FFFFFF")
             },
             /* We give it a default art and border some Sprite types by adding '.Sprite' at the end of the ISpriteEntry definitions we made above. */
-            DefaultCardArt = Equilynx_Character_CardBackground.Sprite,
+            DefaultCardArt = Equilynx_Character_DefaultCardBackground.Sprite,
             BorderSprite = Equilynx_Character_CardFrame.Sprite,
 
             /* Since this deck will be used by our Demo Character, we'll use their name. */
@@ -383,22 +399,42 @@ public sealed class Elestrals : SimpleMod
 
         /* 4. STATUSES
          * You might, now, with all this code behind our backs, start recognizing patterns in the way we can register stuff. */
-        AutododgeLeftNextTurn = helper.Content.Statuses.RegisterStatus("AutododgeLeftNextTurn", new()
+        /*AutododgeLeftNextTurn = helper.Content.Statuses.RegisterStatus("AutododgeLeftNextTurn", new()
         {
             Definition = new()
             {
-                /* We provide the icon as a Sprite type, you can find it in the given file location */
+                /* We provide the icon as a Sprite type, you can find it in the given file location 
                 icon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/autododgeLeftNextTurn.png")).Sprite,
-                /* We give it a color, this is the border color that surrounds the status icon & number in-game */
+                /* We give it a color, this is the border color that surrounds the status icon & number in-game 
                 color = new("b500be"),
-                /* We define if it's isGood = true or isGood = false. This will dictate if the number will be either blue or red */
+                /* We define if it's isGood = true or isGood = false. This will dictate if the number will be either blue or red 
                 isGood = true
             },
             Name = AnyLocalizations.Bind(["status", "AutododgeLeftNextTurn", "name"]).Localize,
             Description = AnyLocalizations.Bind(["status", "AutododgeLeftNextTurn", "description"]).Localize
-        });
+        });*/
         /* Check this out in Features/AutododgeLeftNextTurn.cs */
-        _ = new AutododgeLeftNextTurnManager();
-
+        EarthStoneDeposit = helper.Content.Statuses.RegisterStatus("EarthStoneDeposit", new()
+        {
+            Definition = new()
+            {
+                icon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/earthStoneDeposit.png")).Sprite,
+                color = new("254d0c"),
+                isGood = true
+            },
+            Name = AnyLocalizations.Bind(["status", "EarthStoneDeposit", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "EarthStoneDeposit", "description"]).Localize
+        });
+        FlowerStoneDeposit = helper.Content.Statuses.RegisterStatus("FlowerStoneDeposit", new()
+        {
+            Definition = new()
+            {
+                icon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/flowerStoneDeposit.png")).Sprite,
+                color = new("254d0c"),
+                isGood = true
+            },
+            Name = AnyLocalizations.Bind(["status", "FlowerStoneDeposit", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "FlowerStoneDeposit", "description"]).Localize
+        });
     }
 }

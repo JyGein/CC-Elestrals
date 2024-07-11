@@ -24,11 +24,53 @@
     "FlowerStone": {
       "name": "Flower Stone"
     },
+    "PowerStone": {
+      "name": "Power Stone"
+    },
     "NexusBlast": {
       "name": "Nexus Blast"
     },
     "BreakThrough": {
       "name": "Break Through"
+    },
+    "Beatdown": {
+      "name": "Beatdown"
+    },
+    "NexusShift": {
+      "name": "Nexus Shift"
+    },
+    "NexusSwipe": {
+      "name": "Nexus Swipe"
+    },
+    "Bloom": {
+      "name": "Bloom"
+    },
+    "DemetersAid": {
+      "name": "Demeter's Aid"
+    },
+    "Blossom": {
+      "name": "Blossom"
+    },
+    "EarthStoneDeposit": {
+      "name": "Earth Stone Deposit"
+    },
+    "FlowerStoneDeposit": {
+      "name": "Flower Stone Deposit"
+    },
+    "ScrappyRepairKit": {
+      "name": "Scrappy Repair Kit"
+    },
+    "GoldenAppleofDiscord": {
+      "name": "Golden Apple of Discord"
+    },
+    "Ambrosia": {
+      "name": "Ambrosia"
+    },
+    "Earthquake": {
+      "name": "Earthquake",
+      "description": {
+        "B": "Artificial <c=midrow>objects</c> <c=action>attack</c> for {{Damage}}. <c=action>Rupture all</c> <c=midrow>objects</c>."
+      }
     },
     "SheepDream": {
       "name": "Sheep Dream",
@@ -43,6 +85,14 @@
     "AutododgeLeftNextTurn": {
       "name": "Autododge Left Next Turn",
       "description": "At the start of next turn, gain <c=boldPink>{0}</c> <c=status>AUTODODGE LEFT</c>."
+    },
+    "EarthStoneDeposit": {
+      "name": "Earth Stone Deposit",
+      "description": "Launch <c=boldPink>{0}</c> <c=midrow>Mini Earth Stones</c> at the start of every turn."
+    },
+    "FlowerStoneDeposit": {
+      "name": "Flower Stone Deposit",
+      "description": "Launch <c=boldPink>{0}</c> <c=midrow>Flower Stones</c> at the start of every turn."
     }
   },
   "midrow": {
@@ -83,7 +133,29 @@
         "description": "Destroy an <c=midrow>object</c> in front of your {2}."
       },
       "all": {
-        "description": "Destroy all non-natural <c=midrow>objects</c>."
+        "description": "Destroy all artificial <c=midrow>objects</c>."
+      }
+    },
+    "VariableHintExhaust": {
+      "description": "X = Cards Exhausted{{Amount}}"
+    },
+    "Blossom": {
+      "name": "Blossom",
+      "description": "Instantly turn every <c=midrow>object</c> into <c=midrow>flower stones</c>."
+    }
+  },
+  "cardTrait": {
+    "quad": {
+      "name": "Quad Card",
+      "description": {
+        "m&k": [
+          "This card has four separate sets of actions.",
+          "In combat, <c=keyword>right click or ctrl-click</c> this card to switch between them."
+        ],
+        "controller": [
+          "This card has four separate sets of actions.",
+          "In combat, press {{Button}} on this card to switch between them."
+        ]
       }
     }
   }

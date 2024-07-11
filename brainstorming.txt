@@ -2,70 +2,68 @@ EQUILYNX
 
 Based on midrow objects that want to be destroyed, midrow distruction, midrow movement, and a few random ideas from other earth cards in elestrals
 
+A "-" before the name means implemented
+
 New actions:
-Rupture - Destroy All Midrow/Midrow in front of Cannons/Missile Bays
--DestroyedMidrowAttack - An attack for a destroyed midrow
-Blossom - Set All Midrow to Flower Stones
+-Rupture - Destroy All Artificial Midrow/Midrow in front of Cannons/Missile Bays (A = all, C = Cannon, M = Missile Bay)
+-Blossom - Set All Midrow to Flower Stones
 
 New Midrow:
-needs sprite-Mini Earth Stone - When destroyed attacks for 1
+-Mini Earth Stone - When destroyed attacks for 1
 -Earth Stone - When destroyed attacks for 2
-needs sprite-Big Earth Stone - When destroyed attacks for 3
+-Big Earth Stone - When destroyed attacks for 3
 -Flower Stone - When destroyed draw 1 card
-needs sprite-Power Stone - When destroyed destroyer gains 1 Overdrive
-needs sprite-Mini Repair Kit - When destroyed destroyer restores 1 hull. 
+-Power Stone - When destroyed destroyer gains 1 Overdrive
+Mini Repair Kit - When destroyed destroyer restores 1 hull. 
 
 New Effects:
-Earth Stone Deposit - At the start of its turn, this ship launches X Mini Earth Stones out of its Missile Bay.
-Flower Stone Deposit - At the start of its turn, this ship launches X Flower Stones out of its Missile Bay. 
+-Earth Stone Deposit - At the start of its turn, this ship launches X Mini Earth Stones out of its Missile Bay.
+-Flower Stone Deposit - At the start of its turn, this ship launches X Flower Stones out of its Missile Bay. 
 Hyper Focus - This ship can only attack once per turn, Decreases by 1 at end of turn
 Overdrive Next Turn - Gain X Overdrive Next Turn
+
+A "--" instead of just "-" means implemented
 
 COMMON (Goal 10)
 
 Starters{
--	Nexus Blast
-	1, Rupture M Left 1; Rupture M; Rupture M Right 1; 1 Temp Shield
-	A: 0, --
-	B: 1, Flippable; instant Shift midrow 1; ...
+--	Nexus Blast
+	0, Rupture M Left 1; Rupture M; Rupture M Right 1; 1 Temp Shield
+	A: 0, Draw 1 card ...
+	B: 0, 3 Temp shield
 
 --	Earth Stone
-	1, Launch 1 Earth Stone
-	A: 1, Launch 1 Big Earth Stone
-	B: 1, ...Gain 1 midrow shift <- instant movement to fit character?
+	0, Launch 1 Earth Stone
+	A: 0, Launch 1 Big Earth Stone
+	B: 0, Flippable, ... move midrow right 1
 }
 
-- 	Nexus Shift
+-- 	Nexus Shift
 	0, Flippable; Shift midrow Left 1
 	A: 0, ...Attack for 1 from missile bay
 	B: 0, ...Draw 1 card
 
 --	Flower Stone
 	1, Launch 1 Flower Stone
-	A: 1, Launch 1 Flower Stone; Gain 1 Movement <- this is quite good
-	B: 1, Exhaust; Launch 1 Flower Stone Right 1; Launch 1 Flower Stone
+	A: 1, Flippable ... Move right 1
+	B: 1, Exhaust; Launch 1 Flower Stone Left 1; Launch 1 Flower Stone
 
--	Power Stone
+--	Power Stone
 	1, Launch 1 Power Stone
 	A: 1, Flippable; Move midrow Left; Launch 1 Power Stone
 	B: 1, Exhaust; Launch 1 Power Stone Right 1; Launch 1 Power Stone
 
--	Nexus Swipe
+--	Nexus Swipe
 	1, Quad; Shift midrow Left 2/Shift midrow Right 2/Shift midrow Left 1/Shift midrow Right 1
 	A: 0, --
-	B: ?, ???
+	B: 1, same thing but afterwards Rupture M
 
--	Scrappy Repair Kit
-	1, Exhaust; Launch 1 Mini Repair Kit
-	A: 0, --
-	B: 1, Exhaust; Rupture M; Launch 1 Mini Repair Kit
-
--	Beatdown
+--	Beatdown
 	2, Attack for 5
 	A: 2, Attack for 7
 	B: 2, Exhaust Attack for 5 Weaken
 
--	"Shift Shot"
+-	"Shift Shot" - unsure about this
 	1, Attack for 1; Shift midrow left 1
 	A: 1, Attack for 2; ...
 	B: 1, Flippable; ...
@@ -74,60 +72,65 @@ Starters{
 
 -	
 
+-	
+
 UNCOMMON (Goal 7)
 
--	Break Through
+--	Break Through
 	2, Rupture C; Attack for 4
 	A: 2, ...Attack for 4 Piercing
 	B: 1, ...Attack for 2
 
--	Ambrosia
-	1, Single Use; Heal 3
-	A: 1, Exhaust; Heal 1
-	B: 2, Exhaust; Draw 1 X = # of Exhausted Cards Heal X (maybe single use?)
-
--	Earth(?)quake (named based off of the card earthquake but like an earthquake in space is funny)
+--	Earthquake
 	2, Exhaust; Rupture A
 	A: 2, -Exhaust; --
-	B: 3, Exhaust; All midrow attacks for 1; Rupture A
+	B: 3, Exhaust; All artificial midrow attacks for 1; Rupture A
 
--	Golden Apple of Discord
+--	Golden Apple of Discord
 	1, Exhaust; Discard 1 card; Attack for 0 stun; outgoing -2 overdrive
 	A: 1, Exhaust; Discard 1 card; Attack for 0 stun; outgoing -2 overdrive
 	B: 2, -Exhaust; --
 
--	Bloom
+--	Bloom
 	3, Exhaust; Launch 1 Flower Stone Left 1; Launch 1 Flower Stone; Launch 1 Flower Stone Right 1
 	A: 2, --
 	B: 3, Exhaust; Launch 1 Flower Stone Left 2; Launch 1 Flower Stone Left 1; Launch 1 Flower Stone; Launch 1 Flower Stone Right 1; Launch 1 Flower Stone Right 2;
 
--	
+-	Scrappy Repair Kit - needs sprite
+	1, Exhaust; Launch 1 Mini Repair Kit
+	A: 0, --
+	B: 1, Exhaust; Rupture M; Launch 1 Mini Repair Kit
+
+-	Channel - unsure about this
+	2, X = # of artificial midrow objects; Attack for X
+	A: 2, X = # of artificial midrow objects; Attack for X+3
+	B: 3, Exhaust; Retain; X = # of artificial midrow objects; Attack for 2X
 
 -	
 
 RARE (Goal 5)
 
--	Earth Stone Deposit
+--	Earth Stone Deposit
 	2, Exhaust; Gain 1 Earth Stone Deposit
 	A: 1, Exhaust; Gain 1 Earth Stone Deposit
 	B: 3, Exhaust; Gain 2 Earth Stone Deposit
 
--	Flower Stone Deposit
+--	Flower Stone Deposit
 	2, Exhaust; Gain 1 Flower Stone Deposit
 	A: 1, Exhaust; Gain 1 Flower Stone Deposit
 	B: 3, Exhaust; Gain 2 Flower Stone Deposit
 
--	Channel
-	2, X = # of (non-natural) midrow objects; Attack for X
-	A: 2, X = # of (non-natural) midrow objects; Attack for X+3
-	B: 3, Exhaust; Retain; X = # of (non-natural) midrow objects; Attack for 2X
+--	Ambrosia
+	1, Single Use; Heal 2
+	A: 1, Exhaust; Heal 1
+	B: 2, Exhaust; Draw 1 X = # of Exhausted Cards Heal X+1 (maybe single use?)
 
--	Blossom
+--	Blossom
 	1, Turn all midrow into Flower Stones
 	A: 0, --
 	B: 2, Turn all midrow into Flower Stones; Launch 1 Flower Stone Left 1; Launch 1 Flower Stone Right 1;
 
--	Demeter's Aid
+-	Demeter's Aid - general idea is for the next 3 turns you get one big shot and thats it, dont know about hyper focus name nor the specifics of the status effect
 	1, Exhaust; Gain 3 Overdrive; Gain 3 Hyper Focus
 	A: 1, Exhaust; Gain 4 Overdrive; Gain 3 Hyper Focus
 	B: 2, Exhaust; Gain 5 Overdrive; Gain 3 Hyper Focus
@@ -139,21 +142,22 @@ COMMON (Goal 4)
 -	Foloi Forest
 	Gain 1 Overdrive next turn the second time you spawn a midrow object each turn
 
+-	Poison Tipped Arrow
+	Your first attack each combat weakens the part hit.
+
+-	Empowered Munitions
+	Before you attack Rupture C
+
+-	Poisoned Tunic
+	Enemies take 1 damage when their Weak or Brittle parts are hit
+
+BOSS (Goal 2)
+
 -	Scythe of Demeter
 	Gain 1 Shield when you destroy a midrow object
 
 -	Teratlas
 	Gain 1 Energy at start of turn if any midrow object is an earth stone
-
--	
-
-BOSS (Goal 2)
-
--	Poison Tipped Arrow
-	Every 3rd piercing attack applies corrode
-
--	Stellar
-	+2 energy per turn, -2 Powerdrive at start of combat
 
 EXTRA
 

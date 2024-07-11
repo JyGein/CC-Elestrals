@@ -35,8 +35,8 @@ internal sealed class EquilynxEarthStoneCard : Card, IElestralsCard
         CardData data = new CardData()
         {
             /* Give your card some meta data, such as giving it an energy cost, making it exhaustable, and more */
-            cost = 1,
-
+            cost = 0,
+            flippable = upgrade == Upgrade.B
             /* if we don't set a card specific 'art' (a 'Spr' type) here, the game will give it the deck's 'DefaultCardArt'
             /* if we don't set a card specific 'description' (a 'string' type) here, the game will attempt to use iconography using the provided CardAction types from GetActions() */
         };
@@ -56,11 +56,9 @@ internal sealed class EquilynxEarthStoneCard : Card, IElestralsCard
         });
         if(upgrade == Upgrade.B)
         {
-            actions.Add(new AStatus()
+            actions.Add(new ADroneMove()
             {
-                status = Status.droneShift,
-                statusAmount = 1,
-                targetPlayer = true
+                dir = 1
             });
         }
         return actions;

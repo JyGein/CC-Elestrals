@@ -60,16 +60,16 @@ public class RuptureManager
 
         var box = g.Push();
 
-        if (!dontDraw)
+        if (!dontDraw && ruptureAction.ruptureType != ARupture.RuptureType.All)
             Draw.Sprite(ruptureAction.offset switch
             {
                 < 0 => RuptureOffsetLeftArrowIcon.Sprite,
                 > 0 => RuptureOffsetRightArrowIcon.Sprite,
                 _ => RuptureArrowIcon.Sprite
             }, box.rect.x + __result, box.rect.y, color: action.disabled ? Colors.disabledIconTint : Colors.white);
-        __result += 8;
+        if (ruptureAction.ruptureType != ARupture.RuptureType.All) { __result += 8; }
 
-        if (ruptureAction.offset != 0)
+        if (ruptureAction.offset != 0 && ruptureAction.ruptureType != ARupture.RuptureType.All)
         {
             __result += 2;
 
@@ -78,7 +78,7 @@ public class RuptureManager
             __result += Math.Abs(ruptureAction.offset).ToString().Length * 6;
         }
 
-        __result += 2;
+        if (ruptureAction.ruptureType != ARupture.RuptureType.All) { __result += 2; }
 
         Icon icon = (Icon) ruptureAction.GetIcon(state)!;
         if (!dontDraw)

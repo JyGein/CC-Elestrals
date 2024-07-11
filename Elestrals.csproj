@@ -13,7 +13,13 @@
 		<ModZipPath>$(MSBuildProjectDirectory)\.release\$(MSBuildProjectName)-$(Version).zip</ModZipPath>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Nickel.ModBuildConfig" Version="0.4.0" />
+	  <None Remove="assets\cards\equilynx\Nexus.piskel" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="Configuration.props.user" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Nickel.ModBuildConfig" Version="1.0.1" />
 	</ItemGroup>
 	<ItemGroup>
 		<Project Include="Configuration.props.user" Condition="Exists('Configuration.props.user')" />

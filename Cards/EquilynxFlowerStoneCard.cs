@@ -36,7 +36,8 @@ internal sealed class EquilynxFlowerStoneCard : Card, IElestralsCard
         {
             /* Give your card some meta data, such as giving it an energy cost, making it exhaustable, and more */
             cost = 1,
-            exhaust = upgrade == Upgrade.B
+            exhaust = upgrade == Upgrade.B,
+            flippable = upgrade == Upgrade.A
             /* if we don't set a card specific 'art' (a 'Spr' type) here, the game will give it the deck's 'DefaultCardArt'
             /* if we don't set a card specific 'description' (a 'string' type) here, the game will attempt to use iconography using the provided CardAction types from GetActions() */
         };
@@ -48,25 +49,24 @@ internal sealed class EquilynxFlowerStoneCard : Card, IElestralsCard
         List<CardAction> actions = new();
 
         /* Since we want to have different actions for each Upgrade, we use a switch that covers the Upgrade paths we've defined */
+        if (upgrade == Upgrade.B)
+        {
+            actions.Add(new ASpawn()
+            {
+                thing = new FlowerStone { },
+                offset = -1
+            });
+        }
         actions.Add(new ASpawn()
         {
             thing = new FlowerStone { }
         });
         if(upgrade == Upgrade.A)
         {
-            actions.Add(new AStatus()
+            actions.Add(new AMove()
             {
-                status = Status.evade,
-                statusAmount = 1,
+                dir = 1,
                 targetPlayer = true
-            });
-        }
-        if(upgrade == Upgrade.B)
-        {
-            actions.Add(new ASpawn()
-            {
-                thing = new FlowerStone { },
-                offset = 1
             });
         }
         return actions;

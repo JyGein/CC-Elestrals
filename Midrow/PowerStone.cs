@@ -10,7 +10,7 @@ namespace JyGein.Elestrals.Midrow
 {
     internal class PowerStone : StuffBase
     {
-        public override Spr? GetIcon() => Elestrals.Instance.FlowerStoneIcon.Sprite;
+        public override Spr? GetIcon() => Elestrals.Instance.PowerStoneIcon.Sprite;
 
         public override string GetDialogueTag() => "powerStone";
 
@@ -35,7 +35,7 @@ namespace JyGein.Elestrals.Midrow
 
         public override void Render(G g, Vec v)
         {
-            this.DrawWithHilight(g, Elestrals.Instance.FlowerStoneSprite.Sprite, v + this.GetOffset(g), Mutil.Rand((double)this.x + 0.1) > 0.5, flipY: this.targetPlayer);
+            this.DrawWithHilight(g, Elestrals.Instance.PowerStoneSprite.Sprite, v + this.GetOffset(g), Mutil.Rand((double)this.x + 0.1) > 0.5, flipY: this.targetPlayer);
         }
 
         public override List<CardAction>? GetActionsOnDestroyed(

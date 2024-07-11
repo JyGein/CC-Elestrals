@@ -75,7 +75,23 @@ namespace JyGein.Elestrals.Midrow
 
         public override void Render(G g, Vec v)
         {
-            this.DrawWithHilight(g, Elestrals.Instance.EarthStoneSprite.Sprite, v + this.GetOffset(g), Mutil.Rand((double)this.x + 0.1) > 0.5, flipY: this.targetPlayer);
+            Spr Sprite;
+            switch (this.StoneType)
+            {
+                case EarthStoneType.Mini:
+                    Sprite = Elestrals.Instance.MiniEarthStoneSprite.Sprite;
+                    break;
+                case EarthStoneType.Normal:
+                    Sprite = Elestrals.Instance.EarthStoneSprite.Sprite;
+                    break;
+                case EarthStoneType.Big:
+                    Sprite = Elestrals.Instance.BigEarthStoneSprite.Sprite;
+                    break;
+                default:
+                    Sprite = Elestrals.Instance.EarthStoneSprite.Sprite;
+                    break;
+            }
+            this.DrawWithHilight(g, Sprite, v + this.GetOffset(g), Mutil.Rand((double)this.x + 0.1) > 0.5, flipY: this.targetPlayer);
         }
 
         public override List<CardAction>? GetActionsOnDestroyed(

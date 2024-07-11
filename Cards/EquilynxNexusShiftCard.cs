@@ -6,11 +6,11 @@ using System.Reflection;
 
 namespace JyGein.Elestrals.Cards;
 
-internal sealed class EquilynxNexusBlastCard : Card, IElestralsCard
+internal sealed class EquilynxNexusShiftCard : Card, IElestralsCard
 {
     public static void Register(IModHelper helper)
     {
-        helper.Content.Cards.RegisterCard("NexusBlast", new()
+        helper.Content.Cards.RegisterCard("NexusShift", new()
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new()
@@ -19,7 +19,7 @@ internal sealed class EquilynxNexusBlastCard : Card, IElestralsCard
                 rarity = Rarity.common,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "NexusBlast", "name"]).Localize,
+            Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "NexusShift", "name"]).Localize
         });
     }
     public override CardData GetData(State state)
@@ -27,6 +27,7 @@ internal sealed class EquilynxNexusBlastCard : Card, IElestralsCard
         CardData data = new CardData()
         {
             cost = 0,
+            flippable = true,
             art = Elestrals.Instance.Equilynx_Character_NexusCardBackground.Sprite
         };
         return data;
@@ -35,35 +36,23 @@ internal sealed class EquilynxNexusBlastCard : Card, IElestralsCard
     {
         List<CardAction> actions = new();
 
-        if (upgrade == Upgrade.A)
+        actions.Add(new ADroneMove()
         {
+            dir = 1
+        });
+
+        if (upgrade == Upgrade.A)
+            actions.Add(new ARupture()
+            {
+                ruptureType = ARupture.RuptureType.Missile
+            });
+
+        if (upgrade == Upgrade.B)
             actions.Add(new ADrawCard()
             {
                 count = 1
             });
-        }
-        actions.Add(new ARupture()
-        {
-            ruptureType = ARupture.RuptureType.Missile,
-            offset = -1
-        });
-        actions.Add(new ARupture()
-        {
-            ruptureType = ARupture.RuptureType.Missile,
-            omitFromTooltips = true
-        });
-        actions.Add(new ARupture()
-        {
-            ruptureType = ARupture.RuptureType.Missile,
-            offset = 1,
-            omitFromTooltips = true
-        });
-        actions.Add(new AStatus()
-        {
-            status = Status.tempShield,
-            statusAmount = upgrade == Upgrade.B ? 3 : 1,
-            targetPlayer = true
-        });
+
         return actions;
     }
 }

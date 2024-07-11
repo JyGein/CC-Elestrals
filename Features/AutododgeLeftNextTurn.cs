@@ -10,8 +10,8 @@ internal sealed class AutododgeLeftNextTurnManager : IStatusLogicHook
     public bool HandleStatusTurnAutoStep(State state, Combat combat, StatusTurnTriggerTiming timing, Ship ship, Status status, ref int amount, ref StatusTurnAutoStepSetStrategy setStrategy)
     {
         /* Here we tell it what to do. Since it's a 'next turn gain something', we can also use this moment to do that something */
-        if (status != Instance.AutododgeLeftNextTurn.Status)
-            return false;
+        //if (status != Instance.AutododgeLeftNextTurn.Status)
+            //return false;
         if (timing != StatusTurnTriggerTiming.TurnStart)
             return false;
 

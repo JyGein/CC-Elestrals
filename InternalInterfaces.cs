@@ -1,4 +1,6 @@
-﻿using Nickel;
+﻿using Microsoft.Xna.Framework;
+using Nickel;
+using System.Collections.Generic;
 
 namespace JyGein.Elestrals;
 
@@ -8,6 +10,12 @@ namespace JyGein.Elestrals;
 internal interface IElestralsCard
 {
     static abstract void Register(IModHelper helper);
+
+    Matrix ModifyNonTextCardRenderMatrix(G g, List<CardAction> actions)
+        => Matrix.Identity;
+
+    Matrix ModifyCardActionRenderMatrix(G g, List<CardAction> actions, CardAction action, int actionWidth)
+        => Matrix.Identity;
 }
 
 internal interface IElestralsArtifact
