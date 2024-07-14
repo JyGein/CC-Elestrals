@@ -64,10 +64,10 @@ namespace JyGein.Elestrals.Actions
             }
             foreach(StuffBase stuff in c.stuff.Values)
             {
-                if (!RuptureManager.IsNatural(stuff))
+                /*if (!RuptureManager.IsNatural(stuff))
                 {
                     continue;
-                }
+                }*/
                 RaycastResult raycastResult = CombatUtils.RaycastGlobal(c, ship, fromDrone: true, stuff.x);
             
                 if (raycastResult != null && ApplyAutododge(c, ship, raycastResult))
@@ -403,22 +403,11 @@ namespace JyGein.Elestrals.Actions
 
         private bool DoWeHaveMidrowThough(State s)
         {
-            foreach (Part part in s.ship.parts)
-            {
-                if (part.type == PType.cannon)
-                {
-                    return true;
-                }
-            }
-
             if (s.route is Combat combat)
             {
                 foreach (StuffBase value in combat.stuff.Values)
                 {
-                    if (value is JupiterDrone)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
 

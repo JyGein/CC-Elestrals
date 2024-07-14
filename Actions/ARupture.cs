@@ -43,7 +43,7 @@ namespace JyGein.Elestrals.Actions
                     {
                         c.QueueImmediate(stuff.GetActionsOnShotWhileInvincible(s2, c, fromPlayer, 2));
                     }
-                    else if (RuptureManager.IsNatural(stuff))
+                    else /*if (RuptureManager.IsNatural(stuff))*/
                     {
                         c.DestroyDroneAt(s, stuff.x, fromPlayer);
                     }

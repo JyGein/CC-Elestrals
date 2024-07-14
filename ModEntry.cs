@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JyGein.Elestrals.Features;
+using Nickel.Common;
+using System.Xml.Schema;
+using JyGein.Elestrals.Cards.Special;
 
 /* In the Cobalt Core modding community it is common for namespaces to be <Author>.<ModName>
  * This is helpful to know at a glance what mod we're looking at, and who made it */
@@ -39,9 +42,12 @@ public sealed class Elestrals : SimpleMod
     internal ISpriteEntry Equilynx_Character_Squint_1 { get; }
     internal ISpriteEntry Equilynx_Character_Squint_2 { get; }
     internal ISpriteEntry Equilynx_Character_Squint_3 { get; }
+    internal ISpriteEntry Equilynx_Character_Gameover_0 { get; }
     internal IDeckEntry Equilynx_Deck { get; }
     /*internal IShipEntry DemoMod_Ship { get; }*/
     //internal IStatusEntry AutododgeLeftNextTurn { get; }
+    internal IStatusEntry OverdriveNextTurn { get; }
+    internal IStatusEntry WeakenCharge { get; }
     internal IStatusEntry EarthStoneDeposit { get; }
     internal IStatusEntry FlowerStoneDeposit { get; }
     //internal IStatusEntry HyperFocus { get; }
@@ -55,7 +61,7 @@ public sealed class Elestrals : SimpleMod
     internal ISpriteEntry FlowerStoneIcon { get; }
     internal ISpriteEntry PowerStoneSprite { get; }
     internal ISpriteEntry PowerStoneIcon { get; }
-    //internal ISpriteEntry MiniRepairKitSprite { get; }
+    internal ISpriteEntry MiniRepairKitSprite { get; }
     internal ISpriteEntry MiniRepairKitIcon { get; }
     internal ISpriteEntry RuptureAIcon { get; }
     internal ISpriteEntry RuptureCIcon { get; }
@@ -72,7 +78,8 @@ public sealed class Elestrals : SimpleMod
         typeof(EquilynxNexusShiftCard),
         typeof(EquilynxBeatdownCard),
         typeof(EquilynxNexusSwipeCard),
-        typeof(EquilynxPowerStoneCard)
+        typeof(EquilynxPowerStoneCard),
+        typeof(EquilynxSandstormCard)
     ];
     internal static IReadOnlyList<Type> Equilynx_UncommonCard_Types { get; } = [
         typeof(EquilynxBreakThroughCard),
@@ -87,20 +94,32 @@ public sealed class Elestrals : SimpleMod
         typeof(EquilynxBlossomCard)
     ];
 
+    internal static readonly IReadOnlyList<Type> SpecialCardTypes = [
+        typeof(EquilynxExeCard)
+    ];
     /* We can use an IEnumerable to combine the lists we made above, and modify it if needed
      * Maybe you created a new list for Uncommon cards, and want to add it.
      * If so, you can .Concat(TheUncommonListYouMade) */
     internal static IEnumerable<Type> Elestrals_AllCard_Types
         => Equilynx_CommonCard_Types
         .Concat(Equilynx_UncommonCard_Types)
-        .Concat(Equilynx_RareCard_Types);
+        .Concat(Equilynx_RareCard_Types)
+        .Concat(SpecialCardTypes);
 
     /* We'll organize our artifacts the same way: making lists and then feed those to an IEnumerable */
     internal static IReadOnlyList<Type> Equilynx_CommonArtifact_Types { get; } = [
-
+        typeof(EquilynxFoloiForestArtifact),
+        typeof(EquilynxPoisonTippedArrowArtifact),
+        typeof(EquilynxEmpoweredMunitionsArtifact),
+        typeof(EquilynxPoisonedTunicArtifact)
     ];
-    internal static IEnumerable<Type> DemoMod_AllArtifact_Types
-        => Equilynx_CommonArtifact_Types;
+    internal static IReadOnlyList<Type> Equilynx_BossArtifact_Types { get; } = [
+        typeof(EquilynxScytheofDemeterArtifact),
+        typeof(EquilynxTeratlasArtifact)
+    ];
+    internal static IEnumerable<Type> Equilynx_AllArtifact_Types
+        => Equilynx_CommonArtifact_Types
+        .Concat(Equilynx_BossArtifact_Types);
 
 
     public Elestrals(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
@@ -115,9 +134,13 @@ public sealed class Elestrals : SimpleMod
         _ = new CardScalingManager();
         _ = new EarthStoneDepositManager();
         _ = new FlowerStoneDepositManager();
+        _ = new OverdriveNextTurnManager();
+        _ = new WeakenChargeManager();
         Harmony = new(package.Manifest.UniqueName);
         CustomTTGlossary.ApplyPatches(Harmony);
         RuptureManager.ApplyPatches(Harmony);
+        WeakenChargeManager.ApplyPatches(Harmony);
+        EmpoweredMunitionsManager.ApplyPatches(Harmony);
 
         /* These localizations lists help us organize our mod's text and messages by language.
          * For general use, prefer AnyLocalizations, as that will provide an easier time to potential localization submods that are made for your mod 
@@ -148,6 +171,7 @@ public sealed class Elestrals : SimpleMod
         Equilynx_Character_Squint_1 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx/character_squint_1.png"));
         Equilynx_Character_Squint_2 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx/character_squint_2.png"));
         Equilynx_Character_Squint_3 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx/character_squint_3.png"));
+        Equilynx_Character_Gameover_0 = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/characters/equilynx/character_gameover_0.png"));
 
         EarthStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/earthStone.png"));
         MiniEarthStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/earthStoneMini.png"));
@@ -159,7 +183,7 @@ public sealed class Elestrals : SimpleMod
         FlowerStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/flowerStone.png"));
         PowerStoneSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/powerStone.png"));
         PowerStoneIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/powerStone.png"));
-        //MiniRepairKitSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/miniRepairKit.png"));
+        MiniRepairKitSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/midrow/miniRepairKit.png"));
         MiniRepairKitIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/miniRepairKit.png"));
         RuptureAIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureA.png"));
         RuptureCIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureC.png"));
@@ -173,6 +197,7 @@ public sealed class Elestrals : SimpleMod
             Definition = new DeckDef()
             {
                 /* This color is used in various situations. 
+                 * 
                  * It is used as the deck's rarity 'shine'
                  * If a playable character uses this deck, the character Name will use this color
                  * If a playable character uses this deck, the character mini panel will use this color */
@@ -244,7 +269,15 @@ public sealed class Elestrals : SimpleMod
 
         /* Wait, so if we want 'gameover', why doesn't this demo come with the registration for it?
          * Answer: You should be able to use the knowledge you have earned so far to register your own animations! If you'd like, try making the 'gameover' registration code here. You can use whatever sprite you want */
-        
+        helper.Content.Characters.RegisterCharacterAnimation(new CharacterAnimationConfiguration()
+        {
+            Deck = Equilynx_Deck.Deck,
+            LoopTag = "gameover",
+            Frames = new[]
+            {
+                Equilynx_Character_Gameover_0.Sprite
+            }
+        });
         /* Let's continue with the character creation and finally, actually, register the character! */
         helper.Content.Characters.RegisterCharacter("DemoCharacter", new CharacterConfiguration()
         {
@@ -267,9 +300,20 @@ public sealed class Elestrals : SimpleMod
 
             /* This is the fancy panel that encapsulates your character while in active combat.
              * It's recommended that it follows the same color scheme as the character and deck, for cohesion */
-            BorderSprite = Equilynx_Character_Panel.Sprite
+            BorderSprite = Equilynx_Character_Panel.Sprite,
+            ExeCardType = typeof(EquilynxExeCard)
         });
 
+        helper.ModRegistry.GetApi<IMoreDifficultiesApi>("TheJazMaster.MoreDifficulties", new SemanticVersion(1, 4, 4))?.RegisterAltStarters(
+            deck: Equilynx_Deck.Deck,
+            starterDeck: new StarterDeck
+            {
+                cards = [
+                    new EquilynxFlowerStoneCard(),
+                    new EquilynxSandstormCard()
+                ]
+            }
+        );
         /* The basics for a Character mod are done!
          * But you may still have mechanics you want to tackle, such as,
          * 1. How to make cards
@@ -293,7 +337,7 @@ public sealed class Elestrals : SimpleMod
          * Creating artifacts is pretty similar to creating Cards
          * Take a look at the Artifacts folder for demo artifacts!
          * You may also notice we're using the other interface from InternalInterfaces.cs, IDemoArtifact, to help us out */
-        foreach (var artifactType in DemoMod_AllArtifact_Types)
+        foreach (var artifactType in Equilynx_AllArtifact_Types)
             AccessTools.DeclaredMethod(artifactType, nameof(IElestralsArtifact.Register))?.Invoke(null, [helper]);
 
         /* 3. SHIPS
@@ -435,6 +479,28 @@ public sealed class Elestrals : SimpleMod
             },
             Name = AnyLocalizations.Bind(["status", "FlowerStoneDeposit", "name"]).Localize,
             Description = AnyLocalizations.Bind(["status", "FlowerStoneDeposit", "description"]).Localize
+        });
+        OverdriveNextTurn = helper.Content.Statuses.RegisterStatus("OverdriveNextTurn", new()
+        {
+            Definition = new()
+            {
+                icon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/overdriveNextTurn.png")).Sprite,
+                color = new("ff5660"),
+                isGood = true
+            },
+            Name = AnyLocalizations.Bind(["status", "OverdriveNextTurn", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "OverdriveNextTurn", "description"]).Localize
+        });
+        WeakenCharge = helper.Content.Statuses.RegisterStatus("WeakenCharge", new()
+        {
+            Definition = new()
+            {
+                icon = Spr.icons_weak/*helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/overdriveNextTurn.png")).Sprite*/,
+                color = new("ff6666"),
+                isGood = true
+            },
+            Name = AnyLocalizations.Bind(["status", "WeakenCharge", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "WeakenCharge", "description"]).Localize
         });
     }
 }

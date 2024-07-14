@@ -13,6 +13,30 @@
     "Counting": {
       "name": "COUNTING",
       "description": "At start of turn, count sheeps. Once you counted 7 sheep, gain 1 <c=status>ENERGY</c> and start counting again."
+    },
+    "FoloiForest": {
+      "name": "FOLOI FOREST",
+      "description": "The second time you launch an <c=midrow>object</c> each turn gain <c=boldPink>1</c> <c=status>Overdrive Next Turn</c>"
+    },
+    "PoisonTippedArrow": {
+      "name": "POISON TIPPED ARROW",
+      "description": "At the start of combat gain <boldPink>1</c> <c=status>Weaken Charge</c>"
+    },
+    "EmpoweredMunitions": {
+      "name": "EMPOWERED MUNITIONS",
+      "description": "Before you <c=action>attack</c> <c=action>Rupture</c>."
+    },
+    "PoisonedTunic": {
+      "name": "POISONED TUNIC",
+      "description": "Enemies take <c=boldPink>1</c> extra damage when hit in a <c=parttrait>weak</c> or <c=parttrait>brittle</c> part."
+    },
+    "ScytheofDemeter": {
+      "name": "SCYTHE OF DEMETER",
+      "description": "Gain <c=boldPink>1</c> <c=healthBarShield>shield</c> when you destroy an <c=midrow>object</c>."
+    },
+    "Teratlas": {
+      "name": "TERATLAS",
+      "description": "At start of turn gain 1 <c=energy>ENERGY</c> if any <c=midrow>object</c> is an <c=midrow>Earth Stone</c> or a <c=midrow>Flower Stone</c>"
     }
   },
   "ship": {
@@ -66,10 +90,21 @@
     "Ambrosia": {
       "name": "Ambrosia"
     },
+    "Sandstorm": {
+      "name": "Sandstorm"
+    },
     "Earthquake": {
       "name": "Earthquake",
       "description": {
         "B": "Artificial <c=midrow>objects</c> <c=action>attack</c> for {{Damage}}. <c=action>Rupture all</c> <c=midrow>objects</c>."
+      }
+    },
+    "EquilynxExe": {
+      "name": "Equilynx.EXE",
+      "description": {
+        "None": "Add 1 of {{Count}} <c=cardtrait>discount, temp</c> <c=254d0c>Equilynx</c> cards to your hand.",
+        "A": "Add 1 of {{Count}} <c=cardtrait>discount, temp</c> <c=254d0c>Equilynx</c> cards to your hand.",
+        "B": "Add 1 of {{Count}} <c=cardtrait>discount, temp</c> <c=254d0c>Equilynx</c> cards to your hand."
       }
     },
     "SheepDream": {
@@ -93,6 +128,14 @@
     "FlowerStoneDeposit": {
       "name": "Flower Stone Deposit",
       "description": "Launch <c=boldPink>{0}</c> <c=midrow>Flower Stones</c> at the start of every turn."
+    },
+    "OverdriveNextTurn": {
+      "name": "Overdrive Next Turn",
+      "description": "At the start of next turn, gain <c=boldPink>{0}</c> <c=status>OVERDRIVE</c>."
+    },
+    "WeakenCharge": {
+      "name": "Weaken Charge",
+      "description": "Your next {0} attacks will weaken."
     }
   },
   "midrow": {
@@ -116,11 +159,11 @@
     },
     "PowerStone": {
       "name": "Power Stone",
-      "description": "When destroyed you Gain <c=boldPink>1</c> <c=status>OVERDRIVE</c>."
+      "description": "When destroyed, its destroyer gains <c=boldPink>1</c> <c=status>OVERDRIVE</c>."
     },
     "MiniRepairKit": {
       "name": "Mini Repair Kit",
-      "description": "When destroyed you heal <c=boldPink>1</c>."
+      "description": "When destroyed you <c=healthBarHeal>heal</c> <c=boldPink>1</c>."
     }
   },
   "action": {

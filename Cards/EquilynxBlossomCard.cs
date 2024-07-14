@@ -52,7 +52,8 @@ internal sealed class EquilynxBlossomCard : Card, IElestralsCard
             actions.Add(new ASpawn()
             {
                 thing = new FlowerStone(),
-                offset = 1
+                offset = 1,
+                omitFromTooltips = true
             });
         }
         return actions;

@@ -36,7 +36,7 @@ namespace JyGein.Elestrals.Midrow
 
         public override void Render(G g, Vec v)
         {
-            this.DrawWithHilight(g, Elestrals.Instance.FlowerStoneSprite.Sprite, v + this.GetOffset(g), Mutil.Rand((double)this.x + 0.1) > 0.5, flipY: this.targetPlayer);
+            this.DrawWithHilight(g, Elestrals.Instance.MiniRepairKitSprite.Sprite, v + this.GetOffset(g), Mutil.Rand((double)this.x + 0.1) > 0.5, flipY: this.targetPlayer);
             for (this.particlesToEmit += g.dt * 20.0; this.particlesToEmit >= 1.0; --this.particlesToEmit)
                 PFX.combatAdd.Add(new Particle()
                 {

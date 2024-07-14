@@ -7,7 +7,12 @@
   "Dependencies": [
     {
       "UniqueName": "Shockah.Kokoro",
-      "Version": "1.4.0"
+      "Version": "1.11.2"
+    },
+    {
+      "UniqueName": "TheJazMaster.MoreDifficulties",
+      "Version": "1.4.4",
+      "IsRequired": false
     }
   ]
 }

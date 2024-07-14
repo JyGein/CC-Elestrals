@@ -6,33 +6,29 @@ using System.Reflection;
 
 namespace JyGein.Elestrals.Cards;
 
-internal sealed class EquilynxEarthquakeCard : Card, IElestralsCard
+internal sealed class EquilynxScrappyRepairKitCard : Card, IElestralsCard
 {
     public static void Register(IModHelper helper)
     {
-        helper.Content.Cards.RegisterCard("Earthquake", new()
+        helper.Content.Cards.RegisterCard("ScrappyRepairKit", new()
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new()
             {
                 deck = Elestrals.Instance.Equilynx_Deck.Deck,
-                rarity = Rarity.uncommon,
+                rarity = Rarity.common,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "Earthquake", "name"]).Localize
+            Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "ScrappyRepairKit", "name"]).Localize
         });
     }
     public override CardData GetData(State state)
     {
         CardData data = new CardData()
         {
-            cost = upgrade != Upgrade.B ? 1 : 2,
-            exhaust = upgrade != Upgrade.A
+            cost = upgrade == Upgrade.A ? 0 : 1,
+            exhaust = true
         };
-        if (upgrade == Upgrade.B)
-        {
-            data.description = Elestrals.Instance.Localizations.Localize(["card", "Earthquake", "description", "B"], new { Damage = 1 });
-        }
         return data;
     }
     public override List<CardAction> GetActions(State s, Combat c)
@@ -41,15 +37,14 @@ internal sealed class EquilynxEarthquakeCard : Card, IElestralsCard
 
         if (upgrade == Upgrade.B)
         {
-            actions.Add(new AAllMidrowAttack()
+            actions.Add(new ARupture
             {
-                damage = 1,
+                ruptureType = ARupture.RuptureType.Missile
             });
         }
-
-        actions.Add(new ARupture()
+        actions.Add(new ASpawn
         {
-            ruptureType = ARupture.RuptureType.All
+            thing = new MiniRepairKit { }
         });
         return actions;
     }

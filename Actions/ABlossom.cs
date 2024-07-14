@@ -41,6 +41,7 @@ namespace JyGein.Elestrals.Actions
                 () => Elestrals.Instance.Localizations.Localize(["action", "Blossom", "name"]),
                 () => Elestrals.Instance.Localizations.Localize(["action", "Blossom", "description"])
             ));
+            tooltips.Concat(new FlowerStone().GetTooltips());
             return tooltips;
         }
 
