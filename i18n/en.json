@@ -185,6 +185,10 @@
     "Blossom": {
       "name": "Blossom",
       "description": "Instantly turn every <c=midrow>object</c> into <c=midrow>flower stones</c>."
+    },
+    "DroneMoveRandom": {
+      "name": "Move Midrow Randomly",
+      "description": "Instantly move all <c=midrow>midrow objects</c> {0} spaces in a random direction."
     }
   },
   "cardTrait": {

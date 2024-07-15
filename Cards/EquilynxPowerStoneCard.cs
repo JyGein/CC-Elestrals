@@ -48,7 +48,8 @@ internal sealed class EquilynxPowerStoneCard : Card, IElestralsCard
         {
             actions.Add(new ADroneMove
             {
-                dir = 1
+                dir = 1,
+                omitFromTooltips = upgrade == Upgrade.B
             });
         }
         actions.Add(new ASpawn

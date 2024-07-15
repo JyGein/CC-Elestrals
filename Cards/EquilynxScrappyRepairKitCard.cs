@@ -16,7 +16,7 @@ internal sealed class EquilynxScrappyRepairKitCard : Card, IElestralsCard
             Meta = new()
             {
                 deck = Elestrals.Instance.Equilynx_Deck.Deck,
-                rarity = Rarity.common,
+                rarity = Rarity.uncommon,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
             Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "ScrappyRepairKit", "name"]).Localize

@@ -85,7 +85,8 @@ public sealed class Elestrals : SimpleMod
         typeof(EquilynxBreakThroughCard),
         typeof(EquilynxEarthquakeCard),
         typeof(EquilynxGoldenAppleofDiscordCard),
-        typeof(EquilynxBloomCard)
+        typeof(EquilynxBloomCard),
+        typeof(EquilynxScrappyRepairKitCard)
     ];
     internal static IReadOnlyList<Type> Equilynx_RareCard_Types { get; } = [
         typeof(EquilynxAmbrosiaCard),
@@ -126,7 +127,6 @@ public sealed class Elestrals : SimpleMod
     {
         Instance = this;
 
-
         /* We use Kokoro to handle our statuses. This means Kokoro is a Dependency, and our mod will fail to work without it.
          * We take from Kokoro what we need and put in our own project. Head to ExternalAPI/StatusLogicHook.cs if you're interested in what, exactly, we use.
          * If you're interested in more fancy stuff, make sure to peek at the Kokoro repository found online. */
@@ -141,6 +141,7 @@ public sealed class Elestrals : SimpleMod
         RuptureManager.ApplyPatches(Harmony);
         WeakenChargeManager.ApplyPatches(Harmony);
         EmpoweredMunitionsManager.ApplyPatches(Harmony);
+        RandomDroneMoveLocaleFix.ApplyPatches(Harmony);
 
         /* These localizations lists help us organize our mod's text and messages by language.
          * For general use, prefer AnyLocalizations, as that will provide an easier time to potential localization submods that are made for your mod 
@@ -502,5 +503,6 @@ public sealed class Elestrals : SimpleMod
             Name = AnyLocalizations.Bind(["status", "WeakenCharge", "name"]).Localize,
             Description = AnyLocalizations.Bind(["status", "WeakenCharge", "description"]).Localize
         });
+        
     }
 }

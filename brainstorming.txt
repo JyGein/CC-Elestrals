@@ -70,10 +70,6 @@ Starters{
 
 -	
 
--	
-
--	
-
 UNCOMMON (Goal 7)
 
 --	Break Through
@@ -161,7 +157,7 @@ BOSS (Goal 2)
 
 EXTRA
 
--	Gotta make an Equilynx.EXE card
+--	Gotta make an Equilynx.EXE card
 
 FORMATS:
 

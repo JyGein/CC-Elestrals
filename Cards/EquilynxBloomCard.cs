@@ -40,7 +40,8 @@ internal sealed class EquilynxBloomCard : Card, IElestralsCard
             actions.Add(new ASpawn()
             {
                 thing = new FlowerStone(),
-                offset = -2
+                offset = -2,
+                omitFromTooltips = true
             });
         }
         actions.Add(new ASpawn()
@@ -50,19 +51,22 @@ internal sealed class EquilynxBloomCard : Card, IElestralsCard
         });
         actions.Add(new ASpawn()
         {
-            thing = new FlowerStone()
+            thing = new FlowerStone(),
+            omitFromTooltips = true
         });
         actions.Add(new ASpawn()
         {
             thing = new FlowerStone(),
-            offset = 1
+            offset = 1,
+            omitFromTooltips = true
         });
         if (upgrade == Upgrade.B)
         {
             actions.Add(new ASpawn()
             {
                 thing = new FlowerStone(),
-                offset = 2
+                offset = 2,
+                omitFromTooltips = true
             });
         }
         return actions;

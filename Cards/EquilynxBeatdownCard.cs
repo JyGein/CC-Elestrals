@@ -37,7 +37,7 @@ internal sealed class EquilynxBeatdownCard : Card, IElestralsCard
 
         actions.Add(new AAttack()
         {
-            damage = upgrade == Upgrade.A ? 7 : 5,
+            damage = upgrade == Upgrade.A ? GetDmg(s, 7) : GetDmg(s, 5),
             weaken = upgrade == Upgrade.B ? true : false
         });
 

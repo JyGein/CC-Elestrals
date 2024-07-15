@@ -40,11 +40,12 @@ internal sealed class EquilynxSandstormCard : Card, IElestralsCard
                 actions.Add(new AMove()
                 {
                     dir = 1,
-                    isRandom = true
+                    isRandom = true,
+                    targetPlayer = true
                 });
                 actions.Add(new AAttack()
                 {
-                    damage = 1
+                    damage = GetDmg(s, 1)
                 });
                 actions.Add(new ADroneMove()
                 {
@@ -53,12 +54,13 @@ internal sealed class EquilynxSandstormCard : Card, IElestralsCard
                 });
                 actions.Add(new AAttack()
                 {
-                    damage = 1
+                    damage = GetDmg(s, 1)
                 });
                 actions.Add(new AMove()
                 {
                     dir = 1,
-                    isRandom = true
+                    isRandom = true,
+                    targetPlayer = true
                 });
                 break;
             default:
@@ -69,12 +71,13 @@ internal sealed class EquilynxSandstormCard : Card, IElestralsCard
                 });
                 actions.Add(new AAttack()
                 {
-                    damage = upgrade == Upgrade.A ? 2 : 1
+                    damage = upgrade == Upgrade.A ? GetDmg(s, 2) : GetDmg(s, 1)
                 });
                 actions.Add(new AMove()
                 {
                     dir = 1,
-                    isRandom = true
+                    isRandom = true,
+                    targetPlayer = true
                 });
                 break;
         }

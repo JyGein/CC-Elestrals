@@ -42,7 +42,7 @@ internal sealed class EquilynxGoldenAppleofDiscordCard : Card, IElestralsCard
 
         actions.Add(new AAttack()
         {
-            damage = 0,
+            damage = GetDmg(s, 0),
             stunEnemy = true
         });
 

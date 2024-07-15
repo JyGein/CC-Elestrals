@@ -41,7 +41,7 @@ internal sealed class EquilynxBreakThroughCard : Card, IElestralsCard
 
         actions.Add(new AAttack()
         {
-            damage = upgrade == Upgrade.B ? 2 : 4,
+            damage = upgrade == Upgrade.B ? GetDmg(s, 2) : GetDmg(s, 4),
             piercing = upgrade == Upgrade.A
         });
         return actions;
