@@ -6,33 +6,25 @@
     }
   },
   "artifact": {
-    "BookOfTails": {
-      "name": "BOOK OF TAILS",
-      "description": "At start of turn, add a <c=cardtrait>temp</c> <c=card>Fox Tale</c> to your hand."
-    },
-    "Counting": {
-      "name": "COUNTING",
-      "description": "At start of turn, count sheeps. Once you counted 7 sheep, gain 1 <c=status>ENERGY</c> and start counting again."
-    },
     "FoloiForest": {
       "name": "FOLOI FOREST",
-      "description": "The second time you launch an <c=midrow>object</c> each turn gain <c=boldPink>1</c> <c=status>Overdrive Next Turn</c>"
+      "description": "The second time you launch an <c=midrow>object</c> each turn gain <c=boldPink>1</c> <c=status>OVERDRIVE NEXT TURN</c>"
     },
     "PoisonTippedArrow": {
       "name": "POISON TIPPED ARROW",
-      "description": "At the start of combat gain <boldPink>1</c> <c=status>Weaken Charge</c>"
+      "description": "At the start of combat gain <boldPink>1</c> <c=status>WEAKEN CHARGE-</c>"
     },
     "EmpoweredMunitions": {
       "name": "EMPOWERED MUNITIONS",
-      "description": "Before you <c=action>attack</c> <c=action>Rupture</c>."
+      "description": "Before you <c=action>attack</c> <c=action>RUPTURE</c>."
     },
     "PoisonedTunic": {
       "name": "POISONED TUNIC",
-      "description": "Enemies take <c=boldPink>1</c> extra damage when hit in a <c=parttrait>weak</c> or <c=parttrait>brittle</c> part."
+      "description": "Enemies take <c=boldPink>1</c> extra damage when hit in a <c=parttrait>WEAK</c> or <c=parttrait>BRITTLE</c> part."
     },
     "ScytheofDemeter": {
       "name": "SCYTHE OF DEMETER",
-      "description": "Gain <c=boldPink>1</c> <c=healthBarShield>shield</c> when you destroy an <c=midrow>object</c>."
+      "description": "Gain <c=boldPink>1</c> <c=healthBarShield>SHIELD</c> when you destroy an <c=midrow>object</c>."
     },
     "Teratlas": {
       "name": "TERATLAS",
@@ -105,14 +97,6 @@
         "None": "Add 1 of {{Count}} <c=cardtrait>discount, temp</c> <c=254d0c>Equilynx</c> cards to your hand.",
         "A": "Add 1 of {{Count}} <c=cardtrait>discount, temp</c> <c=254d0c>Equilynx</c> cards to your hand.",
         "B": "Add 1 of {{Count}} <c=cardtrait>discount, temp</c> <c=254d0c>Equilynx</c> cards to your hand."
-      }
-    },
-    "SheepDream": {
-      "name": "Sheep Dream",
-      "description": {
-        "None": "Attack for set amount = 3. On hit, apply 1 <c=status>BOOST</c>.",
-        "A": "Attack for set amount = 4. On hit, apply 1 <c=status>BOOST</c>.",
-        "B": "Attack for set amount = 5. On hit, apply 2 <c=status>BOOST</c>."
       }
     }
   },

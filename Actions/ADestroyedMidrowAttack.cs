@@ -137,7 +137,7 @@ namespace JyGein.Elestrals.Actions
 
                 if (!isBeam && (ship.Get(Status.payback) > 0 || ship.Get(Status.tempPayback) > 0) && paybackCounter < 100)
                 {
-                    c.QueueImmediate(new ADestroyedMidrowAttack
+                    c.QueueImmediate(new AAttack
                     {
                         paybackCounter = paybackCounter + 1,
                         damage = Card.GetActualDamage(s, ship.Get(Status.payback) + ship.Get(Status.tempPayback), !targetPlayer),

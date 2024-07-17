@@ -1,16 +1,15 @@
-﻿using Nickel;
-using HarmonyLib;
-using JyGein.Elestrals.Cards;
+﻿using HarmonyLib;
 using JyGein.Elestrals.Artifacts;
+using JyGein.Elestrals.Cards;
+using JyGein.Elestrals.Cards.Special;
+using JyGein.Elestrals.Features;
 using Microsoft.Extensions.Logging;
 using Nanoray.PluginManager;
+using Nickel;
+using Nickel.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using JyGein.Elestrals.Features;
-using Nickel.Common;
-using System.Xml.Schema;
-using JyGein.Elestrals.Cards.Special;
 
 /* In the Cobalt Core modding community it is common for namespaces to be <Author>.<ModName>
  * This is helpful to know at a glance what mod we're looking at, and who made it */
@@ -142,6 +141,7 @@ public sealed class Elestrals : SimpleMod
         WeakenChargeManager.ApplyPatches(Harmony);
         EmpoweredMunitionsManager.ApplyPatches(Harmony);
         RandomDroneMoveLocaleFix.ApplyPatches(Harmony);
+        NegativeOverdriveManager.ApplyPatches(Harmony);
 
         /* These localizations lists help us organize our mod's text and messages by language.
          * For general use, prefer AnyLocalizations, as that will provide an easier time to potential localization submods that are made for your mod 
@@ -374,76 +374,76 @@ public sealed class Elestrals : SimpleMod
                 ship = new Ship()
                 {
                     /* This is how much hull the ship will start a run with. We recommend matching hullMax */
-                    /*hull = 12,
-                    hullMax = 12,
-                    shieldMaxBase = 4,
-                    parts =
-                    {
-                        /* This is the order in which the ship parts will be arranged in-game, from left to right. Part1 -> Part2 -> Part3 */
-                        /*new Part
-                        {
-                            type = PType.wing,
-                            skin = demoShipPartWing.UniqueName
-                        },
-                        new Part
-                        {
-                            type = PType.cannon,
-                            skin = demoShipPartCannon.UniqueName,
-                            damageModifier = PDamMod.armor
-                        },
-                        new Part
-                        {
-                            type = PType.missiles,
-                            skin = demoShipPartMissiles.UniqueName,
-                            damageModifier = PDamMod.weak
-                        },
-                        new Part
-                        {
-                            type = PType.cockpit,
-                            skin = demoShipPartCockpit.UniqueName
-                        },
-                        new Part
-                        {
-                            type = PType.wing,
-                            skin = demoShipPartWing.UniqueName,
-                            flip = true
-                        }
-                    }
-                },
+        /*hull = 12,
+        hullMax = 12,
+        shieldMaxBase = 4,
+        parts =
+        {
+            /* This is the order in which the ship parts will be arranged in-game, from left to right. Part1 -> Part2 -> Part3 */
+        /*new Part
+        {
+            type = PType.wing,
+            skin = demoShipPartWing.UniqueName
+        },
+        new Part
+        {
+            type = PType.cannon,
+            skin = demoShipPartCannon.UniqueName,
+            damageModifier = PDamMod.armor
+        },
+        new Part
+        {
+            type = PType.missiles,
+            skin = demoShipPartMissiles.UniqueName,
+            damageModifier = PDamMod.weak
+        },
+        new Part
+        {
+            type = PType.cockpit,
+            skin = demoShipPartCockpit.UniqueName
+        },
+        new Part
+        {
+            type = PType.wing,
+            skin = demoShipPartWing.UniqueName,
+            flip = true
+        }
+    }
+},
 
-                /* These are cards and artifacts the ship will start a run with. The recommended card amount is 4, and the recommended artifact amount is 2 to 3 */
-                /*cards =
-                {
-                    new CannonColorless(),
-                    new DodgeColorless()
-                    {
-                        upgrade = Upgrade.A,
-                    },
-                    new DodgeColorless()
-                    {
-                        upgrade = Upgrade.B,
-                    },
-                    new BasicShieldColorless(),
-                },
-                artifacts =
-                {
-                    new ShieldPrep(),
-                    new DemoArtifactCounting()
-                }
-            },
-            ExclusiveArtifactTypes = new HashSet<Type>()
+/* These are cards and artifacts the ship will start a run with. The recommended card amount is 4, and the recommended artifact amount is 2 to 3 */
+        /*cards =
+        {
+            new CannonColorless(),
+            new DodgeColorless()
             {
-                /* If you make some artifacts that you want only this ship to encounter in a run, here is where you place them */
-                /*typeof(DemoArtifactCounting)
+                upgrade = Upgrade.A,
             },
+            new DodgeColorless()
+            {
+                upgrade = Upgrade.B,
+            },
+            new BasicShieldColorless(),
+        },
+        artifacts =
+        {
+            new ShieldPrep(),
+            new DemoArtifactCounting()
+        }
+    },
+    ExclusiveArtifactTypes = new HashSet<Type>()
+    {
+        /* If you make some artifacts that you want only this ship to encounter in a run, here is where you place them */
+        /*typeof(DemoArtifactCounting)
+    },
 
-            UnderChassisSprite = demoShipSpriteChassis,
-            Name = AnyLocalizations.Bind(["ship", "DemoShip", "name"]).Localize,
-            Description = AnyLocalizations.Bind(["ship", "DemoShip", "description"]).Localize
-        });
+    UnderChassisSprite = demoShipSpriteChassis,
+    Name = AnyLocalizations.Bind(["ship", "DemoShip", "name"]).Localize,
+    Description = AnyLocalizations.Bind(["ship", "DemoShip", "description"]).Localize
+});
 
-        /* 4. STATUSES
-         * You might, now, with all this code behind our backs, start recognizing patterns in the way we can register stuff. */
+/* 4. STATUSES
+ * You might, now, with all this code behind our backs, start recognizing patterns in the way we can register stuff. */
         /*AutododgeLeftNextTurn = helper.Content.Statuses.RegisterStatus("AutododgeLeftNextTurn", new()
         {
             Definition = new()
@@ -503,6 +503,6 @@ public sealed class Elestrals : SimpleMod
             Name = AnyLocalizations.Bind(["status", "WeakenCharge", "name"]).Localize,
             Description = AnyLocalizations.Bind(["status", "WeakenCharge", "description"]).Localize
         });
-        
+
     }
 }

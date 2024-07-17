@@ -55,13 +55,13 @@ internal sealed class EquilynxNexusSwipeCard : Card, IElestralsCard
     public static void Register(IModHelper helper)
     {
         QuadArt = Enumerable.Range(0, 4)
-            .Select(i => helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile($"assets/Cards/Equilynx/NexusSwipeQuad{i}.png")))
+            .Select(i => helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile($"assets/cards/equilynx/NexusSwipeQuad{i}.png")))
             .ToList();
         BQuadArt = Enumerable.Range(0, 4)
-            .Select(i => helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile($"assets/Cards/Equilynx/NexusSwipeBQuad{i}.png")))
+            .Select(i => helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile($"assets/card/equilynx/NexusSwipeBQuad{i}.png")))
             .ToList();
         QuadIcon = Enumerable.Range(0, 4)
-            .Select(i => helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile($"assets/Icons/Quad{i}.png")))
+            .Select(i => helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile($"assets/icons/Quad{i}.png")))
             .ToList();
 
         helper.Content.Cards.RegisterCard("NexusSwipe", new()

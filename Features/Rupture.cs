@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using JyGein.Elestrals;
 using JyGein.Elestrals.Actions;
+using System.Reflection;
 
 namespace JyGein.Elestrals.Features;
 
@@ -38,11 +39,11 @@ public class RuptureManager
 
         harmony.Patch(
             original: AccessTools.DeclaredMethod(typeof(ASpawn), nameof(ASpawn.Begin)),
-            postfix: new HarmonyMethod(typeof(RuptureManager), nameof(ASpawn_Begin_Postfix))
+            postfix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(ASpawn_Begin_Postfix))
         );
         harmony.Patch(
             original: AccessTools.DeclaredMethod(typeof(Card), nameof(Card.RenderAction)),
-            prefix: new HarmonyMethod(typeof(RuptureManager), nameof(Card_RenderAction_Prefix))
+            prefix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(Card_RenderAction_Prefix))
         );
     }
 
