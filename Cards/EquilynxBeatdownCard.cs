@@ -43,7 +43,8 @@ internal sealed class EquilynxBeatdownCard : Card, IElestralsCard
         actions.Add(new AStatus()
         {
             status = Status.overdrive,
-            statusAmount = -1
+            statusAmount = -1,
+            targetPlayer = true
         });
         return actions;
     }

@@ -58,7 +58,7 @@ internal sealed class EquilynxNexusSwipeCard : Card, IElestralsCard
             .Select(i => helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile($"assets/cards/equilynx/NexusSwipeQuad{i}.png")))
             .ToList();
         BQuadArt = Enumerable.Range(0, 4)
-            .Select(i => helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile($"assets/card/equilynx/NexusSwipeBQuad{i}.png")))
+            .Select(i => helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile($"assets/cards/equilynx/NexusSwipeBQuad{i}.png")))
             .ToList();
         QuadIcon = Enumerable.Range(0, 4)
             .Select(i => helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile($"assets/icons/Quad{i}.png")))
