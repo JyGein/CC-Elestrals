@@ -25,7 +25,6 @@ internal sealed class FlowerStoneDepositManager : IStatusLogicHook, IStatusRende
         {
             for(int i = 0; i < amount; i++)
             {
-                Elestrals.Instance.Logger.Log(LogLevel.Information, "hi");
                 combat.QueueImmediate(new ASpawn()
                 {
                     thing = new FlowerStone()

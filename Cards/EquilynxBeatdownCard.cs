@@ -40,7 +40,11 @@ internal sealed class EquilynxBeatdownCard : Card, IElestralsCard
             damage = upgrade == Upgrade.A ? GetDmg(s, 7) : GetDmg(s, 5),
             weaken = upgrade == Upgrade.B ? true : false
         });
-
+        actions.Add(new AStatus()
+        {
+            status = Status.overdrive,
+            statusAmount = -1
+        });
         return actions;
     }
 }

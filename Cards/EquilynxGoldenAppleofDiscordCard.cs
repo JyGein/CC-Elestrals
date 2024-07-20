@@ -35,6 +35,13 @@ internal sealed class EquilynxGoldenAppleofDiscordCard : Card, IElestralsCard
     {
         List<CardAction> actions = new();
 
+        if (upgrade == Upgrade.A)
+        {
+            actions.Add(new ARupture()
+            {
+                ruptureType = ARupture.RuptureType.Cannon
+            });
+        }
         actions.Add(new ADiscard()
         {
             count = 1
@@ -42,7 +49,7 @@ internal sealed class EquilynxGoldenAppleofDiscordCard : Card, IElestralsCard
 
         actions.Add(new AAttack()
         {
-            damage = GetDmg(s, 0),
+            damage = GetDmg(s, upgrade == Upgrade.A ? 1 : 0),
             stunEnemy = true
         });
 
