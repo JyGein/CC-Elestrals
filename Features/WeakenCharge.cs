@@ -94,7 +94,6 @@ internal sealed class WeakenChargeManager : IStatusLogicHook, IStatusRenderHook
                 )
                 .Insert(
                     SequenceMatcherPastBoundsDirection.After, SequenceMatcherInsertionResultingBounds.IncludingInsertion,
-                    new CodeInstruction(OpCodes.Ldarg_0),
                     new CodeInstruction(OpCodes.Ldloc_0),
                     new CodeInstruction(OpCodes.Ldarg_2),
                     new CodeInstruction(OpCodes.Call, AccessTools.DeclaredMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(Card_MakeAllActionIcons_MakeAttacksLookWeaken))),
@@ -109,7 +108,7 @@ internal sealed class WeakenChargeManager : IStatusLogicHook, IStatusRenderHook
         }
     }
 
-    private static List<CardAction> Card_MakeAllActionIcons_MakeAttacksLookWeaken(Card card, List<CardAction> actions, State s)
+    private static List<CardAction> Card_MakeAllActionIcons_MakeAttacksLookWeaken(List<CardAction> actions, State s)
     {
         int num = s.ship.Get(Elestrals.Instance.WeakenCharge.Status);
         for (int i = 0; i < actions.Count; i++)

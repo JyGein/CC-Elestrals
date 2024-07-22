@@ -67,7 +67,7 @@ internal sealed class EmpoweredMunitionsManager
         }
         foreach (Artifact item in s.EnumerateAllArtifacts())
         {
-            if (item is EquilynxPoisonTippedArrowArtifact)
+            if (item is EquilynxEmpoweredMunitionsArtifact)
             {
                 item.Pulse();
                 var copy = Mutil.DeepCopy(__instance);
@@ -81,19 +81,6 @@ internal sealed class EmpoweredMunitionsManager
             }
         }
         return true;
-    }
-    private static void AAttack_Begin_RuptureBeforeAttack(AAttack aAttack, State s, Combat c)
-    {
-        foreach (Artifact item in s.EnumerateAllArtifacts())
-        {
-            if (item is EquilynxEmpoweredMunitionsArtifact)
-            {
-                c.QueueImmediate(new ARupture
-                {
-                    ruptureType = ARupture.RuptureType.Cannon
-                });
-            }
-        }
     }
 }
 

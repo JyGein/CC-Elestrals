@@ -59,16 +59,19 @@ Starters{
 	B: 1, same thing but afterwards Rupture M
 
 --	Beatdown
-	2, Attack for 5
-	A: 2, Attack for 7
-	B: 2, Exhaust Attack for 5 Weaken
+	2, Attack for 5, -1 Overdrive
+	A: 2, Attack for 7, -1 Overdrive
+	B: 2, Exhaust Attack for 5 Weaken, -1 Overdrive
 
 --	Sandstorm
 	1, Random shift 1, Attack 1, Random move 1
 	A: 1, Random shift 1, Attack 2, Random move 1
 	B: 1, Random move 1, Attack 1, Random shift 1, Attack 1, Random move 1
 
--	
+--	Nexus Shot
+	1, Flippable; Attack 1, Shift 1 
+	A: 0, --
+	B: 1, Flippable; Attack 3, Shift 1, -1 Overdrive
 
 UNCOMMON (Goal 7)
 
@@ -97,12 +100,15 @@ UNCOMMON (Goal 7)
 	A: 0, --
 	B: 1, Exhaust; Rupture M; Launch 1 Mini Repair Kit
 
--	Channel - unsure about this
-	2, X = # of artificial midrow objects; Attack for X
-	A: 2, X = # of artificial midrow objects; Attack for X+3
-	B: 3, Exhaust; Retain; X = # of artificial midrow objects; Attack for 2X
+--	The Bigger the Better
+	2, X = # of artificial midrow objects, Attack for X, -1 overdrive
+	A: 2, X = # of artificial midrow objects; Attack for X
+	B: 3, Exhaust; Retain; X = # of artificial midrow objects; Attack for 2X, -1 overdrive
 
--	
+-	Mudslide
+	2, Launch 1 Mini Earth Stone; Launch 1 Mini Earth Stone Right 1; Launch 1 Mini Earth Stone Right 2; Launch 1 Mini Earth Stone Right 3;
+	A: 2, Flippable; --
+	B: 2, Launch 1 Mini Earth Stone; Launch 1 Earth Stone Right 1; Launch 1 Earth Stone Right 2; Launch 1 Mini Earth Stone Right 3;
 
 RARE (Goal 5)
 
@@ -126,10 +132,10 @@ RARE (Goal 5)
 	A: 0, --
 	B: 2, Turn all midrow into Flower Stones; Launch 1 Flower Stone Left 1; Launch 1 Flower Stone Right 1;
 
--	Demeter's Aid - general idea is for the next 3 turns you get one big shot and thats it, dont know about hyper focus name nor the specifics of the status effect
-	1, Exhaust; Gain 3 Overdrive; Gain 3 Hyper Focus
-	A: 1, Exhaust; Gain 4 Overdrive; Gain 3 Hyper Focus
-	B: 2, Exhaust; Gain 5 Overdrive; Gain 3 Hyper Focus
+-	Demeter's Aid
+	1, Exhaust; Gain 2 Powerdrive; Gain 1 Hyper Focus (only the first attack each turn deals damage)
+	A: 1, Exhaust; Gain 3 Powerdrive; Gain 1 Hyper Focus
+	B: 2, Exhaust; Gain 4 Powerdrive; Gain 1 Hyper Focus
 
 ARTIFACTS
 

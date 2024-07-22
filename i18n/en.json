@@ -8,11 +8,11 @@
   "artifact": {
     "FoloiForest": {
       "name": "FOLOI FOREST",
-      "description": "The second time you launch an <c=midrow>object</c> each turn gain <c=boldPink>1</c> <c=status>OVERDRIVE NEXT TURN</c>"
+      "description": "The second time you launch an <c=midrow>object</c> each turn gain 1 <c=status>OVERDRIVE NEXT TURN</c>"
     },
     "PoisonTippedArrow": {
       "name": "POISON TIPPED ARROW",
-      "description": "At the start of combat gain <boldPink>1</c> <c=status>WEAKEN CHARGE-</c>"
+      "description": "At the start of combat gain 1 <c=status>WEAKEN CHARGE-</c>"
     },
     "EmpoweredMunitions": {
       "name": "EMPOWERED MUNITIONS",
@@ -20,11 +20,11 @@
     },
     "PoisonedTunic": {
       "name": "POISONED TUNIC",
-      "description": "Enemies take <c=boldPink>1</c> extra damage when hit in a <c=parttrait>WEAK</c> or <c=parttrait>BRITTLE</c> part."
+      "description": "Enemies take 1 extra damage when hit in a <c=parttrait>WEAK</c> or <c=parttrait>BRITTLE</c> part."
     },
     "ScytheofDemeter": {
       "name": "SCYTHE OF DEMETER",
-      "description": "Gain <c=boldPink>1</c> <c=healthBarShield>SHIELD</c> when you destroy an <c=midrow>object</c>."
+      "description": "Gain 1 <c=healthBarShield>SHIELD</c> when you destroy an <c=midrow>object</c>."
     },
     "Teratlas": {
       "name": "TERATLAS",
@@ -46,6 +46,9 @@
     "NexusBlast": {
       "name": "Nexus Blast"
     },
+    "NexusShot": {
+      "name": "Nexus Shot"
+    },
     "BreakThrough": {
       "name": "Break Through"
     },
@@ -66,6 +69,9 @@
     },
     "Blossom": {
       "name": "Blossom"
+    },
+    "Mudslide": {
+      "name": "Mudslide"
     },
     "EarthStoneDeposit": {
       "name": "Earth Stone Deposit"
@@ -98,6 +104,9 @@
         "A": "Add 1 of {{Count}} <c=cardtrait>discount, temp</c> <c=254d0c>Equilynx</c> cards to your hand.",
         "B": "Add 1 of {{Count}} <c=cardtrait>discount, temp</c> <c=254d0c>Equilynx</c> cards to your hand."
       }
+    },
+    "TheBiggertheBetter": {
+      "name": "The Bigger the Better"
     }
   },
   "status": {
@@ -120,6 +129,10 @@
     "WeakenCharge": {
       "name": "Weaken Charge",
       "description": "Your next {0} attacks will weaken."
+    },
+    "HyperFocus": {
+      "name": "Hyper Focus",
+      "description": "<c=downside>Each turn, only the first attack of this ship will deal damage</c>"
     }
   },
   "midrow": {
@@ -165,6 +178,9 @@
     },
     "VariableHintExhaust": {
       "description": "X = Cards Exhausted{{Amount}}"
+    },
+    "VariableHintObjects": {
+      "description": "X = Artificial <c=midrow>objects</c>{{Amount}}"
     },
     "Blossom": {
       "name": "Blossom",

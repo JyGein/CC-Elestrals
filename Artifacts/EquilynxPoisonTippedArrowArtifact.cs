@@ -33,6 +33,7 @@ internal sealed class EquilynxPoisonTippedArrowArtifact : Artifact, IElestralsAr
 
     public override void OnCombatStart(State state, Combat combat)
     {
+        Pulse();
         state.ship.Add(Elestrals.Instance.WeakenCharge.Status, 1);
     }
 }

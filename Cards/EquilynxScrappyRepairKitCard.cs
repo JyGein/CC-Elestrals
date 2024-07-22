@@ -37,9 +37,9 @@ internal sealed class EquilynxScrappyRepairKitCard : Card, IElestralsCard
 
         if (upgrade == Upgrade.B)
         {
-            actions.Add(new ARupture
+            actions.Add(new ASpawn
             {
-                ruptureType = ARupture.RuptureType.Missile
+                thing = new MiniRepairKit { }
             });
         }
         actions.Add(new ASpawn

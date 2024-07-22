@@ -49,7 +49,7 @@ public sealed class Elestrals : SimpleMod
     internal IStatusEntry WeakenCharge { get; }
     internal IStatusEntry EarthStoneDeposit { get; }
     internal IStatusEntry FlowerStoneDeposit { get; }
-    //internal IStatusEntry HyperFocus { get; }
+    internal IStatusEntry HyperFocus { get; }
     internal ISpriteEntry EarthStoneSprite { get; }
     internal ISpriteEntry MiniEarthStoneSprite { get; }
     internal ISpriteEntry BigEarthStoneSprite { get; }
@@ -74,6 +74,7 @@ public sealed class Elestrals : SimpleMod
         typeof(EquilynxEarthStoneCard),
         typeof(EquilynxNexusBlastCard),
         typeof(EquilynxFlowerStoneCard),
+        typeof(EquilynxNexusShotCard),
         typeof(EquilynxNexusShiftCard),
         typeof(EquilynxBeatdownCard),
         typeof(EquilynxNexusSwipeCard),
@@ -85,13 +86,16 @@ public sealed class Elestrals : SimpleMod
         typeof(EquilynxEarthquakeCard),
         typeof(EquilynxGoldenAppleofDiscordCard),
         typeof(EquilynxBloomCard),
-        typeof(EquilynxScrappyRepairKitCard)
+        typeof(EquilynxScrappyRepairKitCard),
+        typeof(EquilynxTheBiggertheBetterCard),
+        typeof(EquilynxMudslideCard)
     ];
     internal static IReadOnlyList<Type> Equilynx_RareCard_Types { get; } = [
         typeof(EquilynxAmbrosiaCard),
         typeof(EquilynxEarthStoneDepositCard),
         typeof(EquilynxFlowerStoneDepositCard),
-        typeof(EquilynxBlossomCard)
+        typeof(EquilynxBlossomCard),
+        typeof(EquilynxDemetersAidCard)
     ];
 
     internal static readonly IReadOnlyList<Type> SpecialCardTypes = [
@@ -130,12 +134,13 @@ public sealed class Elestrals : SimpleMod
          * We take from Kokoro what we need and put in our own project. Head to ExternalAPI/StatusLogicHook.cs if you're interested in what, exactly, we use.
          * If you're interested in more fancy stuff, make sure to peek at the Kokoro repository found online. */
         KokoroApi = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!;
+        Harmony = new(package.Manifest.UniqueName);
         _ = new CardScalingManager();
         _ = new EarthStoneDepositManager();
         _ = new FlowerStoneDepositManager();
         _ = new OverdriveNextTurnManager();
         _ = new WeakenChargeManager();
-        Harmony = new(package.Manifest.UniqueName);
+        _ = new HyperFocusManager(Harmony);
         CustomTTGlossary.ApplyPatches(Harmony);
         RuptureManager.ApplyPatches(Harmony);
         WeakenChargeManager.ApplyPatches(Harmony);
@@ -311,7 +316,7 @@ public sealed class Elestrals : SimpleMod
             {
                 cards = [
                     new EquilynxFlowerStoneCard(),
-                    new EquilynxSandstormCard()
+                    new EquilynxNexusShotCard()
                 ]
             }
         );
@@ -503,6 +508,16 @@ public sealed class Elestrals : SimpleMod
             Name = AnyLocalizations.Bind(["status", "WeakenCharge", "name"]).Localize,
             Description = AnyLocalizations.Bind(["status", "WeakenCharge", "description"]).Localize
         });
-
+        HyperFocus = helper.Content.Statuses.RegisterStatus("HyperFocus", new()
+        {
+            Definition = new()
+            {
+                icon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/hyperFocus.png")).Sprite,
+                color = new("ff6666"),
+                isGood = false
+            },
+            Name = AnyLocalizations.Bind(["status", "HyperFocus", "name"]).Localize,
+            Description = AnyLocalizations.Bind(["status", "HyperFocus", "description"]).Localize
+        });
     }
 }

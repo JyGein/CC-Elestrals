@@ -167,9 +167,9 @@ namespace JyGein.Elestrals.Actions
                     if (s.route is Combat route)
                     {
                         foreach (StuffBase stuffBase in route.stuff.Values)
-                            if (!RuptureManager.IsNatural(stuffBase)) { 
+                            //if (RuptureManager.IsNatural(stuffBase)) { 
                                 stuffBase.hilight = 2;
-                            }
+                            //}
                     }
                     list.Add(new CustomTTGlossary(
                         CustomTTGlossary.GlossaryType.action,

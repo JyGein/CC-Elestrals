@@ -6,29 +6,28 @@ using System.Reflection;
 
 namespace JyGein.Elestrals.Cards;
 
-internal sealed class EquilynxNexusShiftCard : Card, IElestralsCard
+internal sealed class EquilynxDemetersAidCard : Card, IElestralsCard
 {
     public static void Register(IModHelper helper)
     {
-        helper.Content.Cards.RegisterCard("NexusShift", new()
+        helper.Content.Cards.RegisterCard("DemetersAid", new()
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new()
             {
                 deck = Elestrals.Instance.Equilynx_Deck.Deck,
-                rarity = Rarity.common,
+                rarity = Rarity.rare,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "NexusShift", "name"]).Localize
+            Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "DemetersAid", "name"]).Localize
         });
     }
     public override CardData GetData(State state)
     {
         CardData data = new CardData()
         {
-            cost = 0,
-            flippable = true,
-            art = Elestrals.Instance.Equilynx_Character_NexusCardBackground.Sprite
+            cost = upgrade == Upgrade.B ? 2 : 1,
+            exhaust = true
         };
         return data;
     }
@@ -36,22 +35,18 @@ internal sealed class EquilynxNexusShiftCard : Card, IElestralsCard
     {
         List<CardAction> actions = new();
 
-        actions.Add(new ADroneMove()
+        actions.Add(new AStatus()
         {
-            dir = 1
+            status = Status.powerdrive,
+            statusAmount = upgrade == Upgrade.None ? 2 : upgrade == Upgrade.A ? 3 : 4,
+            targetPlayer = true
         });
-
-        if (upgrade == Upgrade.A)
-            actions.Add(new ADrawCard()
-            {
-                count = 1
-            });
-        if (upgrade == Upgrade.B)
-            actions.Add(new ARupture()
-            {
-                ruptureType = ARupture.RuptureType.Missile
-            });
-
+        actions.Add(new AStatus()
+        {
+            status = Elestrals.Instance.HyperFocus.Status,
+            statusAmount = 1,
+            targetPlayer = true
+        });
         return actions;
     }
 }

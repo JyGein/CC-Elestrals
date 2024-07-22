@@ -6,11 +6,11 @@ using System.Reflection;
 
 namespace JyGein.Elestrals.Cards;
 
-internal sealed class EquilynxNexusShiftCard : Card, IElestralsCard
+internal sealed class EquilynxNexusShotCard : Card, IElestralsCard
 {
     public static void Register(IModHelper helper)
     {
-        helper.Content.Cards.RegisterCard("NexusShift", new()
+        helper.Content.Cards.RegisterCard("NexusShot", new()
         {
             CardType = MethodBase.GetCurrentMethod()!.DeclaringType!,
             Meta = new()
@@ -19,16 +19,16 @@ internal sealed class EquilynxNexusShiftCard : Card, IElestralsCard
                 rarity = Rarity.common,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "NexusShift", "name"]).Localize
+            Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "NexusShot", "name"]).Localize,
         });
     }
     public override CardData GetData(State state)
     {
         CardData data = new CardData()
         {
-            cost = 0,
-            flippable = true,
-            art = Elestrals.Instance.Equilynx_Character_NexusCardBackground.Sprite
+            cost = upgrade == Upgrade.A ? 0 : 1,
+            art = Elestrals.Instance.Equilynx_Character_NexusCardBackground.Sprite,
+            flippable = true
         };
         return data;
     }
@@ -36,22 +36,23 @@ internal sealed class EquilynxNexusShiftCard : Card, IElestralsCard
     {
         List<CardAction> actions = new();
 
+        actions.Add(new AAttack()
+        {
+            damage = GetDmg(s, upgrade == Upgrade.B ? 3 : 1)
+        });
         actions.Add(new ADroneMove()
         {
             dir = 1
         });
-
-        if (upgrade == Upgrade.A)
-            actions.Add(new ADrawCard()
-            {
-                count = 1
-            });
         if (upgrade == Upgrade.B)
-            actions.Add(new ARupture()
+        {
+            actions.Add(new AStatus()
             {
-                ruptureType = ARupture.RuptureType.Missile
+                status = Status.overdrive,
+                statusAmount = -1,
+                targetPlayer = true
             });
-
+        }
         return actions;
     }
 }
