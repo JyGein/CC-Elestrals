@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using JyGein.Elestrals.Actions;
 using JyGein.Elestrals.Artifacts;
 using JyGein.Elestrals.Cards;
 using JyGein.Elestrals.Cards.Special;
@@ -519,5 +520,9 @@ public sealed class Elestrals : SimpleMod
             Name = AnyLocalizations.Bind(["status", "HyperFocus", "name"]).Localize,
             Description = AnyLocalizations.Bind(["status", "HyperFocus", "description"]).Localize
         });
+
+        IAppleShipyardApi? appleShipyardApi = helper.ModRegistry.GetApi<IAppleShipyardApi>("APurpleApple.Shipyard", new SemanticVersion(2, 0, 0));
+        appleShipyardApi?.RegisterActionLooksForPartType(typeof(ABayRupture), PType.missiles);
+        appleShipyardApi?.RegisterActionLooksForPartType(typeof(ACannonRupture), PType.cannon);
     }
 }

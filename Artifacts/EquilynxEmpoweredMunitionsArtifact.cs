@@ -35,7 +35,7 @@ internal sealed class EquilynxEmpoweredMunitionsArtifact : Artifact, IElestralsA
     }
 
     public override List<Tooltip>? GetExtraTooltips()
-        => new ARupture() { ruptureType = ARupture.RuptureType.Cannon }.GetTooltips(DB.fakeState);
+        => new ACannonRupture().GetTooltips(DB.fakeState);
 }
 
 internal sealed class EmpoweredMunitionsManager
@@ -73,10 +73,7 @@ internal sealed class EmpoweredMunitionsManager
                 var copy = Mutil.DeepCopy(__instance);
                 Elestrals.Instance.Helper.ModData.SetModData(copy, "HasRuptured", true);
                 c.QueueImmediate(copy);
-                c.QueueImmediate(new ARupture
-                {
-                    ruptureType = ARupture.RuptureType.Cannon
-                });
+                c.QueueImmediate(new ACannonRupture());
                 return false;
             }
         }

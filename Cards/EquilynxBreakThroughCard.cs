@@ -34,10 +34,7 @@ internal sealed class EquilynxBreakThroughCard : Card, IElestralsCard
     {
         List<CardAction> actions = new();
 
-        actions.Add(new ARupture()
-        {
-            ruptureType = ARupture.RuptureType.Cannon
-        });
+        actions.Add(new ACannonRupture());
 
         actions.Add(new AAttack()
         {

@@ -42,19 +42,16 @@ internal sealed class EquilynxNexusBlastCard : Card, IElestralsCard
                 count = 1
             });
         }
-        actions.Add(new ARupture()
+        actions.Add(new ABayRupture()
         {
-            ruptureType = ARupture.RuptureType.Missile,
             offset = -1
         });
-        actions.Add(new ARupture()
+        actions.Add(new ABayRupture()
         {
-            ruptureType = ARupture.RuptureType.Missile,
             omitFromTooltips = true
         });
-        actions.Add(new ARupture()
+        actions.Add(new ABayRupture()
         {
-            ruptureType = ARupture.RuptureType.Missile,
             offset = 1,
             omitFromTooltips = true
         });

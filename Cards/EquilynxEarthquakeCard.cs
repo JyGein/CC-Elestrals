@@ -47,10 +47,7 @@ internal sealed class EquilynxEarthquakeCard : Card, IElestralsCard
             });
         }
 
-        actions.Add(new ARupture()
-        {
-            ruptureType = ARupture.RuptureType.All
-        });
+        actions.Add(new AAllRupture());
         return actions;
     }
 }

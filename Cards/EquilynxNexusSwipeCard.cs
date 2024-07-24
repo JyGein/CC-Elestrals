@@ -129,10 +129,7 @@ internal sealed class EquilynxNexusSwipeCard : Card, IElestralsCard
                     dir = -2*(FlipIndex % 2 != 0 ? -1 : 1),
                     disabled = FlipIndex % 4 != 3,
                 },
-                new ARupture
-                {
-                    ruptureType = ARupture.RuptureType.Missile
-                }
+                new ABayRupture()
             ],
             _ => [
                 new ADroneMove

@@ -47,10 +47,7 @@ internal sealed class EquilynxNexusShiftCard : Card, IElestralsCard
                 count = 1
             });
         if (upgrade == Upgrade.B)
-            actions.Add(new ARupture()
-            {
-                ruptureType = ARupture.RuptureType.Missile
-            });
+            actions.Add(new ABayRupture());
 
         return actions;
     }

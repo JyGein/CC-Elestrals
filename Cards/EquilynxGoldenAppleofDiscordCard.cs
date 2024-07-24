@@ -37,10 +37,7 @@ internal sealed class EquilynxGoldenAppleofDiscordCard : Card, IElestralsCard
 
         if (upgrade == Upgrade.A)
         {
-            actions.Add(new ARupture()
-            {
-                ruptureType = ARupture.RuptureType.Cannon
-            });
+            actions.Add(new ACannonRupture());
         }
         actions.Add(new ADiscard()
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JyGein.Elestrals.Actions
 {
-    internal class ARupture : CardAction
+    internal abstract class ARupture : CardAction
     {
         public enum RuptureType
         {
@@ -15,7 +15,7 @@ namespace JyGein.Elestrals.Actions
             Missile,
             All
         }
-        public required RuptureType ruptureType;
+        public RuptureType ruptureType;
 
         public int? fromX;
 

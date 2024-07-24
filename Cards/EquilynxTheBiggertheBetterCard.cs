@@ -27,7 +27,7 @@ internal sealed class EquilynxTheBiggertheBetterCard : Card, IElestralsCard
     {
         CardData data = new CardData()
         {
-            cost = upgrade == Upgrade.B ? 3 : 2,
+            cost = upgrade == Upgrade.B ? 2 : 1,
             exhaust = upgrade == Upgrade.B,
             retain = upgrade == Upgrade.B/*,
             description = Elestrals.Instance.Localizations.Localize(["card", "TheBiggertheBetter`", "description", upgrade.ToString()])*/
