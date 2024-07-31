@@ -41,13 +41,19 @@ namespace JyGein.Elestrals.Actions
                 {
                     if (stuff.Invincible())
                     {
-                        c.QueueImmediate(stuff.GetActionsOnShotWhileInvincible(s2, c, fromPlayer, 2));
+                        c.QueueImmediate(stuff.GetActionsOnBonkedWhileInvincible(s2, c, fromPlayer, new StuffBase()));
+                        s.AddShake(0.5);
+                        c.fx.Add((FX)new AsteroidExplosion()
+                        {
+                            pos = (new Vec((double)(stuff.x * 16), 60.0) + new Vec(7.5, 4.0))
+                        });
                     }
                     else /*if (RuptureManager.IsNatural(stuff))*/
                     {
                         c.DestroyDroneAt(s, stuff.x, fromPlayer);
                     }
                 }
+                return;
             }
 
             PType partType = ruptureType == RuptureType.Cannon ? PType.cannon : PType.missiles;
@@ -59,6 +65,7 @@ namespace JyGein.Elestrals.Actions
 
             if (fromPlayer && g.state.ship.GetPartTypeCount(partType) > 1 && !multiBayVolley)
             {
+                timer = 0.1;
                 c.QueueImmediate(new AVolleyRupture
                 {
                     rupture = Mutil.DeepCopy(this)
@@ -78,7 +85,12 @@ namespace JyGein.Elestrals.Actions
             {
                 if (existingThing.Invincible())
                 {
-                    c.QueueImmediate(existingThing.GetActionsOnShotWhileInvincible(s2, c, fromPlayer, 2));
+                    c.QueueImmediate(existingThing.GetActionsOnBonkedWhileInvincible(s2, c, fromPlayer, new StuffBase()));
+                    s.AddShake(0.5);
+                    c.fx.Add((FX)new AsteroidExplosion()
+                    {
+                        pos = (new Vec((double)(num1 * 16), 60.0) + new Vec(7.5, 4.0))
+                    });
                 }
                 else
                 {

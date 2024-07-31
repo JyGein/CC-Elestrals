@@ -57,7 +57,7 @@ internal sealed class EmpoweredMunitionsManager
         if (__instance.targetPlayer) return true;
         Ship ship = (__instance.targetPlayer ? s.ship : c.otherShip);
         Ship ship2 = (__instance.targetPlayer ? c.otherShip : s.ship);
-        if (ship == null || ship2 == null || ship.hull <= 0 || (__instance.fromDroneX.HasValue && !c.stuff.ContainsKey(__instance.fromDroneX.Value)))
+        if (ship == null || ship2 == null || ship.hull <= 0 || __instance.fromDroneX.HasValue)
         {
             return true;
         }

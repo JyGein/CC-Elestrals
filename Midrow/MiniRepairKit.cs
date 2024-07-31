@@ -36,17 +36,22 @@ namespace JyGein.Elestrals.Midrow
 
         public override void Render(G g, Vec v)
         {
-            this.DrawWithHilight(g, Elestrals.Instance.MiniRepairKitSprite.Sprite, v + this.GetOffset(g), Mutil.Rand((double)this.x + 0.1) > 0.5, flipY: this.targetPlayer);
-            for (this.particlesToEmit += g.dt * 20.0; this.particlesToEmit >= 1.0; --this.particlesToEmit)
-                PFX.combatAdd.Add(new Particle()
+            Vec offset = GetOffset(g);
+            DrawWithHilight(g, Elestrals.Instance.MiniRepairKitSprite.Sprite, v + offset, Mutil.Rand((double)x + 0.1) > 0.5);
+            particlesToEmit += g.dt * 15.0;
+            while (particlesToEmit >= 1.0)
+            {
+                PFX.combatAdd.Add(new Particle
                 {
                     color = new Color(0.1, 0.3, 1.0),
-                    pos = new Vec((double)(this.x * 16 + 1), v.y - 24.0) + v + this.GetOffset(g) + new Vec(7.5, 7.5) + Mutil.RandVel().normalized() * 6.0,
+                    pos = new Vec(x * 16 + 1, v.y - 24.0) + offset + new Vec(7.5, 7.5) + Mutil.RandVel().normalized() * 6.0,
                     vel = Mutil.RandVel() * 20.0,
                     lifetime = 1.0,
-                    size = 2.0 + Mutil.NextRand() * 3.0,
+                    size = 1.0 + Mutil.NextRand() * 1.5,
                     dragCoef = 1.0
                 });
+                particlesToEmit -= 1.0;
+            }
         }
 
         public override List<CardAction>? GetActionsOnDestroyed(

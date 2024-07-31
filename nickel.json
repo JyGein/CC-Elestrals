@@ -1,6 +1,6 @@
 {
   "UniqueName": "JyGein.Elestrals",
-  "Version": "0.3.0",
+  "Version": "0.4.0",
   "Author": "JyGein",
   "RequiredApiVersion": "0.7.0",
   "EntryPointAssembly": "Elestrals.dll",
@@ -12,6 +12,11 @@
     {
       "UniqueName": "TheJazMaster.MoreDifficulties",
       "Version": "1.4.4",
+      "IsRequired": false
+    },
+    {
+      "UniqueName": "rft.Jester",
+      "Version": "0.6.0",
       "IsRequired": false
     }
   ]

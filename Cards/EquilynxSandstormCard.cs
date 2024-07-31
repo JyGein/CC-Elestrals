@@ -71,7 +71,7 @@ internal sealed class EquilynxSandstormCard : Card, IElestralsCard
                 });
                 actions.Add(new AAttack()
                 {
-                    damage = upgrade == Upgrade.A ? GetDmg(s, 2) : GetDmg(s, 1)
+                    damage = upgrade == Upgrade.A ? GetDmg(s, 3) : GetDmg(s, 1)
                 });
                 actions.Add(new AMove()
                 {
@@ -79,6 +79,15 @@ internal sealed class EquilynxSandstormCard : Card, IElestralsCard
                     isRandom = true,
                     targetPlayer = true
                 });
+                if (upgrade == Upgrade.A)
+                {
+                    actions.Add(new AStatus()
+                    {
+                        status = Status.overdrive,
+                        statusAmount = -1,
+                        targetPlayer = true
+                    });
+                }
                 break;
         }
         return actions;

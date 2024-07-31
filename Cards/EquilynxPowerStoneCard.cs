@@ -36,14 +36,6 @@ internal sealed class EquilynxPowerStoneCard : Card, IElestralsCard
         /* The meat of the card, this is where we define what a card does, and some would say the most fun part of modding Cobalt Core happens here! */
         List<CardAction> actions = new();
 
-        if (upgrade == Upgrade.B)
-        {
-            actions.Add(new ASpawn
-            {
-                thing = new PowerStone { },
-                offset = 1
-            });
-        }
         if (upgrade == Upgrade.A)
         {
             actions.Add(new ADroneMove
@@ -56,6 +48,14 @@ internal sealed class EquilynxPowerStoneCard : Card, IElestralsCard
         {
             thing = new PowerStone { }
         });
+        if (upgrade == Upgrade.B)
+        {
+            actions.Add(new ASpawn
+            {
+                thing = new PowerStone { },
+                offset = 1
+            });
+        }
         return actions;
     }
 }

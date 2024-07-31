@@ -26,7 +26,7 @@ internal sealed class EquilynxGoldenAppleofDiscordCard : Card, IElestralsCard
     {
         CardData data = new CardData()
         {
-            cost = upgrade == Upgrade.B ? 2 : 1,
+            cost = upgrade == Upgrade.B ? 3 : 2,
             exhaust = upgrade != Upgrade.B
         };
         return data;
@@ -53,7 +53,7 @@ internal sealed class EquilynxGoldenAppleofDiscordCard : Card, IElestralsCard
         actions.Add(new AStatus()
         {
             status = Status.overdrive,
-            statusAmount = -2,
+            statusAmount = -1,
             targetPlayer = false
         });
 

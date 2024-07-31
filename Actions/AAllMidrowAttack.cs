@@ -299,11 +299,7 @@ namespace JyGein.Elestrals.Actions
                     }
                 }
 
-                c.stuff.TryGetValue(fromDroneX, out StuffBase? value);
-                if (value != null)
-                {
-                    value.pulse = 1.0;
-                }
+                stuff.pulse = 1.0;
                 EffectSpawner.Cannon(g, targetPlayer, raycastResult, dmg, isBeam);
             }
         }

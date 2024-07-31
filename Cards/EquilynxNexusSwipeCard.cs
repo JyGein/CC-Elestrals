@@ -129,7 +129,10 @@ internal sealed class EquilynxNexusSwipeCard : Card, IElestralsCard
                     dir = -2*(FlipIndex % 2 != 0 ? -1 : 1),
                     disabled = FlipIndex % 4 != 3,
                 },
-                new ABayRupture()
+                new ASpawn
+                {
+                    thing = new EarthStone { StoneType = EarthStone.EarthStoneType.Mini }
+                }
             ],
             _ => [
                 new ADroneMove

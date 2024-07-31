@@ -4,6 +4,7 @@ using JyGein.Elestrals.Artifacts;
 using JyGein.Elestrals.Cards;
 using JyGein.Elestrals.Cards.Special;
 using JyGein.Elestrals.Features;
+using JyGein.Elestrals.Jester;
 using Microsoft.Extensions.Logging;
 using Nanoray.PluginManager;
 using Nickel;
@@ -12,23 +13,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-/* In the Cobalt Core modding community it is common for namespaces to be <Author>.<ModName>
- * This is helpful to know at a glance what mod we're looking at, and who made it */
 namespace JyGein.Elestrals;
 
-/* ModEntry is the base for our mod. Others like to name it Manifest, and some like to name it <ModName>
- * Notice the ': SimpleMod'. This means ModEntry is a subclass (child) of the superclass SimpleMod (parent) from Nickel. This will help us use Nickel's functions more easily! */
 public sealed class Elestrals : SimpleMod
 {
     internal static Elestrals Instance { get; private set; } = null!;
     internal Harmony Harmony { get; }
     internal IKokoroApi KokoroApi { get; }
+    internal IJesterApi? JesterApi { get; }
     internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
     internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
-
-    /* Woah! what's with the block of code right out the gate???
-     * These are our manually declared stuff, isn't it neat?
-     * Let's continue down, and you'll start getting a hang of how we utilize these */
     internal ISpriteEntry Equilynx_Character_DefaultCardBackground { get; }
     internal ISpriteEntry Equilynx_Character_NexusCardBackground { get; }
     internal ISpriteEntry Equilynx_Character_CardFrame { get; }
@@ -68,9 +62,6 @@ public sealed class Elestrals : SimpleMod
     internal ISpriteEntry RuptureMIcon { get; }
     internal ISpriteEntry BlossomIcon { get; }
 
-    /* You can create many IReadOnlyList<Type> as a way to organize your content.
-     * We recommend having a Starter Cards list, a Common Cards list, an Uncommon Cards list, and a Rare Cards list
-     * However you can be more detailed, or you can be more loose, if that's your style */
     internal static IReadOnlyList<Type> Equilynx_CommonCard_Types { get; } = [
         typeof(EquilynxEarthStoneCard),
         typeof(EquilynxNexusBlastCard),
@@ -102,9 +93,7 @@ public sealed class Elestrals : SimpleMod
     internal static readonly IReadOnlyList<Type> SpecialCardTypes = [
         typeof(EquilynxExeCard)
     ];
-    /* We can use an IEnumerable to combine the lists we made above, and modify it if needed
-     * Maybe you created a new list for Uncommon cards, and want to add it.
-     * If so, you can .Concat(TheUncommonListYouMade) */
+
     internal static IEnumerable<Type> Elestrals_AllCard_Types
         => Equilynx_CommonCard_Types
         .Concat(Equilynx_UncommonCard_Types)
@@ -502,7 +491,7 @@ public sealed class Elestrals : SimpleMod
         {
             Definition = new()
             {
-                icon = Spr.icons_weak/*helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/overdriveNextTurn.png")).Sprite*/,
+                icon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/weakenCharge.png")).Sprite,
                 color = new("ff6666"),
                 isGood = true
             },
@@ -524,5 +513,10 @@ public sealed class Elestrals : SimpleMod
         IAppleShipyardApi? appleShipyardApi = helper.ModRegistry.GetApi<IAppleShipyardApi>("APurpleApple.Shipyard", new SemanticVersion(2, 0, 0));
         appleShipyardApi?.RegisterActionLooksForPartType(typeof(ABayRupture), PType.missiles);
         appleShipyardApi?.RegisterActionLooksForPartType(typeof(ACannonRupture), PType.cannon);
+
+        JesterApi = helper.ModRegistry.GetApi<IJesterApi>("rft.Jester");
+        JesterApi?.RegisterCharacterFlag("midrow", Equilynx_Deck.Deck);
+        JesterApi?.RegisterCharacterFlag("destroyPositive", Equilynx_Deck.Deck);
+        JesterApi?.RegisterProvider(new EquilynxJesterProvider());
     }
 }

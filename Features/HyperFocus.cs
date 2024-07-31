@@ -101,14 +101,33 @@ internal sealed class HyperFocusManager : IStatusLogicHook
     {
         try
         {
+            new SequenceBlockMatcher<CodeInstruction>(instructions)
+                .Find(
+                    ILMatches.Ldarg(0),
+                    ILMatches.Ldarg(3),
+                    ILMatches.Ldloc(0),
+                    ILMatches.Ldloc(3)
+                )
+                .Find(
+                    ILMatches.Instruction(OpCodes.Ret)
+                )
+                .Find(
+                    ILMatches.Ldarg(0)
+                )
+                .ExtractLabels(out IReadOnlySet<Label> labels);
             return new SequenceBlockMatcher<CodeInstruction>(instructions)
                 .Find(
-                    ILMatches.Newobj(typeof(DamageDone).Constructor()),
-                    ILMatches.Stloc(5)
+                    ILMatches.Ldarg(0),
+                    ILMatches.Ldarg(3),
+                    ILMatches.Ldloc(0),
+                    ILMatches.Ldloc(3)
+                )
+                .Find(
+                    ILMatches.Instruction(OpCodes.Ret)
                 )
                 .Insert(
                     SequenceMatcherPastBoundsDirection.After, SequenceMatcherInsertionResultingBounds.IncludingInsertion,
-                    new CodeInstruction(OpCodes.Ldarg_0),
+                    new CodeInstruction(OpCodes.Ldarg_0).WithLabels(labels),
                     new CodeInstruction(OpCodes.Ldloc_1),
                     new CodeInstruction(OpCodes.Call, AccessTools.DeclaredMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(AAttack_Begin_ItHasAttacked)))
                 )
@@ -122,6 +141,10 @@ internal sealed class HyperFocusManager : IStatusLogicHook
     }
     private static void AAttack_Begin_ItHasAttacked(AAttack aAttack, Ship ship)
     {
+        if (aAttack.fromDroneX.HasValue)
+        {
+            return;
+        }
         if (ship.Get(Elestrals.Instance.HyperFocus.Status) > 0)
         {
             bool attacked;

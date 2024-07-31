@@ -2,7 +2,7 @@
   "character": {
     "Equilynx": {
       "name": "Equilynx",
-      "description": "<c=254d0c>Equilynx</c>\nFrom Elestria, it brings the power of the Earth element with it specializing in <c=boldPink>Midrow that want to be Destroyed</c> and <c=boldPink>instant Midrow movement.</c>"
+      "description": "<c=254d0c>Equilynx</c>\nFrom Elestria, it brings the power of the Earth element with it specializing in <c=boldPink>Midrow that want to be Destroyed</c> and <c=boldPink>Powerful Single Attacks</c>"
     }
   },
   "artifact": {
@@ -12,7 +12,7 @@
     },
     "PoisonTippedArrow": {
       "name": "POISON TIPPED ARROW",
-      "description": "At the start of combat gain 1 <c=status>WEAKEN CHARGE-</c>"
+      "description": "At the start of combat gain 1 <c=status>WEAKEN CHARGE</c>"
     },
     "EmpoweredMunitions": {
       "name": "EMPOWERED MUNITIONS",
@@ -28,7 +28,7 @@
     },
     "Teratlas": {
       "name": "TERATLAS",
-      "description": "At start of turn gain 1 <c=energy>ENERGY</c> if any <c=midrow>object</c> is an <c=midrow>Earth Stone</c> or a <c=midrow>Flower Stone</c>"
+      "description": "At start of turn gain 1 <c=energy>ENERGY</c> if any <c=midrow>object</c> is an <c=midrow>Earth Stone</c> or a <c=midrow>Flower Stone</c>."
     }
   },
   "ship": {
@@ -94,7 +94,7 @@
     "Earthquake": {
       "name": "Earthquake",
       "description": {
-        "B": "Artificial <c=midrow>objects</c> <c=action>attack</c> for {{Damage}}. <c=action>Rupture all</c> <c=midrow>objects</c>."
+        "B": "All <c=midrow>objects</c> <c=action>attack</c> for {{Damage}}. <c=action>Rupture all</c> <c=midrow>objects</c>."
       }
     },
     "EquilynxExe": {
@@ -139,28 +139,28 @@
     "EarthStones": {
       "Mini": {
         "name": "Mini Earth Stone",
-        "description": "When destroyed this attacks for <c=boldPink>1</c> in the same direction."
+        "description": "When destroyed this attacks for 1 in the same direction."
       },
       "Normal": {
         "name": "Earth Stone",
-        "description": "When destroyed this attacks for <c=boldPink>2</c> in the same direction."
+        "description": "When destroyed this attacks for 2 in the same direction."
       },
       "Big": {
         "name": "Big Earth Stone",
-        "description": "When destroyed this attacks for <c=boldPink>3</c> in the same direction."
+        "description": "When destroyed this attacks for 3 in the same direction."
       }
     },
     "FlowerStone": {
       "name": "Flower Stone",
-      "description": "When destroyed you draw <c=boldPink>1</c> card."
+      "description": "When destroyed you draw 1 card."
     },
     "PowerStone": {
       "name": "Power Stone",
-      "description": "When destroyed, its destroyer gains <c=boldPink>1</c> <c=status>OVERDRIVE</c>."
+      "description": "When destroyed, its destroyer gains 1 <c=status>OVERDRIVE</c>."
     },
     "MiniRepairKit": {
       "name": "Mini Repair Kit",
-      "description": "When destroyed you <c=healthBarHeal>heal</c> <c=boldPink>1</c>."
+      "description": "When destroyed you <c=healthBarHeal>heal</c> 1."
     }
   },
   "action": {

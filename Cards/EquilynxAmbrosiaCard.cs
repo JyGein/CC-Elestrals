@@ -19,7 +19,8 @@ internal sealed class EquilynxAmbrosiaCard : Card, IElestralsCard
                 rarity = Rarity.rare,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "Ambrosia", "name"]).Localize
+            Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "Ambrosia", "name"]).Localize,
+            Art = Elestrals.Instance.Helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile("assets/cards/equilynx/Ambrosia.png")).Sprite
         });
     }
     public override CardData GetData(State state)
