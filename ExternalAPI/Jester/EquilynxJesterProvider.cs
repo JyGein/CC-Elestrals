@@ -8,8 +8,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static JyGein.Elestrals.Jester.IJesterApi;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace JyGein.Elestrals.Jester;
 
@@ -22,7 +20,7 @@ internal class EquilynxJesterProvider : IJesterApi.IProvider
         if (!Elestrals.Instance.JesterApi!.HasCardFlag("exhaust", request))
         {
             //midrow
-            ProviderList.Concat(offsets.SelectMany(o => new List<(double, IEntry)>
+            ProviderList.Concat(offsets.SelectMany(o => new List<(double, IJesterApi.IEntry)>
             {
                 (0.5, new EarthStoneEntry
                 {
@@ -63,7 +61,7 @@ internal class EquilynxJesterProvider : IJesterApi.IProvider
         } else
         {
             //midrow
-            ProviderList.Concat(offsets.SelectMany(o => new List<(double, IEntry)>
+            ProviderList.Concat(offsets.SelectMany(o => new List<(double, IJesterApi.IEntry)>
             {
                 (1.0, new MiniRepairKitEntry
                 {
@@ -101,7 +99,7 @@ internal class EquilynxJesterProvider : IJesterApi.IProvider
         {
             if (!Elestrals.Instance.JesterApi!.HasCardFlag("exhaust", request))
             {
-                ProviderList.Concat(offsets.SelectMany(o => new List<(double, IEntry)>
+                ProviderList.Concat(offsets.SelectMany(o => new List<(double, IJesterApi.IEntry)>
                 {
                     (2, new BayRuptureEntry
                     {
@@ -129,7 +127,7 @@ internal class EquilynxJesterProvider : IJesterApi.IProvider
     }
 }
 
-internal class EarthStoneEntry : IEntry
+internal class EarthStoneEntry : IJesterApi.IEntry
 {
     [Required] public int Offset { get; init; }
     [Required] public EarthStone.EarthStoneType Type { get; init; }
@@ -156,9 +154,9 @@ internal class EarthStoneEntry : IEntry
 
     public int GetCost() => (Type == EarthStone.EarthStoneType.Mini ? 6 : Type == EarthStone.EarthStoneType.Normal ? 12 : 20);
 
-    public IEnumerable<(double, IEntry)> GetUpgradeOptions(IJesterRequest request, Upgrade upDir)
+    public IEnumerable<(double, IJesterApi.IEntry)> GetUpgradeOptions(IJesterApi.IJesterRequest request, Upgrade upDir)
     {
-        var options = new List<(double, IEntry)>();
+        var options = new List<(double, IJesterApi.IEntry)>();
         if (Type == EarthStone.EarthStoneType.Mini)
             options.Add((1.0, new EarthStoneEntry
             {
@@ -174,14 +172,14 @@ internal class EarthStoneEntry : IEntry
         return options;
     }
 
-    public void AfterSelection(IJesterRequest request)
+    public void AfterSelection(IJesterApi.IJesterRequest request)
     {
         request.Blacklist.Add("shot");
         request.OccupiedMidrow.Add(Offset);
     }
 }
 
-internal class FlowerStoneEntry : IEntry
+internal class FlowerStoneEntry : IJesterApi.IEntry
 {
     [Required] public int Offset { get; init; }
     [Required] public bool Shielded { get; init; }
@@ -208,9 +206,9 @@ internal class FlowerStoneEntry : IEntry
 
     public int GetCost() => 12 + (Shielded ? 12 : 0);
 
-    public IEnumerable<(double, IEntry)> GetUpgradeOptions(IJesterRequest request, Upgrade upDir)
+    public IEnumerable<(double, IJesterApi.IEntry)> GetUpgradeOptions(IJesterApi.IJesterRequest request, Upgrade upDir)
     {
-        var options = new List<(double, IEntry)>();
+        var options = new List<(double, IJesterApi.IEntry)>();
         if (!Shielded)
             options.Add((1.0, new FlowerStoneEntry
             {
@@ -220,13 +218,13 @@ internal class FlowerStoneEntry : IEntry
         return options;
     }
 
-    public void AfterSelection(IJesterRequest request)
+    public void AfterSelection(IJesterApi.IJesterRequest request)
     {
         request.OccupiedMidrow.Add(Offset);
     }
 }
 
-internal class MiniRepairKitEntry : IEntry
+internal class MiniRepairKitEntry : IJesterApi.IEntry
 {
     [Required] public int Offset { get; init; }
 
@@ -249,19 +247,19 @@ internal class MiniRepairKitEntry : IEntry
 
     public int GetCost() => 30;
 
-    public IEnumerable<(double, IEntry)> GetUpgradeOptions(IJesterRequest request, Upgrade upDir)
+    public IEnumerable<(double, IJesterApi.IEntry)> GetUpgradeOptions(IJesterApi.IJesterRequest request, Upgrade upDir)
     {
         return new List<(double, IJesterApi.IEntry)>();
     }
 
-    public void AfterSelection(IJesterRequest request)
+    public void AfterSelection(IJesterApi.IJesterRequest request)
     {
         request.Blacklist.Add("heal");
         request.OccupiedMidrow.Add(Offset);
     }
 }
 
-internal class PowerStoneEntry : IEntry
+internal class PowerStoneEntry : IJesterApi.IEntry
 {
     [Required] public int Offset { get; init; }
 
@@ -284,12 +282,12 @@ internal class PowerStoneEntry : IEntry
 
     public int GetCost() => 30;
 
-    public IEnumerable<(double, IEntry)> GetUpgradeOptions(IJesterRequest request, Upgrade upDir)
+    public IEnumerable<(double, IJesterApi.IEntry)> GetUpgradeOptions(IJesterApi.IJesterRequest request, Upgrade upDir)
     {
         return new List<(double, IJesterApi.IEntry)>();
     }
 
-    public void AfterSelection(IJesterRequest request)
+    public void AfterSelection(IJesterApi.IJesterRequest request)
     {
         request.OccupiedMidrow.Add(Offset);
     }
@@ -327,7 +325,7 @@ internal class OverdriveNextTurnEntry : IJesterApi.IEntry
 
     public IEnumerable<(double, IJesterApi.IEntry)> GetUpgradeOptions(IJesterApi.IJesterRequest request, Upgrade upDir)
     {
-        return new List<(double, IEntry)>
+        return new List<(double, IJesterApi.IEntry)>
         {
             (1, new OverdriveNextTurnEntry
             {
@@ -369,7 +367,7 @@ internal class EarthStoneDepositEntry : IJesterApi.IEntry
 
     public IEnumerable<(double, IJesterApi.IEntry)> GetUpgradeOptions(IJesterApi.IJesterRequest request, Upgrade upDir)
     {
-        var options = new List<(double, IEntry)>();
+        var options = new List<(double, IJesterApi.IEntry)>();
         if (upDir == Upgrade.B)
             options.Add((1.0, new EarthStoneDepositEntry
             {
@@ -411,7 +409,7 @@ internal class FlowerStoneDepositEntry : IJesterApi.IEntry
 
     public IEnumerable<(double, IJesterApi.IEntry)> GetUpgradeOptions(IJesterApi.IJesterRequest request, Upgrade upDir)
     {
-        var options = new List<(double, IEntry)>();
+        var options = new List<(double, IJesterApi.IEntry)>();
         if (upDir == Upgrade.B)
             options.Add((1.0, new FlowerStoneDepositEntry
             {
@@ -452,7 +450,7 @@ internal class HyperFocusEntry : IJesterApi.IEntry
 
     public IEnumerable<(double, IJesterApi.IEntry)> GetUpgradeOptions(IJesterApi.IJesterRequest request, Upgrade upDir)
     {
-        return new List<(double, IEntry)>();
+        return new List<(double, IJesterApi.IEntry)>();
     }
 }
 
@@ -487,11 +485,11 @@ internal class WeakenChargeEntry : IJesterApi.IEntry
 
     public IEnumerable<(double, IJesterApi.IEntry)> GetUpgradeOptions(IJesterApi.IJesterRequest request, Upgrade upDir)
     {
-        return new List<(double, IEntry)>();
+        return new List<(double, IJesterApi.IEntry)>();
     }
 }
 
-internal class BlossomEntry : IEntry
+internal class BlossomEntry : IJesterApi.IEntry
 {
 
     public IReadOnlySet<string> Tags =>
@@ -508,18 +506,18 @@ internal class BlossomEntry : IEntry
 
     public int GetCost() => 10;
 
-    public IEnumerable<(double, IEntry)> GetUpgradeOptions(IJesterRequest request, Upgrade upDir)
+    public IEnumerable<(double, IJesterApi.IEntry)> GetUpgradeOptions(IJesterApi.IJesterRequest request, Upgrade upDir)
     {
-        return new List<(double, IEntry)>();
+        return new List<(double, IJesterApi.IEntry)>();
     }
 
-    public void AfterSelection(IJesterRequest request)
+    public void AfterSelection(IJesterApi.IJesterRequest request)
     {
         request.Blacklist.Add("blossom");
     }
 }
 
-internal class BayRuptureEntry : IEntry
+internal class BayRuptureEntry : IJesterApi.IEntry
 {
     [Required] public int Offset { get; init; }
     public IReadOnlySet<string> Tags =>
@@ -539,19 +537,19 @@ internal class BayRuptureEntry : IEntry
 
     public int GetCost() => 4;
 
-    public IEnumerable<(double, IEntry)> GetUpgradeOptions(IJesterRequest request, Upgrade upDir)
+    public IEnumerable<(double, IJesterApi.IEntry)> GetUpgradeOptions(IJesterApi.IJesterRequest request, Upgrade upDir)
     {
-        return new List<(double, IEntry)>();
+        return new List<(double, IJesterApi.IEntry)>();
     }
 
-    public void AfterSelection(IJesterRequest request)
+    public void AfterSelection(IJesterApi.IJesterRequest request)
     {
         request.Blacklist.Add("rupture");
         request.OccupiedMidrow.Add(Offset);
     }
 }
 
-internal class CannonRuptureEntry : IEntry
+internal class CannonRuptureEntry : IJesterApi.IEntry
 {
     [Required] public int Offset { get; init; }
     public IReadOnlySet<string> Tags =>
@@ -571,19 +569,19 @@ internal class CannonRuptureEntry : IEntry
 
     public int GetCost() => 4;
 
-    public IEnumerable<(double, IEntry)> GetUpgradeOptions(IJesterRequest request, Upgrade upDir)
+    public IEnumerable<(double, IJesterApi.IEntry)> GetUpgradeOptions(IJesterApi.IJesterRequest request, Upgrade upDir)
     {
-        return new List<(double, IEntry)>();
+        return new List<(double, IJesterApi.IEntry)>();
     }
 
-    public void AfterSelection(IJesterRequest request)
+    public void AfterSelection(IJesterApi.IJesterRequest request)
     {
         request.Blacklist.Add("rupture");
         request.OccupiedMidrow.Add(Offset);
     }
 }
 
-internal class AllRuptureEntry : IEntry
+internal class AllRuptureEntry : IJesterApi.IEntry
 {
     public IReadOnlySet<string> Tags =>
         new HashSet<string>
@@ -599,12 +597,12 @@ internal class AllRuptureEntry : IEntry
 
     public int GetCost() => 10;
 
-    public IEnumerable<(double, IEntry)> GetUpgradeOptions(IJesterRequest request, Upgrade upDir)
+    public IEnumerable<(double,IJesterApi.IEntry)> GetUpgradeOptions(IJesterApi.IJesterRequest request, Upgrade upDir)
     {
-        return new List<(double, IEntry)>();
+        return new List<(double,IJesterApi.IEntry)>();
     }
 
-    public void AfterSelection(IJesterRequest request)
+    public void AfterSelection(IJesterApi.IJesterRequest request)
     {
         request.Blacklist.Add("rupture");
     }

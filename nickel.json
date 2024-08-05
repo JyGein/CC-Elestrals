@@ -1,9 +1,10 @@
 {
   "UniqueName": "JyGein.Elestrals",
-  "Version": "0.4.0",
+  "Version": "0.4.1",
   "Author": "JyGein",
   "RequiredApiVersion": "0.7.0",
   "EntryPointAssembly": "Elestrals.dll",
+  "LoadPhase": "AfterDbInit",
   "Dependencies": [
     {
       "UniqueName": "Shockah.Kokoro",
