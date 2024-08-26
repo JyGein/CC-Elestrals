@@ -414,10 +414,10 @@ namespace JyGein.Elestrals.Actions
         {
             if (DoWeHaveMidrowThough(s))
             {
-                return new Icon(piercing ? Spr.icons_attackPiercing : Spr.icons_attack, damage, Colors.redd);
+                return new Icon(piercing ? StableSpr.icons_attackPiercing : StableSpr.icons_attack, damage, Colors.redd);
             }
 
-            return new Icon(piercing ? Spr.icons_attackPiercingFail : Spr.icons_attackFail, damage, Colors.attackFail);
+            return new Icon(piercing ? StableSpr.icons_attackPiercingFail : StableSpr.icons_attackFail, damage, Colors.attackFail);
         }
     }
 

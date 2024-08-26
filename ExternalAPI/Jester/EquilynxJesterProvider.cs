@@ -368,7 +368,7 @@ internal class EarthStoneDepositEntry : IJesterApi.IEntry
     public IEnumerable<(double, IJesterApi.IEntry)> GetUpgradeOptions(IJesterApi.IJesterRequest request, Upgrade upDir)
     {
         var options = new List<(double, IJesterApi.IEntry)>();
-        if (upDir == Upgrade.B)
+        if (upDir == Upgrade.B && Amount == 1)
             options.Add((1.0, new EarthStoneDepositEntry
             {
                 Amount = 2
@@ -410,7 +410,7 @@ internal class FlowerStoneDepositEntry : IJesterApi.IEntry
     public IEnumerable<(double, IJesterApi.IEntry)> GetUpgradeOptions(IJesterApi.IJesterRequest request, Upgrade upDir)
     {
         var options = new List<(double, IJesterApi.IEntry)>();
-        if (upDir == Upgrade.B)
+        if (upDir == Upgrade.B && Amount == 1)
             options.Add((1.0, new FlowerStoneDepositEntry
             {
                 Amount = 2

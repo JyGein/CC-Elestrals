@@ -12,5 +12,9 @@ namespace JyGein.Elestrals.Actions
         {
             this.ruptureType = RuptureType.Cannon;
         }
+        public override void Begin(G g, State s, Combat c)
+        {
+            base.Begin(g, s, c);
+        }
     }
 }

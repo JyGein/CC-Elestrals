@@ -18,7 +18,7 @@ namespace JyGein.Elestrals.Actions
 
         public override Icon? GetIcon(State s)
         {
-            return new Icon(Spr.icons_exhaust, null, Colors.textMain);
+            return new Icon(StableSpr.icons_exhaust, null, Colors.textMain);
         }
 
         public override List<Tooltip> GetTooltips(State s)

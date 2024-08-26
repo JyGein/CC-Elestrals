@@ -167,7 +167,7 @@ internal sealed class EquilynxNexusSwipeCard : Card, IElestralsCard
                     ILMatches.Ldloc<CardData>(originalMethod),
                     ILMatches.Ldfld("floppable")
                 )
-                .Find(ILMatches.LdcI4((int)Spr.icons_floppable))
+                .Find(ILMatches.LdcI4((int)StableSpr.icons_floppable))
                 .Insert(
                     SequenceMatcherPastBoundsDirection.After, SequenceMatcherInsertionResultingBounds.IncludingInsertion,
                     new CodeInstruction(OpCodes.Ldarg_0),
