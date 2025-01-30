@@ -130,6 +130,7 @@ public sealed class Elestrals : SimpleMod
         _ = new FlowerStoneDepositManager();
         _ = new OverdriveNextTurnManager();
         _ = new WeakenChargeManager();
+        _ = new EquilynxDialogueManager();
         _ = new HyperFocusManager(Harmony);
         CustomTTGlossary.ApplyPatches(Harmony);
         RuptureManager.ApplyPatches(Harmony);
@@ -210,6 +211,8 @@ public sealed class Elestrals : SimpleMod
 
             /* Since this deck will be used by our Demo Character, we'll use their name. */
             Name = AnyLocalizations.Bind(["character", "Equilynx", "name"]).Localize,
+
+            ShineColorOverride = (shineColorOverrideArgs) => shineColorOverrideArgs.DefaultShineColor.gain(0.5)
         });
 
 
@@ -220,11 +223,11 @@ public sealed class Elestrals : SimpleMod
 
         /*Of Note: You may notice we aren't assigning these ICharacterAnimationEntry and ICharacterEntry to any object, unlike stuff above,
         * It's totally fine to assign them if you'd like, but we don't have a reason to so in this mod */
-        helper.Content.Characters.RegisterCharacterAnimation(new CharacterAnimationConfiguration()
+        helper.Content.Characters.V2.RegisterCharacterAnimation(new CharacterAnimationConfigurationV2()
         {
             /* What we registered above was an IDeckEntry object, but when you register a character animation the Helper will ask for you to provide its Deck 'id'
              * This is simple enough, as you can get it from DemoMod_Deck */
-            Deck = Equilynx_Deck.Deck,
+            CharacterType = Equilynx_Deck.UniqueName,
 
             /* The Looptag is the 'name' of the animation. When making shouts and events, and you want your character to show emotions, the LoopTag is what you want
              * In vanilla Cobalt Core, there are 4 'animations' looptags that any character should have: "neutral", "mini", "squint" and "gameover",
@@ -240,9 +243,9 @@ public sealed class Elestrals : SimpleMod
                 Equilynx_Character_Neutral_3.Sprite
             }
         });
-        helper.Content.Characters.RegisterCharacterAnimation(new CharacterAnimationConfiguration()
+        helper.Content.Characters.V2.RegisterCharacterAnimation(new CharacterAnimationConfigurationV2()
         {
-            Deck = Equilynx_Deck.Deck,
+            CharacterType = Equilynx_Deck.UniqueName,
             LoopTag = "mini",
             Frames = new[]
             {
@@ -250,9 +253,9 @@ public sealed class Elestrals : SimpleMod
                 Equilynx_Character_Mini_0.Sprite
             }
         });
-        helper.Content.Characters.RegisterCharacterAnimation(new CharacterAnimationConfiguration()
+        helper.Content.Characters.V2.RegisterCharacterAnimation(new CharacterAnimationConfigurationV2()
         {
-            Deck = Equilynx_Deck.Deck,
+            CharacterType = Equilynx_Deck.UniqueName,
             LoopTag = "squint",
             Frames = new[]
             {
@@ -265,9 +268,9 @@ public sealed class Elestrals : SimpleMod
 
         /* Wait, so if we want 'gameover', why doesn't this demo come with the registration for it?
          * Answer: You should be able to use the knowledge you have earned so far to register your own animations! If you'd like, try making the 'gameover' registration code here. You can use whatever sprite you want */
-        helper.Content.Characters.RegisterCharacterAnimation(new CharacterAnimationConfiguration()
+        helper.Content.Characters.V2.RegisterCharacterAnimation(new CharacterAnimationConfigurationV2()
         {
-            Deck = Equilynx_Deck.Deck,
+            CharacterType = Equilynx_Deck.UniqueName,
             LoopTag = "gameover",
             Frames = new[]
             {
@@ -275,7 +278,7 @@ public sealed class Elestrals : SimpleMod
             }
         });
         /* Let's continue with the character creation and finally, actually, register the character! */
-        helper.Content.Characters.RegisterCharacter("DemoCharacter", new CharacterConfiguration()
+        helper.Content.Characters.V2.RegisterPlayableCharacter("Equilynx", new PlayableCharacterConfigurationV2()
         {
             /* Same as animations, we want to provide the appropiate Deck type */
             Deck = Equilynx_Deck.Deck,

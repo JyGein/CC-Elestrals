@@ -205,5 +205,20 @@
         ]
       }
     }
+  },
+  "dialogue": {
+    "Equilynx": {
+      "meow": "Meow.",
+      "mreow": "Mreow.",
+      "meowTwo": "Meow meow.",
+      "meowThree": "Meow meow meow.",
+      "mreowThree": "Mreow meow meow.",
+      "meowYell": "MEOW!!!",
+      "mreowYell": "MREOW!!!",
+      "meowScream": "MEOWWWWWW!!!",
+      "mreowScream": "MREOWWWWW!!!",
+      "meowSus": "Meow...",
+      "meowRare": "meow"
+    }
   }
 }
