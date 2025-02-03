@@ -1,5 +1,6 @@
 ﻿using FMOD;
 using JyGein.Elestrals.Midrow;
+using Nickel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,12 +36,12 @@ namespace JyGein.Elestrals.Actions
                     stuffBase.hilight = 2;
             }
             List<Tooltip> tooltips = new List<Tooltip>();
-            tooltips.Add(new CustomTTGlossary(
-                CustomTTGlossary.GlossaryType.action,
-                () => Elestrals.Instance.BlossomIcon.Sprite,
-                () => Elestrals.Instance.Localizations.Localize(["action", "Blossom", "name"]),
-                () => Elestrals.Instance.Localizations.Localize(["action", "Blossom", "description"])
-            ));
+            tooltips.Add(new GlossaryTooltip($"{Elestrals.Instance.Package.Manifest.UniqueName}::{GetType()}")
+            {
+                Icon = Elestrals.Instance.BlossomIcon.Sprite,
+                Title = Elestrals.Instance.Localizations.Localize(["action", "Blossom", "name"]),
+                Description = Elestrals.Instance.Localizations.Localize(["action", "Blossom", "description"])
+            });
             tooltips.Concat(new FlowerStone().GetTooltips());
             return tooltips;
         }

@@ -1,6 +1,6 @@
 {
   "UniqueName": "JyGein.Elestrals",
-  "Version": "0.5.0",
+  "Version": "0.5.1",
   "Author": "JyGein",
   "RequiredApiVersion": "2.0.0",
   "EntryPointAssembly": "Elestrals.dll",

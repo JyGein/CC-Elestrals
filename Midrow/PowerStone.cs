@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JyGein.Elestrals;
 using JyGein.Elestrals.Actions;
+using Nickel;
 
 namespace JyGein.Elestrals.Midrow
 {
@@ -21,13 +22,13 @@ namespace JyGein.Elestrals.Midrow
         public override List<Tooltip> GetTooltips()
         {
             List<Tooltip> tooltips = [
-                new CustomTTGlossary(
-                CustomTTGlossary.GlossaryType.midrow,
-                () => GetIcon()!,
-                () => Elestrals.Instance.Localizations.Localize(["midrow", "PowerStone", "name"]),
-                () => Elestrals.Instance.Localizations.Localize(["midrow", "PowerStone", "description"])
-            )
-        ];
+                new GlossaryTooltip($"{Elestrals.Instance.Package.Manifest.UniqueName}::{GetType()}")
+                {
+                    Icon = GetIcon()!,
+                    Title = Elestrals.Instance.Localizations.Localize(["midrow", "PowerStone", "name"]),
+                    Description = Elestrals.Instance.Localizations.Localize(["midrow", "PowerStone", "description"])
+                }
+            ];
             if (this.bubbleShield)
                 tooltips.Add((Tooltip)new TTGlossary("midrow.bubbleShield", Array.Empty<object>()));
             return tooltips;

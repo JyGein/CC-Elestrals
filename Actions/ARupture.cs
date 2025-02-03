@@ -1,4 +1,5 @@
 ﻿using JyGein.Elestrals.Features;
+using Nickel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -143,12 +144,12 @@ namespace JyGein.Elestrals.Actions
                         list.Add(new TTGlossary("action.attackFailWarning.desc"));
                     }
 
-                    list.Add(new CustomTTGlossary(
-                        CustomTTGlossary.GlossaryType.action,
-                        () => offset == 0 ? RuptureManager.RuptureArrowIcon.Sprite : offset < 0 ? RuptureManager.RuptureOffsetLeftArrowIcon.Sprite : RuptureManager.RuptureOffsetRightArrowIcon.Sprite,
-                        () => Elestrals.Instance.Localizations.Localize(["action", "Rupture", "name"]),
-                        () => string.Format(Elestrals.Instance.Localizations.Localize(["action", "Rupture", offset == 0 ? "notOffset" : "offset", "description"]), Math.Abs(offset).ToString(), offset < 0 ? "left" : "right", "cannon")
-                    ));
+                    list.Add(new GlossaryTooltip($"{Elestrals.Instance.Package.Manifest.UniqueName}::{GetType()}")
+                    {
+                        Icon = offset == 0 ? RuptureManager.RuptureArrowIcon.Sprite : offset < 0 ? RuptureManager.RuptureOffsetLeftArrowIcon.Sprite : RuptureManager.RuptureOffsetRightArrowIcon.Sprite,
+                        Title = Elestrals.Instance.Localizations.Localize(["action", "Rupture", "name"]),
+                        Description = string.Format(Elestrals.Instance.Localizations.Localize(["action", "Rupture", offset == 0 ? "notOffset" : "offset", "description"]), Math.Abs(offset).ToString(), offset < 0 ? "left" : "right", "cannon")
+                    });
 
                     break;
                 case RuptureType.Missile:
@@ -168,12 +169,12 @@ namespace JyGein.Elestrals.Actions
 
                         num2++;
                     }
-                    list.Add(new CustomTTGlossary(
-                        CustomTTGlossary.GlossaryType.action,
-                        () => offset == 0 ? RuptureManager.RuptureArrowIcon.Sprite : offset < 0 ? RuptureManager.RuptureOffsetLeftArrowIcon.Sprite : RuptureManager.RuptureOffsetRightArrowIcon.Sprite,
-                        () => Elestrals.Instance.Localizations.Localize(["action", "Rupture", "name"]),
-                        () => string.Format(Elestrals.Instance.Localizations.Localize(["action", "Rupture", offset == 0 ? "notOffset" : "offset", "description"]), Math.Abs(offset).ToString(), offset < 0 ? "left" : "right", "missile bay")
-                    ));
+                    list.Add(new GlossaryTooltip($"{Elestrals.Instance.Package.Manifest.UniqueName}::{GetType()}")
+                    {
+                        Icon = offset == 0 ? RuptureManager.RuptureArrowIcon.Sprite : offset < 0 ? RuptureManager.RuptureOffsetLeftArrowIcon.Sprite : RuptureManager.RuptureOffsetRightArrowIcon.Sprite,
+                        Title = Elestrals.Instance.Localizations.Localize(["action", "Rupture", "name"]),
+                        Description = string.Format(Elestrals.Instance.Localizations.Localize(["action", "Rupture", offset == 0 ? "notOffset" : "offset", "description"]), Math.Abs(offset).ToString(), offset < 0 ? "left" : "right", "missile bay")
+                    });
                     break;
                 default:
                     if (s.route is Combat route)
@@ -183,12 +184,12 @@ namespace JyGein.Elestrals.Actions
                                 stuffBase.hilight = 2;
                             //}
                     }
-                    list.Add(new CustomTTGlossary(
-                        CustomTTGlossary.GlossaryType.action,
-                        () => Elestrals.Instance.RuptureAIcon.Sprite,
-                        () => Elestrals.Instance.Localizations.Localize(["action", "Rupture", "name"]),
-                        () => Elestrals.Instance.Localizations.Localize(["action", "Rupture", "all", "description"])
-                    ));
+                    list.Add(new GlossaryTooltip($"{Elestrals.Instance.Package.Manifest.UniqueName}::{GetType()}")
+                    {
+                        Icon = Elestrals.Instance.RuptureAIcon.Sprite,
+                        Title = Elestrals.Instance.Localizations.Localize(["action", "Rupture", "name"]),
+                        Description = Elestrals.Instance.Localizations.Localize(["action", "Rupture", "all", "description"])
+                    });
                     break;
             }
             return list;
