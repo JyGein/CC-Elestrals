@@ -3,6 +3,7 @@ using JyGein.Elestrals.Midrow;
 using Nickel;
 using System.Collections.Generic;
 using System.Reflection;
+using static JyGein.Elestrals.IEnergyApi;
 
 namespace JyGein.Elestrals.Cards;
 
@@ -22,11 +23,15 @@ internal sealed class EquilynxEarthquakeCard : Card, IElestralsCard
             Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "Earthquake", "name"]).Localize
         });
     }
+    public EquilynxEarthquakeCard()
+    {
+        Elestrals.Instance.EnergyApi.SetModdedEnergyCostBase(this, new Dictionary<Energy, int>() { { Energy.Calm, 1 } });
+    }
     public override CardData GetData(State state)
     {
         CardData data = new CardData()
         {
-            cost = upgrade != Upgrade.B ? 1 : 2,
+            cost = upgrade != Upgrade.B ? 0 : 1,
             exhaust = upgrade != Upgrade.A
         };
         if (upgrade == Upgrade.B)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JyGein.Elestrals;
+namespace JyGein.Elestrals.ExternalAPI;
 
 /// <summary>
 /// Allows accessing all of Kokoro library APIs.

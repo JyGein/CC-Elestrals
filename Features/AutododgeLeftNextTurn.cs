@@ -1,4 +1,6 @@
-﻿namespace JyGein.Elestrals;
+﻿using JyGein.Elestrals.ExternalAPI;
+
+namespace JyGein.Elestrals;
 internal sealed class AutododgeLeftNextTurnManager : IStatusLogicHook
 {
     public static Elestrals Instance => Elestrals.Instance;

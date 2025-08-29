@@ -57,8 +57,8 @@ internal sealed class EquilynxNexusBlastCard : Card, IElestralsCard
         });
         actions.Add(new AStatus()
         {
-            status = Status.tempShield,
-            statusAmount = upgrade == Upgrade.B ? 3 : 1,
+            status = upgrade == Upgrade.B ? Status.shield : Status.tempShield,
+            statusAmount = 1,
             targetPlayer = true
         });
         return actions;

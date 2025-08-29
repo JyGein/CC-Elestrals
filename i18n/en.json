@@ -16,7 +16,7 @@
     },
     "EmpoweredMunitions": {
       "name": "EMPOWERED MUNITIONS",
-      "description": "Before you <c=action>attack</c> <c=action>RUPTURE</c>."
+      "description": "Before you <c=action>attack</c>, <c=action>RUPTURE</c>."
     },
     "PoisonedTunic": {
       "name": "POISONED TUNIC",
@@ -24,16 +24,109 @@
     },
     "ScytheofDemeter": {
       "name": "SCYTHE OF DEMETER",
-      "description": "Gain 1 <c=healthBarShield>SHIELD</c> when you destroy an <c=midrow>object</c>."
+      "description": "Gain 1 <c=status>SHIELD</c> when you destroy an <c=midrow>object</c>."
     },
     "Teratlas": {
       "name": "TERATLAS",
       "description": "At start of turn gain 1 <c=energy>ENERGY</c> if any <c=midrow>object</c> is an <c=midrow>Earth Stone</c> or a <c=midrow>Flower Stone</c>."
+    },
+    "Duos": {
+      "Dyna": {
+        "name": "DETONATION ASSISTANCE",
+        "description": "When you stick a <c=ptrait>charge</c>, launch a <c=midrow>Mini Earth Stone</c>."
+      },
+      "Dizzy": {
+        "name": "EARTH WALL",
+        "description": "When you destroy an <c=midrow>object</c> gain 1 <c=status>MAX SHIELD</c> and 1 <c=status>SHIELD</c>."
+      },
+      "Riggs": {
+        "name": "EARTH THRUSTERS",
+        "description": "The first time you launch an <c=midrow>Earth Stone</c> each turn draw a card and gain 1 <c=status>EVADE</c>."
+      },
+      "Peri": {
+        "name": "DEMETER'S PENDANT",
+        "description": "At the start of combat gain 2 <c=status>POWERDRIVE</c>. At the start of every turn gain -1 <c=status>OVERDRIVE</c>."
+      },
+      "Isaac": {
+        "name": "DRONE PROTECTOR",
+        "description": "Before you launch an <c=midrow>Earth Stone</c>, <c=midrow>Flower Stone</c>, <c=midrow>Power Stone</c>, or <c=midrow>Repair Kit</c>, bubble the object in front of your missile bay if it is not an <c=midrow>Earth Stone</c>, <c=midrow>Power Stone</c>, or <c=midrow>Repair Kit</c>."
+      },
+      "Drake": {
+        "name": "HEAT-ABSORBING STONES",
+        "description": "The second time you launch an <c=midrow>object</c> each turn lose 2 <c=status>HEAT</c>."
+      },
+      "Max": {
+        "name": "TCG RULEBOOK",
+        "description": "All cards get <c=cardtrait>retain</c>. At the start of your turn you only draw 1 card, if you have less than 5 cards in hand draw till you have 5 cards instead."
+      },
+      "Books": {
+        "name": "SPIRIT CRYSTALIZATION",
+        "description": "When you launch an <c=object>Earth Stone</c> gain 1 <c=status>SHARD</c>."
+      },
+      "CAT": {
+        "name": "CASTING.EXE",
+        "description": "Gain an <c=card>Equilynx.EXE</c>. When you play a <c=cardtrait>temp</c> <c=254d0c>Equilynx</c> card, discount it."
+      },
+      "Angder": {
+        "name": "EMPOWERED RAMPAGE",
+        "description": "While <c=3A4999>Angder</c> is missing, when the midrow shifts the enemy takes 1 hull damage."
+      },
+      "D26": {
+        "name": "LEAKING STONES",
+        "description": "Add a <c=cardtrait>temp</c>, <c=card>Nexus Blast</c> that <c=cardtrait>exhausts</c> to your hand at the start of every other turn."
+      },
+      "Grunan": {
+        "name": "RECKLESS CASTING",
+        "description": "<c=card>Fireball</c> also gives you -1 <c=status>OVERDRIVE</c>, Add a discounted <c=card>Fireball</c> to your hand at the start of combat."
+      },
+      "Kobrette": {
+        "name": "SIEGE STONES",
+        "description": "Gain 4 <c=status>EARTH STONE DEPOSIT</c> at the start of combat. At the start of your turn gain 1 <c=status>ENGINE LOCK</c>."
+      },
+      "Randall": {
+        "name": "NEXUS MODIFICATION",
+        "description": "At the start of combat <c=cardtrait>synergize</c> your <c=card>Nexus</c> cards. When you play a <c=card>Nexus</c> card <c=cardtrait>synergize</c> it."
+      },
+      "Dave": {
+        "name": "GREEN-TINTED GLASSES",
+        "description": "Negative <c=status>OVERDRIVE</c> increases your damage instead."
+      },
+      "Ruhig": {
+        "name": "DRAGON OFFERINGS",
+        "description": "At the start of combat add a <c=cardtrait>temp</c> <c=card>Ambrosia B</c> to your hand."
+      },
+      "Jack": {
+        "name": "INSTANT MISSILES",
+        "description": "Add an <c=card>Instant Missile</c> to your deck."
+      },
+      "Cleo": {
+        "name": "TOP-OF-THE-LINE CANNONS",
+        "description": "When you lose <c=status>overdrive</c> during your turn lose 1 less."
+      },
+      "Jester": {
+        "name": "FIREWORKS",
+        "description": "If a <c=action>Rupture</c> misses, gain 1 <c=status>Energy Fragment</c>."
+      },
+      "Destiny": {
+        "name": "COMPLICATED EXPLOSIVES",
+        "description": "<c=cardtrait>Explosive</c> <c=action>attacks</c> deal 4 more damage if you have <c=status>Hyper Focus. Add a <c=card>Steady Focus</c> to your deck."
+      },
+      "Bucket": {
+        "name": "METICULOUS AIM",
+        "description": "At the end of your turn, if you only shot once during your turn, gain 2 <c=status>redraw</c>. If it was a 9+ damage shot gain 10 instead."
+      }
     }
   },
   "ship": {
   },
   "card": {
+    "Nexus": "Nexus",
+    "InstantMissile": {
+      "name": "Instant Missile"
+    },
+    "SteadyFocus": {
+      "name": "Steady Focus"
+    },
     "EarthStone": {
       "name": "Earth Stone"
     },
@@ -139,20 +232,20 @@
     "EarthStones": {
       "Mini": {
         "name": "Mini Earth Stone",
-        "description": "When destroyed this attacks for 1 in the same direction."
+        "description": "When destroyed, this attacks for 1 in the same direction."
       },
       "Normal": {
         "name": "Earth Stone",
-        "description": "When destroyed this attacks for 2 in the same direction."
+        "description": "When destroyed, this attacks for 2 in the same direction."
       },
       "Big": {
         "name": "Big Earth Stone",
-        "description": "When destroyed this attacks for 3 in the same direction."
+        "description": "When destroyed, this attacks for 3 in the same direction."
       }
     },
     "FlowerStone": {
       "name": "Flower Stone",
-      "description": "When destroyed you draw 1 card."
+      "description": "When destroyed, you draw 1 card."
     },
     "PowerStone": {
       "name": "Power Stone",
@@ -160,7 +253,7 @@
     },
     "MiniRepairKit": {
       "name": "Mini Repair Kit",
-      "description": "When destroyed you <c=healthBarHeal>heal</c> 1."
+      "description": "When destroyed, you <c=healthBarHeal>heal</c> 1."
     }
   },
   "action": {
@@ -173,7 +266,7 @@
         "description": "Destroy an <c=midrow>object</c> in front of your {2}."
       },
       "all": {
-        "description": "Destroy all artificial <c=midrow>objects</c>."
+        "description": "Destroy all <c=midrow>objects</c>."
       }
     },
     "VariableHintExhaust": {

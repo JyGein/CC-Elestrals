@@ -1,14 +1,18 @@
 {
   "UniqueName": "JyGein.Elestrals",
-  "Version": "0.5.1",
+  "Version": "1.0.0",
   "Author": "JyGein",
   "RequiredApiVersion": "2.0.0",
-  "EntryPointAssembly": "Elestrals.dll",
+  "EntryPointAssembly": "Equilynx.dll",
   "LoadPhase": "AfterDbInit",
   "Dependencies": [
     {
       "UniqueName": "Shockah.Kokoro",
       "Version": "1.11.2"
+    },
+    {
+      "UniqueName": "JyGein.Energy",
+      "Version": "1.0.0"
     },
     {
       "UniqueName": "TheJazMaster.MoreDifficulties",
@@ -18,6 +22,11 @@
     {
       "UniqueName": "rft.Jester",
       "Version": "0.6.0",
+      "IsRequired": false
+    },
+    {
+      "UniqueName": "Angder.EchoesOfTheFuture",
+      "Version": "0.15.0",
       "IsRequired": false
     }
   ],

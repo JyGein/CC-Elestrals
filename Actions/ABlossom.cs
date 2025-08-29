@@ -39,6 +39,7 @@ namespace JyGein.Elestrals.Actions
             tooltips.Add(new GlossaryTooltip($"{Elestrals.Instance.Package.Manifest.UniqueName}::{GetType()}")
             {
                 Icon = Elestrals.Instance.BlossomIcon.Sprite,
+                TitleColor = Colors.action,
                 Title = Elestrals.Instance.Localizations.Localize(["action", "Blossom", "name"]),
                 Description = Elestrals.Instance.Localizations.Localize(["action", "Blossom", "description"])
             });

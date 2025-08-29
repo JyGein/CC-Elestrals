@@ -27,7 +27,7 @@ internal sealed class EquilynxTheBiggertheBetterCard : Card, IElestralsCard
     {
         CardData data = new CardData()
         {
-            cost = upgrade == Upgrade.B ? 2 : 1,
+            cost = upgrade == Upgrade.B ? 3 : 2,
             exhaust = upgrade == Upgrade.B,
             retain = upgrade == Upgrade.B/*,
             description = Elestrals.Instance.Localizations.Localize(["card", "TheBiggertheBetter`", "description", upgrade.ToString()])*/
@@ -51,15 +51,16 @@ internal sealed class EquilynxTheBiggertheBetterCard : Card, IElestralsCard
     public override List<CardAction> GetActions(State s, Combat c)
     {
         List<CardAction> actions = new();
-        var amt = GetX(s, c);
+        int amt = GetX(s, c);
+
         actions.Add(new AVariableHintObjects
         {
             setAmount = amt
         });
         actions.Add(new AAttack()
         {
-            damage = GetDmg(s, amt * (upgrade == Upgrade.B ? 2 : 1)),
-            xHint = upgrade == Upgrade.B ? 2 : 1
+            damage = GetDmg(s, amt * (upgrade == Upgrade.B ? 6 : 3)),
+            xHint = upgrade == Upgrade.B ? 6 : 3
         });
         if (upgrade != Upgrade.A)
         {

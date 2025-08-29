@@ -65,6 +65,7 @@ namespace JyGein.Elestrals.Midrow
                 new GlossaryTooltip($"{Elestrals.Instance.Package.Manifest.UniqueName}::{GetType()}")
                 {
                     Icon = GetIcon()!,
+                    TitleColor = Colors.midrow,
                     Title = Elestrals.Instance.Localizations.Localize(["midrow", "EarthStones", StoneType.ToString(), "name"]),
                     Description = Elestrals.Instance.Localizations.Localize(["midrow", "EarthStones", StoneType.ToString(), "description"])
                 }

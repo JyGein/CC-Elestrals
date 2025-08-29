@@ -26,12 +26,13 @@ namespace JyGein.Elestrals.Midrow
                 new GlossaryTooltip($"{Elestrals.Instance.Package.Manifest.UniqueName}::{GetType()}")
                 {
                     Icon = GetIcon()!,
+                    TitleColor = Colors.midrow,
                     Title = Elestrals.Instance.Localizations.Localize(["midrow", "MiniRepairKit", "name"]),
                     Description = Elestrals.Instance.Localizations.Localize(["midrow", "MiniRepairKit", "description"])
                 }
             ];
             if (this.bubbleShield)
-                tooltips.Add((Tooltip)new TTGlossary("midrow.bubbleShield", Array.Empty<object>()));
+                tooltips.Add((Tooltip)new TTGlossary("midrow.bubbleShield", []));
             return tooltips;
         }
 

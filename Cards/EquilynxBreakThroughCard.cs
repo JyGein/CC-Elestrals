@@ -26,7 +26,7 @@ internal sealed class EquilynxBreakThroughCard : Card, IElestralsCard
     {
         CardData data = new CardData()
         {
-            cost = upgrade != Upgrade.B ? 2 : 1
+            cost = upgrade != Upgrade.B ? 1 : 2
         };
         return data;
     }
@@ -38,8 +38,15 @@ internal sealed class EquilynxBreakThroughCard : Card, IElestralsCard
 
         actions.Add(new AAttack()
         {
-            damage = upgrade == Upgrade.B ? GetDmg(s, 2) : GetDmg(s, 4),
+            damage = upgrade == Upgrade.B ? GetDmg(s, 5) : GetDmg(s, 2),
             piercing = upgrade == Upgrade.A
+        });
+
+        if (upgrade == Upgrade.B) actions.Add(new AStatus()
+        {
+            status = Status.overdrive,
+            statusAmount = -1,
+            targetPlayer = true
         });
         return actions;
     }

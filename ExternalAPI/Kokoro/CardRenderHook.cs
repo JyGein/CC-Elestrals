@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-namespace JyGein.Elestrals;
+namespace JyGein.Elestrals.ExternalAPI;
 
 public partial interface IKokoroApi
 {

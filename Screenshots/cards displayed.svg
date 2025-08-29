@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="297mm"
-   height="210mm"
-   viewBox="0 0 297 210"
+   width="749.32098mm"
+   height="475.46109mm"
+   viewBox="0 0 749.32099 475.46109"
    version="1.1"
    id="svg1"
    xml:space="preserve"
@@ -27,16 +27,23 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#505050"
      inkscape:document-units="mm"
-     inkscape:zoom="0.35355339"
-     inkscape:cx="855.59921"
-     inkscape:cy="934.79517"
+     inkscape:zoom="0.25"
+     inkscape:cx="1352"
+     inkscape:cy="998"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g19"
-     showgrid="false" /><defs
+     inkscape:current-layer="layer1"
+     showgrid="false"><inkscape:page
+       x="0"
+       y="0"
+       width="749.32098"
+       height="475.46109"
+       id="page1"
+       margin="0 0 0 0"
+       bleed="0" /></sodipodi:namedview><defs
      id="defs1"><clipPath
        clipPathUnits="userSpaceOnUse"
        id="clipPath5"><rect
@@ -80,7 +87,8 @@
          y="203.03618" /></clipPath></defs><g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1"><rect
+     id="layer1"
+     transform="translate(111.48333)"><rect
        style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.722486"
        id="rect2"
        width="749.32098"
@@ -95,12 +103,12 @@
          sodipodi:role="line"
          id="tspan1-7-5"
          style="font-size:10.5833px;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.494405"
-         x="510.44394"
-         y="140.85605">Gray/Blank cards are placeholders</tspan><tspan
+         x="0"
+         y="0">Gray/Blank cards are placeholders</tspan><tspan
          sodipodi:role="line"
          style="font-size:10.5833px;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.494405"
-         x="510.44394"
-         y="154.08517"
+         x="0"
+         y="0"
          id="tspan17">for more cards of that rarity</tspan></text><path
        id="rect3"
        style="fill:#000000;fill-opacity:1;stroke:#27528f;stroke-opacity:1"
@@ -121,7 +129,7 @@
        id="text1"><tspan
          sodipodi:role="line"
          id="tspan1"
-         style="stroke-width:0.494405;stroke:none"
+         style="stroke:none;stroke-width:0.494405"
          x="-29.136654"
          y="20.969423">Starter Cards</tspan></text><text
        xml:space="preserve"
@@ -131,12 +139,12 @@
        id="text1-2"><tspan
          sodipodi:role="line"
          id="tspan1-7"
-         style="stroke-width:0.494405;stroke:none"
+         style="stroke:none;stroke-width:0.494405"
          x="105.74931"
          y="20.969423">Alts</tspan></text><g
        id="g17"
        inkscape:label="None"
-       style="display:none"><image
+       style="display:inline"><image
          width="62.441666"
          height="86.783333"
          preserveAspectRatio="none"

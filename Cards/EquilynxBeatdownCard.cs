@@ -46,6 +46,12 @@ internal sealed class EquilynxBeatdownCard : Card, IElestralsCard
             statusAmount = -1,
             targetPlayer = true
         });
+        actions.Add(new AStatus()
+        {
+            status = Elestrals.Instance.KokoroApiV2.DriveStatus.Pulsedrive,
+            statusAmount = -1,
+            targetPlayer = true
+        });
         return actions;
     }
 }

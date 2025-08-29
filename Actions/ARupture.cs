@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static JyGein.Elestrals.IEquilynxApi;
 
 namespace JyGein.Elestrals.Actions
 {
-    internal abstract class ARupture : CardAction
+    internal abstract class ARupture : CardAction, IARupture
     {
         public enum RuptureType
         {
@@ -16,15 +17,17 @@ namespace JyGein.Elestrals.Actions
             Missile,
             All
         }
-        public RuptureType ruptureType;
+        public RuptureType ruptureType { get; set; }
 
-        public int? fromX;
+        public int? fromX { get; set; }
 
-        public int offset;
+        public int offset { get; set; }
 
-        public bool multiBayVolley;
+        public bool multiBayVolley { get; set; }
 
-        public bool fromPlayer = true;
+        public bool fromPlayer { get; set; } = true;
+
+        public CardAction AsCardAction => this;
 
         public int GetWorldX(State s, Combat c)
         {
@@ -53,6 +56,10 @@ namespace JyGein.Elestrals.Actions
                     {
                         c.DestroyDroneAt(s, stuff.x, fromPlayer);
                     }
+                }
+                foreach (Artifact a in s.EnumerateAllArtifacts())
+                {
+                    if (a is IRuptureHook hook) hook.OnRupture(s, c);
                 }
                 return;
             }
@@ -84,6 +91,10 @@ namespace JyGein.Elestrals.Actions
             StuffBase? existingThing;
             if (c.stuff.TryGetValue(num1, out existingThing))
             {
+                foreach (Artifact a in s.EnumerateAllArtifacts())
+                {
+                    if (a is IRuptureHook hook) hook.OnRuptureHit(s, c, existingThing);
+                }
                 if (existingThing.Invincible())
                 {
                     c.QueueImmediate(existingThing.GetActionsOnBonkedWhileInvincible(s2, c, fromPlayer, new StuffBase()));
@@ -99,11 +110,19 @@ namespace JyGein.Elestrals.Actions
                 }
             } else
             {
+                foreach (Artifact a in s.EnumerateAllArtifacts())
+                {
+                    if (a is IRuptureHook hook) hook.OnRuptureMiss(s, c);
+                }
                 s.AddShake(0.5);
                 c.fx.Add((FX)new AsteroidExplosion()
                 {
                     pos = (new Vec((double)(num1 * 16), 60.0) + new Vec(7.5, 4.0))
                 });
+            }
+            foreach (Artifact a in s.EnumerateAllArtifacts())
+            {
+                if (a is IRuptureHook hook) hook.OnRupture(s, c);
             }
         }
 
@@ -147,6 +166,7 @@ namespace JyGein.Elestrals.Actions
                     list.Add(new GlossaryTooltip($"{Elestrals.Instance.Package.Manifest.UniqueName}::{GetType()}")
                     {
                         Icon = offset == 0 ? RuptureManager.RuptureArrowIcon.Sprite : offset < 0 ? RuptureManager.RuptureOffsetLeftArrowIcon.Sprite : RuptureManager.RuptureOffsetRightArrowIcon.Sprite,
+                        TitleColor = Colors.action,
                         Title = Elestrals.Instance.Localizations.Localize(["action", "Rupture", "name"]),
                         Description = string.Format(Elestrals.Instance.Localizations.Localize(["action", "Rupture", offset == 0 ? "notOffset" : "offset", "description"]), Math.Abs(offset).ToString(), offset < 0 ? "left" : "right", "cannon")
                     });
@@ -172,6 +192,7 @@ namespace JyGein.Elestrals.Actions
                     list.Add(new GlossaryTooltip($"{Elestrals.Instance.Package.Manifest.UniqueName}::{GetType()}")
                     {
                         Icon = offset == 0 ? RuptureManager.RuptureArrowIcon.Sprite : offset < 0 ? RuptureManager.RuptureOffsetLeftArrowIcon.Sprite : RuptureManager.RuptureOffsetRightArrowIcon.Sprite,
+                        TitleColor = Colors.action,
                         Title = Elestrals.Instance.Localizations.Localize(["action", "Rupture", "name"]),
                         Description = string.Format(Elestrals.Instance.Localizations.Localize(["action", "Rupture", offset == 0 ? "notOffset" : "offset", "description"]), Math.Abs(offset).ToString(), offset < 0 ? "left" : "right", "missile bay")
                     });
@@ -187,6 +208,7 @@ namespace JyGein.Elestrals.Actions
                     list.Add(new GlossaryTooltip($"{Elestrals.Instance.Package.Manifest.UniqueName}::{GetType()}")
                     {
                         Icon = Elestrals.Instance.RuptureAIcon.Sprite,
+                        TitleColor = Colors.action,
                         Title = Elestrals.Instance.Localizations.Localize(["action", "Rupture", "name"]),
                         Description = Elestrals.Instance.Localizations.Localize(["action", "Rupture", "all", "description"])
                     });

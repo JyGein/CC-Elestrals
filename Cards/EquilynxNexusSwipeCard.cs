@@ -13,10 +13,11 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using Microsoft.Extensions.Logging;
+using static JyGein.Elestrals.IEnergyApi;
 
 namespace JyGein.Elestrals.Cards;
 
-internal sealed class EquilynxNexusSwipeCard : Card, IElestralsCard
+internal sealed class EquilynxNexusSwipeCard : Card, IElestralsCard, ISetModdedEnergyCostBaseHook
 {
     private static List<ISpriteEntry> QuadArt = null!;
     private static List<ISpriteEntry> BQuadArt = null!;
@@ -73,7 +74,7 @@ internal sealed class EquilynxNexusSwipeCard : Card, IElestralsCard
                 rarity = Rarity.common,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Art = helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile("assets/Cards/NexusSwipeQuad.png")).Sprite,
+            Art = helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile("assets/cards/equilynx/NexusSwipeQuad0.png")).Sprite,
             Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "NexusSwipe", "name"]).Localize
         });
 
@@ -87,11 +88,24 @@ internal sealed class EquilynxNexusSwipeCard : Card, IElestralsCard
         );
     }
 
+    public EquilynxNexusSwipeCard()
+    {
+        Elestrals.Instance.EnergyApi.SetModdedEnergyCostBaseHook(this, this);
+    }
+
+    public IDictionary<Energy, int> GetModdedEnergyCostBase(State s)
+    {
+        return new Dictionary<Energy, int>()
+        {
+            { Energy.Calm, upgrade == Upgrade.A ? 0 : 1 }
+        };
+    }
+
     public override CardData GetData(State state)
         => new()
         {
             art = upgrade == Upgrade.B ? BQuadArt[FlipIndex % 4].Sprite : QuadArt[FlipIndex % 4].Sprite,
-            cost = upgrade != Upgrade.A ? 1 : 0,
+            cost = 0,
             floppable = true
         };
 

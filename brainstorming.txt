@@ -165,6 +165,185 @@ EXTRA
 
 --	Gotta make an Equilynx.EXE card
 
+DUOS
+
+Dizzy
+--	Earthen Wall
+	When you destroy a midrow object gain 1 max shield and 1 shield.
+
+Riggs
+--	Earth Thrusters
+	The first time you launch an earth stone each turn draw 1 card and gain 1 evade.
+
+Peri
+--	Demeter's Power
+	At the start of combat gain 2 powerdrive. At the start of every turn gain -1 overdrive.
+
+Books
+--	Spirit Crystalization
+	When you launch an earth stone gain 1 shard.
+
+Isaac
+--	Drone Protector
+	Before you launch an Earth stone, flower stone, power stone, or repair kit, bubble the object in front of your missile bay if it is not a earth stone, power stone, or repair kit.
+
+Drake
+--	Heat-Absorbing Stones
+	The second time you launch an object each turn lose 2 heat.
+
+Max
+--	
+
+
+Angder
+--  Nexus Support
+	While Angder is missing, when the midrow shifts the enemy takes 1 hull damage.
+
+D26
+--	
+	Add a Nexus Blast that exhausts to your hand at the start of every other turn.
+
+Grunan
+--	Reckless Casting
+	Fireball also gives you -1 overdrive. Add a discounted fireball to your hand at the start of your turn.
+
+Kobrette
+--	Siege Stones
+	Gain 4 Earth Stone Deposit. At the start of your turn gain 1 engine lock.
+
+Randall
+--	
+	When you synergize a Nexus card, gain 1 energy.
+
+Philip
+--	
+
+Dave
+--	
+	Negative overdrive increases your damage instead.
+
+Cleo
+--	
+
+Ruhig
+--	Dragon Offerings
+	At the start of combat add a temp Ambrosia B to your hand.
+
+Jack
+--	Instant Missile
+	Add an Instant Missile to your deck
+	--	Instant Missile
+		0, Launch Blank Missile; Rupture M
+		A: 0; Outgoing lock-on; Launch Blank Missile; Rupture M
+		B: 0, Exhaust; Launch Blank Missile left 1, normal, right 1; Rupture A;
+
+Nola
+--	
+	When you play 5 0-cost cards in a turn, Gain a weaken charge.
+
+Isabelle
+--	Variety Power
+	If you launched, attacked, moved, and ruptured in a turn gain 1 overdrive next turn.
+
+Ilya
+--	
+
+Jost
+--	
+
+Gauss
+--	Destruction Plans
+	At the start of combat gain 1 autocurrent.
+
+Sorrel
+--	A Drop of Wine
+	At the start of your turn gain 1 Bullet time if you have none and force enemy attack.
+
+Jester
+--	
+
+Marielle
+--
+
+Bjorn
+--
+
+Bloch
+--
+
+Destiny
+--
+
+Dracula
+--
+
+Dyna
+--	Detonation Assistance
+	When you launch a charge, launch a mini earth stone.
+
+Johnson
+--
+
+Natasha
+--
+
+Soggins
+--
+
+Wade
+--
+
+Sierra
+--
+
+Tera
+--
+
+Bucket
+--
+
+Eddie
+--
+
+Install
+--	
+	Choose a card, at the start of each combat prefix it with (??)
+
+Louis
+--	
+	Nexus cards gain gem. When you play a precious gem launch a flower stone.
+
+Nibbs
+--
+
+Peaches
+--
+
+Pilot
+--
+
+Ty & Sasha
+--	Lynx Food
+	All cards that rupture become wild.
+
+Tucker
+--	Earthen Cannons
+	Blunt attacks deal 2 more damage and give you -1 overdrive.
+
+Illeana
+--
+
+Weth
+--
+
+Scarlet
+--	Smoke Ruptures
+	When a Rupture destroys an object gain 1 Fade.
+
+Cat
+--	
+	
+
 FORMATS:
 
 -	Card Name

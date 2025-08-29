@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Reflection;
+using JyGein.Elestrals.ExternalAPI;
 
 namespace JyGein.Elestrals;
 internal sealed class HyperFocusManager : IStatusLogicHook

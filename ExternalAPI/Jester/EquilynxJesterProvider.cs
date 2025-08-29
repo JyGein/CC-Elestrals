@@ -5,6 +5,7 @@ using Nickel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,33 +17,33 @@ internal class EquilynxJesterProvider : IJesterApi.IProvider
     public IEnumerable<(double, IJesterApi.IEntry)> GetEntries(IJesterApi.IJesterRequest request)
     {
         List<(double, IJesterApi.IEntry)> ProviderList = new List<(double, IJesterApi.IEntry)>();
-        var offsets = Elestrals.Instance.JesterApi!.GetJesterUtil().GetDeployOptions(request.OccupiedMidrow);
+        List<int> offsets = [.. Elestrals.Instance.JesterApi!.GetJesterUtil().GetDeployOptions(request.OccupiedMidrow)];
         if (!Elestrals.Instance.JesterApi!.HasCardFlag("exhaust", request))
         {
             //midrow
-            ProviderList.Concat(offsets.SelectMany(o => new List<(double, IJesterApi.IEntry)>
+            ProviderList.AddRange(offsets.SelectMany(o => new List<(double, IJesterApi.IEntry)>
             {
-                (0.5, new EarthStoneEntry
+                (0.25, new EarthStoneEntry
                 {
                     Offset = o,
                     Type = EarthStone.EarthStoneType.Normal
                 }),
-                (0.25, new EarthStoneEntry
+                (0.125, new EarthStoneEntry
                 {
                     Offset = o,
                     Type = EarthStone.EarthStoneType.Mini
                 }),
-                (0.25, new EarthStoneEntry
+                (0.125, new EarthStoneEntry
                 {
                     Offset = o,
                     Type = EarthStone.EarthStoneType.Big
                 }),
-                (1.0, new FlowerStoneEntry
+                (0.5, new FlowerStoneEntry
                 {
                     Offset = o,
                     Shielded = false
                 }),
-                (1.0, new PowerStoneEntry
+                (0.5, new PowerStoneEntry
                 {
                     Offset = o
                 })
@@ -61,7 +62,7 @@ internal class EquilynxJesterProvider : IJesterApi.IProvider
         } else
         {
             //midrow
-            ProviderList.Concat(offsets.SelectMany(o => new List<(double, IJesterApi.IEntry)>
+            ProviderList.AddRange(offsets.SelectMany(o => new List<(double, IJesterApi.IEntry)>
             {
                 (1.0, new MiniRepairKitEntry
                 {
@@ -88,7 +89,7 @@ internal class EquilynxJesterProvider : IJesterApi.IProvider
                 })
             );
             ProviderList.Add(
-                (0.25, new WeakenChargeEntry())
+                (5, new WeakenChargeEntry())
             );
             //action
             ProviderList.Add(
@@ -99,7 +100,7 @@ internal class EquilynxJesterProvider : IJesterApi.IProvider
         {
             if (!Elestrals.Instance.JesterApi!.HasCardFlag("exhaust", request))
             {
-                ProviderList.Concat(offsets.SelectMany(o => new List<(double, IJesterApi.IEntry)>
+                ProviderList.AddRange(offsets.SelectMany(o => new List<(double, IJesterApi.IEntry)>
                 {
                     (2, new BayRuptureEntry
                     {
@@ -113,7 +114,7 @@ internal class EquilynxJesterProvider : IJesterApi.IProvider
             } else
             {
                 ProviderList.Add(
-                    (0.4, new AllRuptureEntry())
+                    (0.5, new AllRuptureEntry())
                 );
             }
         }
@@ -556,7 +557,8 @@ internal class CannonRuptureEntry : IJesterApi.IEntry
         new HashSet<string>
         {
                 "rupture",
-                "offensive"
+                "offensive",
+                "utility"
         };
 
     public IEnumerable<CardAction> GetActions(State s, Combat c) => new List<CardAction>

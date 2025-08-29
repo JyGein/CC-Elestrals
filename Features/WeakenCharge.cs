@@ -1,14 +1,15 @@
 ﻿using HarmonyLib;
+using JyGein.Elestrals.ExternalAPI;
 using JyGein.Elestrals.Midrow;
 using Microsoft.Extensions.Logging;
-using Nanoray.Shrike.Harmony;
 using Nanoray.Shrike;
+using Nanoray.Shrike.Harmony;
 using Nickel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
 using System.Reflection;
+using System.Reflection.Emit;
 
 namespace JyGein.Elestrals;
 internal sealed class WeakenChargeManager : IStatusLogicHook, IStatusRenderHook
@@ -114,7 +115,7 @@ internal sealed class WeakenChargeManager : IStatusLogicHook, IStatusRenderHook
         for (int i = 0; i < actions.Count; i++)
         {
             CardAction cardAction = actions[i];
-            if (cardAction is AAttack aAttack && num > 0 && !aAttack.weaken && !aAttack.brittle && !aAttack.armorize)
+            if (cardAction is AAttack aAttack && num > 0 && !aAttack.weaken && !aAttack.brittle && !aAttack.armorize && !aAttack.disabled)
             {
                 aAttack.weaken = true;
                 num--;

@@ -32,12 +32,14 @@ internal sealed class EquilynxTeratlasArtifact : Artifact, IElestralsArtifact
         {
             if (stuff is FlowerStone || stuff is EarthStone)
             {
+                Pulse();
                 combat.QueueImmediate(new AEnergy() { changeAmount = 1});
                 return;
             }
         }
         if (state.ship.Get(Elestrals.Instance.EarthStoneDeposit.Status) > 0 || state.ship.Get(Elestrals.Instance.FlowerStoneDeposit.Status) > 0)
         {
+            Pulse();
             combat.QueueImmediate(new AEnergy() { changeAmount = 1 });
             return;
         }

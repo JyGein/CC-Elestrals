@@ -1,4 +1,5 @@
-﻿namespace JyGein.Elestrals;
+﻿
+namespace JyGein.Elestrals.ExternalAPI;
 public partial interface IKokoroApi
 {
     void RegisterStatusLogicHook(IStatusLogicHook hook, double priority);

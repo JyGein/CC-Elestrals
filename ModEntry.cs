@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using JyGein.Elestrals.Actions;
 using JyGein.Elestrals.Artifacts;
+using JyGein.Elestrals.Artifacts.Duos;
 using JyGein.Elestrals.Cards;
 using JyGein.Elestrals.Cards.Special;
 using JyGein.Elestrals.Features;
@@ -12,6 +13,7 @@ using Nickel.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JyGein.Elestrals.ExternalAPI;
 
 namespace JyGein.Elestrals;
 
@@ -19,7 +21,11 @@ public sealed class Elestrals : SimpleMod
 {
     internal static Elestrals Instance { get; private set; } = null!;
     internal Harmony Harmony { get; }
+    internal DuoApis DuoApis { get; }
+    public ApiImplementation ApiImplementation { get; }
     internal IKokoroApi KokoroApi { get; }
+    internal IKokoroApi.IV2 KokoroApiV2 { get; }
+    internal IEnergyApi EnergyApi { get; }
     internal IJesterApi? JesterApi { get; }
     internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
     internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
@@ -61,6 +67,8 @@ public sealed class Elestrals : SimpleMod
     internal ISpriteEntry RuptureCIcon { get; }
     internal ISpriteEntry RuptureMIcon { get; }
     internal ISpriteEntry BlossomIcon { get; }
+    internal ISpriteEntry DefaultDuoArtifactSprite { get; }
+    internal ISpriteEntry DefaultInactiveDuoArtifactSprite { get; }
 
     internal static IReadOnlyList<Type> Equilynx_CommonCard_Types { get; } = [
         typeof(EquilynxEarthStoneCard),
@@ -111,9 +119,33 @@ public sealed class Elestrals : SimpleMod
         typeof(EquilynxScytheofDemeterArtifact),
         typeof(EquilynxTeratlasArtifact)
     ];
+    internal static IReadOnlyList<Type> Equilynx_DuoArtifact_Types { get; } = [
+        typeof(EquilynxDynaArtifact),
+        typeof(EquilynxDizzyArtifact),
+        typeof(EquilynxRiggsArtifact),
+        typeof(EquilynxPeriArtifact),
+        typeof(EquilynxIsaacArtifact),
+        typeof(EquilynxDrakeArtifact),
+        typeof(EquilynxMaxArtifact),
+        typeof(EquilynxBooksArtifact),
+        typeof(EquilynxCATArtifact),
+        typeof(EquilynxAngderArtifact),
+        typeof(EquilynxD26Artifact),
+        typeof(EquilynxGrunanArtifact),
+        typeof(EquilynxKobretteArtifact),
+        typeof(EquilynxRandallArtifact),
+        typeof(EquilynxDaveArtifact),
+        typeof(EquilynxRuhigArtifact),
+        typeof(EquilynxJackArtifact),
+        typeof(EquilynxCleoArtifact),
+        typeof(EquilynxJesterArtifact),
+        //typeof(EquilynxDestinyArtifact),
+        typeof(EquilynxBucketArtifact)
+    ];
     internal static IEnumerable<Type> Equilynx_AllArtifact_Types
         => Equilynx_CommonArtifact_Types
-        .Concat(Equilynx_BossArtifact_Types);
+        .Concat(Equilynx_BossArtifact_Types)
+        .Concat(Equilynx_DuoArtifact_Types);
 
 
     public Elestrals(IPluginPackage<IModManifest> package, IModHelper helper, ILogger logger) : base(package, helper, logger)
@@ -124,7 +156,11 @@ public sealed class Elestrals : SimpleMod
          * We take from Kokoro what we need and put in our own project. Head to ExternalAPI/StatusLogicHook.cs if you're interested in what, exactly, we use.
          * If you're interested in more fancy stuff, make sure to peek at the Kokoro repository found online. */
         KokoroApi = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!;
+        KokoroApiV2 = KokoroApi.V2;
+        EnergyApi = helper.ModRegistry.GetApi<IEnergyApi>("JyGein.Energy")!;
         Harmony = new(package.Manifest.UniqueName);
+        DuoApis = new(helper);
+        ApiImplementation = new ApiImplementation();
         _ = new CardScalingManager();
         _ = new EarthStoneDepositManager();
         _ = new FlowerStoneDepositManager();
@@ -137,7 +173,7 @@ public sealed class Elestrals : SimpleMod
         WeakenChargeManager.ApplyPatches(Harmony);
         EmpoweredMunitionsManager.ApplyPatches(Harmony);
         RandomDroneMoveLocaleFix.ApplyPatches(Harmony);
-        NegativeOverdriveManager.ApplyPatches(Harmony);
+        NegativeStatusManager.ApplyPatches(Harmony);
 
         /* These localizations lists help us organize our mod's text and messages by language.
          * For general use, prefer AnyLocalizations, as that will provide an easier time to potential localization submods that are made for your mod 
@@ -186,6 +222,8 @@ public sealed class Elestrals : SimpleMod
         RuptureCIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureC.png"));
         RuptureMIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureM.png"));
         BlossomIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/blossom.png"));
+        DefaultDuoArtifactSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/Duos/DefaultSprite.png"));
+        DefaultInactiveDuoArtifactSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/Duos/DefaultInactiveSprite.png"));
 
         /* Decks are assigned separate of the character. This is because the game has decks like Trash which is not related to a playable character
          * Do note that Color accepts a HEX string format (like Color("a1b2c3")) or a Float RGB format (like Color(0.63, 0.7, 0.76). It does NOT allow a traditional RGB format (Meaning Color(161, 178, 195) will NOT work) */
@@ -522,4 +560,7 @@ public sealed class Elestrals : SimpleMod
         JesterApi?.RegisterCharacterFlag("destroyPositive", Equilynx_Deck.Deck);
         JesterApi?.RegisterProvider(new EquilynxJesterProvider());
     }
+
+    public override object? GetApi(IModManifest requestingMod)
+        => ApiImplementation;
 }

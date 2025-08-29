@@ -24,10 +24,24 @@ internal sealed class EquilynxScytheofDemeterArtifact : Artifact, IElestralsArti
         });
     }
 
-    public override void OnAsteroidIsDestroyed(State state, Combat combat, bool wasPlayer, int worldX)
+    public override void OnPlayerDestroyDrone(State state, Combat combat)
     {
-        if (wasPlayer) state.ship.Add(Status.shield, 1);
+        combat.QueueImmediate(
+            new AStatus()
+            {
+                targetPlayer = true,
+                status = Status.shield,
+                statusAmount = 1,
+                artifactPulse = Key(),
+                timer = 0.5
+            }
+        );
     }
+
+    /*public override void OnAsteroidIsDestroyed(State state, Combat combat, bool wasPlayer, int worldX)
+    {
+        if (wasPlayer) { Pulse(); state.ship.Add(Status.shield, 1); }
+    }*/
 
     public override List<Tooltip>? GetExtraTooltips()
         => StatusMeta.GetTooltips(Status.shield, 1);
