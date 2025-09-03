@@ -17,8 +17,8 @@ internal sealed class EquilynxBucketArtifact : Artifact, IElestralsArtifact
 {
 	private static ISpriteEntry Sprite = null!;
 	private static IBucketApi bucketApi = null!;
-	private int count = 0;
-	private int damage = 0;
+	public int count = 0;
+	public int damage = 0;
 
 	public static void Register(IModHelper helper)
 	{
@@ -27,8 +27,8 @@ internal sealed class EquilynxBucketArtifact : Artifact, IElestralsArtifact
 		IDuoArtifactsApi api = Elestrals.Instance.DuoApis.DuoArtifactsApi!;
 		bucketApi = _bucketApi;
 
-		Sprite = Elestrals.Instance.DefaultDuoArtifactSprite;
-        //Sprite = helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile("assets/artifacts/Duos/Test.png"));
+		//Sprite = Elestrals.Instance.DefaultDuoArtifactSprite;
+        Sprite = helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile("assets/artifacts/Duos/Bucket.png"));
 
 		helper.Content.Artifacts.RegisterArtifact("EquilynxBucket", new()
 		{

@@ -16,7 +16,7 @@ internal sealed class EquilynxDrakeArtifact : Artifact, IElestralsArtifact
 {
 	private static ISpriteEntry Sprite = null!;
 	private static ISpriteEntry SpriteOff = null!;
-    private int counter = 0;
+    public int counter = 0;
 
     public static void Register(IModHelper helper)
 	{
@@ -44,6 +44,12 @@ internal sealed class EquilynxDrakeArtifact : Artifact, IElestralsArtifact
 
 		api.RegisterDuoArtifact(MethodBase.GetCurrentMethod()!.DeclaringType!, [Elestrals.Instance.Equilynx_Deck.Deck, Deck.eunice]);
     }
+
+    public override void OnTurnStart(State state, Combat combat)
+    {
+        counter = 0;
+    }
+
     public override void OnPlayerSpawnSomething(State state, Combat combat, StuffBase thing)
     {
         this.counter += 1;
@@ -58,6 +64,7 @@ internal sealed class EquilynxDrakeArtifact : Artifact, IElestralsArtifact
             this.Pulse();
         }
     }
+
     public override int? GetDisplayNumber(State s)
     {
         if (this.counter != 0)

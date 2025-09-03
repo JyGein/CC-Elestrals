@@ -25,8 +25,8 @@ internal sealed class EquilynxCleoArtifact : Artifact, IElestralsArtifact
 		IDuoArtifactsApi api = Elestrals.Instance.DuoApis.DuoArtifactsApi!;
 		cleoApi = _cleoApi;
 
-		Sprite = Elestrals.Instance.DefaultDuoArtifactSprite;
-        //Sprite = helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile("assets/artifacts/Duos/Test.png"));
+		//Sprite = Elestrals.Instance.DefaultDuoArtifactSprite;
+        Sprite = helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile("assets/artifacts/Duos/Cleo.png"));
 
 		helper.Content.Artifacts.RegisterArtifact("EquilynxCleo", new()
 		{

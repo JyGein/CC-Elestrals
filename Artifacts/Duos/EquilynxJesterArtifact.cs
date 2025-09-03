@@ -26,8 +26,8 @@ internal sealed class EquilynxJesterArtifact : Artifact, IElestralsArtifact, IRu
 		IDuoArtifactsApi api = Elestrals.Instance.DuoApis.DuoArtifactsApi!;
 		jesterApi = _jesterApi;
 
-		Sprite = Elestrals.Instance.DefaultDuoArtifactSprite;
-        //Sprite = helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile("assets/artifacts/Duos/Test.png"));
+		//Sprite = Elestrals.Instance.DefaultDuoArtifactSprite;
+        Sprite = helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile("assets/artifacts/Duos/Jester.png"));
 
 		helper.Content.Artifacts.RegisterArtifact("EquilynxJester", new()
 		{

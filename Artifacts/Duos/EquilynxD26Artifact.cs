@@ -17,7 +17,7 @@ internal sealed class EquilynxD26Artifact : Artifact, IElestralsArtifact
 {
 	private static ISpriteEntry Sprite = null!;
     private static EchoesOfTheFutureSudoApi echoesOfTheFutureApi = null!;
-	private int count = 0;
+	public int count = 0;
 
     public static void Register(IModHelper helper)
     {

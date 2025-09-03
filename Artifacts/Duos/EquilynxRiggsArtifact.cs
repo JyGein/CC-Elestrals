@@ -16,7 +16,7 @@ internal sealed class EquilynxRiggsArtifact : Artifact, IElestralsArtifact
 {
 	private static ISpriteEntry ActiveSprite = null!;
     private static ISpriteEntry InactiveSprite = null!;
-    private int count = 0;
+    public int count = 0;
 
 	public static void Register(IModHelper helper)
 	{
