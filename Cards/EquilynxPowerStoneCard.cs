@@ -25,9 +25,8 @@ internal sealed class EquilynxPowerStoneCard : Card, IElestralsCard
     {
         CardData data = new CardData()
         {
-            cost = 1,
-            exhaust = upgrade == Upgrade.B,
-            flippable = upgrade == Upgrade.A
+            cost = upgrade == Upgrade.A ? 0 : 1,
+            exhaust = upgrade == Upgrade.B
         };
         return data;
     }
@@ -36,18 +35,27 @@ internal sealed class EquilynxPowerStoneCard : Card, IElestralsCard
         /* The meat of the card, this is where we define what a card does, and some would say the most fun part of modding Cobalt Core happens here! */
         List<CardAction> actions = new();
 
-        if (upgrade == Upgrade.A)
+        if (upgrade == Upgrade.B)
         {
-            actions.Add(new ADroneMove
+            actions.Add(new ASpawn
             {
-                dir = 1,
-                omitFromTooltips = upgrade == Upgrade.B
+                thing = new PowerStone { },
+                offset = -1
             });
         }
         actions.Add(new ASpawn
         {
             thing = new PowerStone { }
         });
+        if (upgrade == Upgrade.A)
+        {
+            actions.Add(new AStatus
+            {
+                status = Status.droneShift,
+                statusAmount = 1,
+                targetPlayer = true
+            });
+        }
         if (upgrade == Upgrade.B)
         {
             actions.Add(new ASpawn

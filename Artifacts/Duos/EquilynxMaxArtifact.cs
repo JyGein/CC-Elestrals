@@ -52,30 +52,29 @@ internal sealed class EquilynxMaxArtifact : Artifact, IElestralsArtifact
 
 	public override List<Tooltip> GetExtraTooltips()
 		=> [new TTGlossary("cardtrait.retain")];
-}
-
-internal sealed class EquilynxMaxArtifactManager
-{
-	public EquilynxMaxArtifactManager()
+    internal sealed class EquilynxMaxArtifactManager
     {
-        Elestrals.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(Card), nameof(Card.GetDataWithOverrides)),
-            postfix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(Card_GetDataWithOverrides_Postfix))
-        );
-        Elestrals.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(Combat), nameof(Combat.GetDrawCount)),
-            postfix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(Combat_GetDrawCount_Postfix))
-        );
+        public EquilynxMaxArtifactManager()
+        {
+            Elestrals.Instance.Harmony.Patch(
+                original: AccessTools.DeclaredMethod(typeof(Card), nameof(Card.GetDataWithOverrides)),
+                postfix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(Card_GetDataWithOverrides_Postfix))
+            );
+            Elestrals.Instance.Harmony.Patch(
+                original: AccessTools.DeclaredMethod(typeof(Combat), nameof(Combat.GetDrawCount)),
+                postfix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(Combat_GetDrawCount_Postfix))
+            );
+        }
+
+        private static void Card_GetDataWithOverrides_Postfix(State state, ref CardData __result)
+        {
+            if (state.EnumerateAllArtifacts().Any(a => a is EquilynxMaxArtifact)) __result.retain = true;
+        }
+
+        private static void Combat_GetDrawCount_Postfix(State s, Combat __instance, ref int __result)
+        {
+            if (!s.EnumerateAllArtifacts().Any(a => a is EquilynxMaxArtifact)) return;
+            if (__instance.hand.Count + __result < 5) __result = 5 - __instance.hand.Count;
+        }
     }
-
-	private static void Card_GetDataWithOverrides_Postfix(State state, ref CardData __result)
-	{
-		if (state.EnumerateAllArtifacts().Any(a => a is EquilynxMaxArtifact)) __result.retain = true;
-	}
-
-	private static void Combat_GetDrawCount_Postfix(State s, Combat __instance, ref int __result)
-	{
-		if (!s.EnumerateAllArtifacts().Any(a => a is EquilynxMaxArtifact)) return;
-		if (__instance.hand.Count + __result < 5) __result = 5 - __instance.hand.Count;
-	}
 }

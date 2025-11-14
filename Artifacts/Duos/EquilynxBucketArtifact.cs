@@ -44,21 +44,13 @@ internal sealed class EquilynxBucketArtifact : Artifact, IElestralsArtifact
 		});
 
 		api.RegisterDuoArtifact(MethodBase.GetCurrentMethod()!.DeclaringType!, [Elestrals.Instance.Equilynx_Deck.Deck, bucketApi.BucketDeck]);
+		_ = new EquilynxBucketArtifactManager(helper);
     }
 
     public override void OnTurnStart(State state, Combat combat)
     {
         count = 0;
-		damage = 0;
-    }
-
-    public override void OnPlayerAttack(State state, Combat combat)
-    {
-		count++;
-		if (combat.cardActions[0] is AAttack aAttack)
-		{
-			damage = aAttack.damage;
-		}
+        damage = 0;
     }
 
     public override void OnTurnEnd(State state, Combat combat)
@@ -73,7 +65,9 @@ internal sealed class EquilynxBucketArtifact : Artifact, IElestralsArtifact
                 targetPlayer = true,
 				timer = 0.5
 			});
-		}
+        }
+        count = 0;
+        damage = 0;
     }
 
     public override Spr GetSprite()
@@ -81,4 +75,27 @@ internal sealed class EquilynxBucketArtifact : Artifact, IElestralsArtifact
 
 	public override List<Tooltip> GetExtraTooltips()
 		=> [.. StatusMeta.GetTooltips(Elestrals.Instance.KokoroApiV2.RedrawStatus.Status, 2)];
+    internal sealed class EquilynxBucketArtifactManager
+    {
+        public EquilynxBucketArtifactManager(IModHelper helper)
+        {
+            Elestrals.Instance.Harmony.Patch(
+                original: AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.Begin)),
+                postfix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(AAttack_Begin_Postfix))
+            );
+        }
+
+        private static void AAttack_Begin_Postfix(AAttack __instance, G g, State s, Combat c)
+        {
+            if (__instance.multiCannonVolley || __instance.isBeam || __instance.targetPlayer || __instance.fromDroneX.HasValue) return;
+            foreach (Artifact a in s.EnumerateAllArtifacts())
+            {
+                if (a is EquilynxBucketArtifact EBA)
+                {
+                    EBA.count++;
+                    EBA.damage = __instance.damage;
+                }
+            }
+        }
+    }
 }

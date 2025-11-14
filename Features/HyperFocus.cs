@@ -28,7 +28,7 @@ internal sealed class HyperFocusManager : IStatusLogicHook
         );
         harmony.Patch(
             original: AccessTools.DeclaredMethod(typeof(AAttack), nameof(AAttack.Begin)),
-            transpiler: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(AAttack_Begin_Transpiler))
+            postfix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(AAttack_Begin_Postfix))
         );
     }
     public bool HandleStatusTurnAutoStep(State state, Combat combat, StatusTurnTriggerTiming timing, Ship ship, Status status, ref int amount, ref StatusTurnAutoStepSetStrategy setStrategy)
@@ -98,59 +98,18 @@ internal sealed class HyperFocusManager : IStatusLogicHook
         }
     }
 
-    private static IEnumerable<CodeInstruction> AAttack_Begin_Transpiler(IEnumerable<CodeInstruction> instructions, MethodBase originalMethod)
+    private static void AAttack_Begin_Postfix(AAttack __instance, State s)
     {
-        try
-        {
-            new SequenceBlockMatcher<CodeInstruction>(instructions)
-                .Find(
-                    ILMatches.Ldarg(0),
-                    ILMatches.Ldarg(3),
-                    ILMatches.Ldloc(0),
-                    ILMatches.Ldloc(3)
-                )
-                .Find(
-                    ILMatches.Instruction(OpCodes.Ret)
-                )
-                .Find(
-                    ILMatches.Ldarg(0)
-                )
-                .ExtractLabels(out IReadOnlySet<Label> labels);
-            return new SequenceBlockMatcher<CodeInstruction>(instructions)
-                .Find(
-                    ILMatches.Ldarg(0),
-                    ILMatches.Ldarg(3),
-                    ILMatches.Ldloc(0),
-                    ILMatches.Ldloc(3)
-                )
-                .Find(
-                    ILMatches.Instruction(OpCodes.Ret)
-                )
-                .Insert(
-                    SequenceMatcherPastBoundsDirection.After, SequenceMatcherInsertionResultingBounds.IncludingInsertion,
-                    new CodeInstruction(OpCodes.Ldarg_0).WithLabels(labels),
-                    new CodeInstruction(OpCodes.Ldloc_1),
-                    new CodeInstruction(OpCodes.Call, AccessTools.DeclaredMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(AAttack_Begin_ItHasAttacked)))
-                )
-                .AllElements();
-        }
-        catch (Exception ex)
-        {
-            Elestrals.Instance.Logger.LogError("Could not patch method {Method} - {Mod} probably won't work.\nReason: {Exception}", originalMethod, Elestrals.Instance.Package.Manifest.GetDisplayName(@long: false), ex);
-            return instructions;
-        }
-    }
-    private static void AAttack_Begin_ItHasAttacked(AAttack aAttack, Ship ship)
-    {
-        if (aAttack.fromDroneX.HasValue)
+        if (__instance.fromDroneX.HasValue || __instance.multiCannonVolley)
         {
             return;
         }
+        Ship ship = s.ship;
         if (ship.Get(Elestrals.Instance.HyperFocus.Status) > 0)
         {
             bool attacked;
             Elestrals.Instance.Helper.ModData.TryGetModData(ship, "Has Attacked This Turn", out attacked);
-            if (attacked) aAttack.damage = 0;
+            if (attacked) __instance.damage = 0;
         }
         Elestrals.Instance.Helper.ModData.SetModData(ship, "Has Attacked This Turn", true);
     }

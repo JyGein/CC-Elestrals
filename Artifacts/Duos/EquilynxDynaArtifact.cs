@@ -50,38 +50,38 @@ internal sealed class EquilynxDynaArtifact : Artifact, IElestralsArtifact
 		=> DynaApi?.MakeFireChargeAction(new FakeCharge()).GetTooltips(MG.inst.g?.state ?? DB.fakeState)?
 			.Concat(new EarthStone { StoneType = EarthStone.EarthStoneType.Mini }.GetTooltips())
 			.ToList() ?? [.. new EarthStone { StoneType = EarthStone.EarthStoneType.Mini }.GetTooltips()];
-}
 
-internal sealed class FakeCharge : IDynaCharge
-{
-    public double YOffset { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-    public Spr GetIcon(State state)
+    internal sealed class FakeCharge : IDynaCharge
     {
-        throw new NotImplementedException();
-    }
+        public double YOffset { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }//hopefully i dont need to implement these
 
-    public string Key()
-    {
-        throw new NotImplementedException();
-    }
-}
-
-internal sealed class EquilynxDynaArtifactManager : IDynaHook
-{
-    public void OnChargeSticked(State state, Combat combat, Ship ship, int worldX)
-    {
-		if (ship == state.ship) return;
-		foreach (Artifact artifact in state.EnumerateAllArtifacts())
+        public Spr GetIcon(State state)
         {
-			if (artifact is EquilynxDynaArtifact) combat.QueueImmediate(new ASpawn()
-				{
-					thing = new EarthStone()
-					{
-						StoneType = EarthStone.EarthStoneType.Mini
-					},
-					fromX = worldX - state.ship.x
-				});
+            throw new NotImplementedException();//hopefully i dont need to implement these
+        }
+
+        public string Key()
+        {
+            throw new NotImplementedException();//hopefully i dont need to implement these
+        }
+    }
+
+    internal sealed class EquilynxDynaArtifactManager : IDynaHook
+    {
+        public void OnChargeSticked(State state, Combat combat, Ship ship, int worldX)
+        {
+            if (ship == state.ship) return;
+            foreach (Artifact artifact in state.EnumerateAllArtifacts())
+            {
+                if (artifact is EquilynxDynaArtifact) combat.QueueImmediate(new ASpawn()
+                {
+                    thing = new EarthStone()
+                    {
+                        StoneType = EarthStone.EarthStoneType.Mini
+                    },
+                    fromX = worldX - state.ship.x
+                });
+            }
         }
     }
 }

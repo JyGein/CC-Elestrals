@@ -5,6 +5,7 @@ using Nickel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,7 @@ internal sealed class DuoApis
     internal JesterSudoApi? jesterApi;
     internal IDestinyApi? destinyApi;
     internal IBucketApi? bucketApi;
+    internal TwosCompanySudoApi? twosCompanyApi;
     public DuoApis(IModHelper helper)
     {
         DuoArtifactsApi = helper.ModRegistry.GetApi<IDuoArtifactsApi>("Shockah.DuoArtifacts");
@@ -38,6 +40,7 @@ internal sealed class DuoApis
         jesterApi = JesterSudoApi.TryLoadMod(helper);
         destinyApi = helper.ModRegistry.GetApi<IDestinyApi>("Shockah.Destiny");
         bucketApi = helper.ModRegistry.GetApi<IBucketApi>("TheJazMaster.Bucket");
+        twosCompanyApi = TwosCompanySudoApi.TryLoadMod(helper);
     }
 }
 
@@ -119,6 +122,36 @@ internal sealed class JesterSudoApi
         IDeckEntry? potentialJesterDeck = helper.Content.Decks.LookupByUniqueName($"{JesterMod}::rft.Jester.JesterDeck");
         if (potentialJesterDeck == null) return null;
         mod.JesterDeck = potentialJesterDeck;
+        return mod;
+    }
+}
+
+internal sealed class TwosCompanySudoApi
+{
+    internal IDeckEntry NolaDeck = null!;
+    internal IDeckEntry IsabelleDeck = null!;
+    internal IDeckEntry IlyaDeck = null!;
+    internal IDeckEntry JostDeck = null!;
+    internal IDeckEntry GaussDeck = null!;
+    internal IDeckEntry SorrelDeck = null!;
+    internal IStatusEntry AutocurrentStatus = null!;
+    internal IStatusEntry BullettimeStatus = null!;
+    internal Type AForceEnemyAttack = null!;
+    public static TwosCompanySudoApi? TryLoadMod(IModHelper helper)
+    {
+        TwosCompanySudoApi mod = new();
+        string TwosCompanyMod = "Mezz.TwosCompany";
+        IDeckEntry? potentialNolaDeck = helper.Content.Decks.LookupByUniqueName($"{TwosCompanyMod}::Mezz.TwosCompany.NolaDeck");
+        if (potentialNolaDeck == null) return null;
+        mod.NolaDeck = potentialNolaDeck;
+        mod.IsabelleDeck = helper.Content.Decks.LookupByUniqueName($"{TwosCompanyMod}::Mezz.TwosCompany.IsabelleDeck")!;
+        mod.IlyaDeck = helper.Content.Decks.LookupByUniqueName($"{TwosCompanyMod}::Mezz.TwosCompany.IlyaDeck")!;
+        mod.JostDeck = helper.Content.Decks.LookupByUniqueName($"{TwosCompanyMod}::Mezz.TwosCompany.JostDeck")!;
+        mod.GaussDeck = helper.Content.Decks.LookupByUniqueName($"{TwosCompanyMod}::Mezz.TwosCompany.GaussDeck")!;
+        mod.SorrelDeck = helper.Content.Decks.LookupByUniqueName($"{TwosCompanyMod}::Mezz.TwosCompany.SorrelDeck")!;
+        mod.AutocurrentStatus = helper.Content.Statuses.LookupByUniqueName($"{TwosCompanyMod}::Mezz.TwosCompany.Autocurrent")!;
+        mod.BullettimeStatus = helper.Content.Statuses.LookupByUniqueName($"{TwosCompanyMod}::Mezz.TwosCompany.BulletTime")!;
+        mod.AForceEnemyAttack = AccessTools.AllAssemblies().First(a => a.FullName?.Contains("TwosCompany") ?? false).GetTypes().First(t => t.Name == "AForceAttack");
         return mod;
     }
 }

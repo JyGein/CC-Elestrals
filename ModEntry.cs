@@ -25,7 +25,7 @@ public sealed class Elestrals : SimpleMod
     public ApiImplementation ApiImplementation { get; }
     internal IKokoroApi KokoroApi { get; }
     internal IKokoroApi.IV2 KokoroApiV2 { get; }
-    internal IEnergyApi EnergyApi { get; }
+    //internal IEnergyApi EnergyApi { get; }
     internal IJesterApi? JesterApi { get; }
     internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
     internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
@@ -46,7 +46,6 @@ public sealed class Elestrals : SimpleMod
     internal IDeckEntry Equilynx_Deck { get; }
     /*internal IShipEntry DemoMod_Ship { get; }*/
     //internal IStatusEntry AutododgeLeftNextTurn { get; }
-    internal IStatusEntry OverdriveNextTurn { get; }
     internal IStatusEntry WeakenCharge { get; }
     internal IStatusEntry EarthStoneDeposit { get; }
     internal IStatusEntry FlowerStoneDeposit { get; }
@@ -139,8 +138,14 @@ public sealed class Elestrals : SimpleMod
         typeof(EquilynxJackArtifact),
         typeof(EquilynxCleoArtifact),
         typeof(EquilynxJesterArtifact),
-        //typeof(EquilynxDestinyArtifact),
-        typeof(EquilynxBucketArtifact)
+        typeof(EquilynxDestinyArtifact),
+        typeof(EquilynxBucketArtifact),
+        typeof(EquilynxNolaArtifact),
+        typeof(EquilynxIsabelleArtifact),
+        typeof(EquilynxIlyaArtifact),
+        typeof(EquilynxJostArtifact),
+        typeof(EquilynxGaussArtifact),
+        typeof(EquilynxSorrelArtifact)
     ];
     internal static IEnumerable<Type> Equilynx_AllArtifact_Types
         => Equilynx_CommonArtifact_Types
@@ -153,16 +158,16 @@ public sealed class Elestrals : SimpleMod
 
         KokoroApi = helper.ModRegistry.GetApi<IKokoroApi>("Shockah.Kokoro")!;
         KokoroApiV2 = KokoroApi.V2;
-        EnergyApi = helper.ModRegistry.GetApi<IEnergyApi>("JyGein.Energy")!;
+        //EnergyApi = helper.ModRegistry.GetApi<IEnergyApi>("JyGein.Energy")!;
         Harmony = new(package.Manifest.UniqueName);
         ApiImplementation = new ApiImplementation();
         _ = new CardScalingManager();
         _ = new EarthStoneDepositManager();
         _ = new FlowerStoneDepositManager();
-        _ = new OverdriveNextTurnManager();
         _ = new WeakenChargeManager();
         _ = new EquilynxDialogueManager();
         _ = new HyperFocusManager(Harmony);
+        _ = new OnPlayerMoveLogicManager();
         CustomTTGlossary.ApplyPatches(Harmony);
         RuptureManager.ApplyPatches(Harmony);
         WeakenChargeManager.ApplyPatches(Harmony);
@@ -328,17 +333,6 @@ public sealed class Elestrals : SimpleMod
             },
             Name = AnyLocalizations.Bind(["status", "FlowerStoneDeposit", "name"]).Localize,
             Description = AnyLocalizations.Bind(["status", "FlowerStoneDeposit", "description"]).Localize
-        });
-        OverdriveNextTurn = helper.Content.Statuses.RegisterStatus("OverdriveNextTurn", new()
-        {
-            Definition = new()
-            {
-                icon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/overdriveNextTurn.png")).Sprite,
-                color = new("ff5660"),
-                isGood = true
-            },
-            Name = AnyLocalizations.Bind(["status", "OverdriveNextTurn", "name"]).Localize,
-            Description = AnyLocalizations.Bind(["status", "OverdriveNextTurn", "description"]).Localize
         });
         WeakenCharge = helper.Content.Statuses.RegisterStatus("WeakenCharge", new()
         {

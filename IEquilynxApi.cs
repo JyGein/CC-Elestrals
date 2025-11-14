@@ -30,7 +30,6 @@ public interface IEquilynxApi
     public StuffBase FlowerStone { get; }
     public StuffBase MiniRepairKit { get; }
     public StuffBase PowerStone { get; }
-    public IStatusEntry OverdriveNextTurn { get; }
     public IStatusEntry HyperFocus { get; }
     public IStatusEntry WeakenCharge { get; }
     public IStatusEntry EarthStoneDeposit { get; }

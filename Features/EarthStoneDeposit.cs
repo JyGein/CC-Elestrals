@@ -18,7 +18,7 @@ internal sealed class EarthStoneDepositManager : IStatusLogicHook, IStatusRender
         /* Here we tell it what to do. Since it's a 'next turn gain something', we can also use this moment to do that something */
         if (status != Instance.EarthStoneDeposit.Status)
             return false;
-        if (timing != StatusTurnTriggerTiming.TurnStart)
+        if (timing != StatusTurnTriggerTiming.TurnEnd)
             return false;
 
         if (amount > 0)

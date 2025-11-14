@@ -17,7 +17,7 @@ using static JyGein.Elestrals.IEnergyApi;
 
 namespace JyGein.Elestrals.Cards;
 
-internal sealed class EquilynxNexusSwipeCard : Card, IElestralsCard, ISetModdedEnergyCostBaseHook
+internal sealed class EquilynxNexusSwipeCard : Card, IElestralsCard//, ISetModdedEnergyCostBaseHook
 {
     private static List<ISpriteEntry> QuadArt = null!;
     private static List<ISpriteEntry> BQuadArt = null!;
@@ -74,7 +74,7 @@ internal sealed class EquilynxNexusSwipeCard : Card, IElestralsCard, ISetModdedE
                 rarity = Rarity.common,
                 upgradesTo = [Upgrade.A, Upgrade.B]
             },
-            Art = helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile("assets/cards/equilynx/NexusSwipeQuad0.png")).Sprite,
+            Art = QuadArt.First().Sprite,
             Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "NexusSwipe", "name"]).Localize
         });
 
@@ -87,7 +87,7 @@ internal sealed class EquilynxNexusSwipeCard : Card, IElestralsCard, ISetModdedE
             postfix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(Card_GetAllTooltips_Postfix))
         );
     }
-
+    /*
     public EquilynxNexusSwipeCard()
     {
         Elestrals.Instance.EnergyApi.SetModdedEnergyCostBaseHook(this, this);
@@ -99,12 +99,12 @@ internal sealed class EquilynxNexusSwipeCard : Card, IElestralsCard, ISetModdedE
         {
             { Energy.Calm, upgrade == Upgrade.A ? 0 : 1 }
         };
-    }
+    }*/
 
     public override CardData GetData(State state)
         => new()
         {
-            art = upgrade == Upgrade.B ? BQuadArt[FlipIndex % 4].Sprite : QuadArt[FlipIndex % 4].Sprite,
+            art = upgrade != Upgrade.None ? BQuadArt[FlipIndex % 4].Sprite : QuadArt[FlipIndex % 4].Sprite,
             cost = 0,
             floppable = true
         };
@@ -146,6 +146,34 @@ internal sealed class EquilynxNexusSwipeCard : Card, IElestralsCard, ISetModdedE
                 new ASpawn
                 {
                     thing = new EarthStone { StoneType = EarthStone.EarthStoneType.Mini }
+                }
+            ],
+            Upgrade.A => [
+                new ADroneMove
+                {
+                    dir = -1*(FlipIndex % 2 != 0 ? -1 : 1),
+                    disabled = FlipIndex % 4 != 0,
+                },
+                new ADroneMove
+                {
+                    dir = 1*(FlipIndex % 2 != 0 ? -1 : 1),
+                    disabled = FlipIndex % 4 != 1,
+                },
+                new ADroneMove
+                {
+                    dir = 2*(FlipIndex % 2 != 0 ? -1 : 1),
+                    disabled = FlipIndex % 4 != 2,
+                },
+                new ADroneMove
+                {
+                    dir = -2*(FlipIndex % 2 != 0 ? -1 : 1),
+                    disabled = FlipIndex % 4 != 3,
+                },
+                new AStatus
+                {
+                    status = Status.droneShift,
+                    statusAmount = 1,
+                    targetPlayer = true
                 }
             ],
             _ => [

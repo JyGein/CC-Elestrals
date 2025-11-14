@@ -40,14 +40,18 @@ internal sealed class EquilynxNexusShiftCard : Card, IElestralsCard
         {
             dir = 1
         });
-
+        if (upgrade != Upgrade.B)
+            actions.Add(new ABayRupture());
         if (upgrade == Upgrade.A)
             actions.Add(new ADrawCard()
             {
                 count = 1
             });
         if (upgrade == Upgrade.B)
-            actions.Add(new ABayRupture());
+            actions.Add(new ASpawn()
+            {
+                thing = new FlowerStone { }
+            });
 
         return actions;
     }

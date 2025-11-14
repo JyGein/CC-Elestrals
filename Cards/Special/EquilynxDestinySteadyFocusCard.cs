@@ -44,7 +44,9 @@ internal class EquilynxDestinySteadyFocusCard : Card, IElestralsCard
             cost = 0,
             exhaust = true,
             buoyant = upgrade != Upgrade.B,
-            retain = upgrade == Upgrade.A
+            retain = upgrade == Upgrade.A,
+            art = destinyApi.GetEnchantedCardArt(this),
+            artTint = "ffffff"
         };
 
     public override List<CardAction> GetActions(State s, Combat c)

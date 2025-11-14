@@ -59,7 +59,7 @@ namespace JyGein.Elestrals.Actions
                 }
                 foreach (Artifact a in s.EnumerateAllArtifacts())
                 {
-                    if (a is IRuptureHook hook) hook.OnRupture(s, c);
+                    if (a is IRuptureHook hook) hook.OnRupture(s, c, fromPlayer);
                 }
                 return;
             }
@@ -93,7 +93,7 @@ namespace JyGein.Elestrals.Actions
             {
                 foreach (Artifact a in s.EnumerateAllArtifacts())
                 {
-                    if (a is IRuptureHook hook) hook.OnRuptureHit(s, c, existingThing);
+                    if (a is IRuptureHook hook) hook.OnRuptureHit(s, c, existingThing, fromPlayer);
                 }
                 if (existingThing.Invincible())
                 {
@@ -112,7 +112,7 @@ namespace JyGein.Elestrals.Actions
             {
                 foreach (Artifact a in s.EnumerateAllArtifacts())
                 {
-                    if (a is IRuptureHook hook) hook.OnRuptureMiss(s, c);
+                    if (a is IRuptureHook hook) hook.OnRuptureMiss(s, c, fromPlayer);
                 }
                 s.AddShake(0.5);
                 c.fx.Add((FX)new AsteroidExplosion()
@@ -122,7 +122,7 @@ namespace JyGein.Elestrals.Actions
             }
             foreach (Artifact a in s.EnumerateAllArtifacts())
             {
-                if (a is IRuptureHook hook) hook.OnRupture(s, c);
+                if (a is IRuptureHook hook) hook.OnRupture(s, c, fromPlayer);
             }
         }
 

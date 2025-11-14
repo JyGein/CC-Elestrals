@@ -312,7 +312,7 @@ internal class OverdriveNextTurnEntry : IJesterApi.IEntry
         new AStatus
         {
             targetPlayer = true,
-            status = Elestrals.Instance.OverdriveNextTurn.Status,
+            status = Elestrals.Instance.KokoroApiV2.StatusNextTurn.Overdrive,
             statusAmount = Amount
         });
 

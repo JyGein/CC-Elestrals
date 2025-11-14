@@ -103,11 +103,11 @@ namespace JyGein.Elestrals.Midrow
           int worldX)
         {
             List<CardAction> actions = new List<CardAction>();
-            actions.Add((CardAction)new ADestroyedMidrowAttack()
+            actions.Add((CardAction)new ASpaceMineAttack()
             {
-                fromDroneX = this.x,
+                worldX = this.x,
                 targetPlayer = !wasPlayer,
-                damage = this.AttackDamage(),
+                hurtAmount = this.AttackDamage(),
             });
             return actions;
         }

@@ -32,8 +32,6 @@ public class ApiImplementation : IEquilynxApi
 
     public StuffBase PowerStone => new PowerStone();
 
-    public IStatusEntry OverdriveNextTurn => Elestrals.Instance.OverdriveNextTurn;
-
     public IStatusEntry HyperFocus => Elestrals.Instance.HyperFocus;
 
     public IStatusEntry WeakenCharge => Elestrals.Instance.WeakenCharge;

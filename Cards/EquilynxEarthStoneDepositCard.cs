@@ -27,17 +27,14 @@ internal sealed class EquilynxEarthStoneDepositCard : Card, IElestralsCard
         int Cost;
         switch(upgrade)
         {
-            case Upgrade.None:
-                Cost = 2;
-                break;
             case Upgrade.A:
-                Cost = 1;
+                Cost = 0;
                 break;
             case Upgrade.B:
-                Cost = 3;
+                Cost = 2;
                 break;
             default:
-                Cost = 2;
+                Cost = 1;
                 break;
         }
         CardData data = new CardData()

@@ -42,6 +42,7 @@ internal sealed class EquilynxCleoArtifact : Artifact, IElestralsArtifact
 		});
 
 		api.RegisterDuoArtifact(MethodBase.GetCurrentMethod()!.DeclaringType!, [Elestrals.Instance.Equilynx_Deck.Deck, cleoApi.CleoDeck.Deck]);
+		_ = new EquilynxCleoArtifactManager();
     }
 
     public override Spr GetSprite()
@@ -49,26 +50,35 @@ internal sealed class EquilynxCleoArtifact : Artifact, IElestralsArtifact
 
 	public override List<Tooltip> GetExtraTooltips()
 		=> [.. StatusMeta.GetTooltips(Status.overdrive, 1)];
-}
-
-internal sealed class EquilynxCleoArtifactManager
-{
-	public EquilynxCleoArtifactManager()
+    internal sealed class EquilynxCleoArtifactManager
     {
-        Elestrals.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(AStatus), nameof(AStatus.Begin)),
-            prefix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(AStatus_Begin_Prefix))
-        );
-    }
+        public EquilynxCleoArtifactManager()
+        {
+            Elestrals.Instance.Harmony.Patch(
+                original: AccessTools.DeclaredMethod(typeof(AStatus), nameof(AStatus.Begin)),
+                prefix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(AStatus_Begin_Prefix))
+            );
+        }
 
-	private static void AStatus_Begin_Prefix(AStatus __instance, State s, Combat c)
-	{
-		if (__instance.status != Status.overdrive || __instance.statusAmount > 0 || !c.isPlayerTurn) return;
-		foreach (Artifact a in s.EnumerateAllArtifacts())
-		{
-			if (a is not EquilynxCleoArtifact) continue;
-			a.Pulse();
-			__instance.statusAmount += 1;
-		}
-	}
+        private static void AStatus_Begin_Prefix(AStatus __instance, State s, Combat c)
+        {
+            if (!(
+                c.isPlayerTurn //it's the player's turn
+                && //and the status is negative overdrive/pulsedrive or positive underdrive
+                (
+                    (__instance.status == Status.overdrive || __instance.status == Elestrals.Instance.KokoroApiV2.DriveStatus.Pulsedrive) && __instance.statusAmount <= 0
+                    ||
+                    (__instance.status == Elestrals.Instance.KokoroApiV2.DriveStatus.Underdrive) && __instance.statusAmount >= 0
+                )
+            )) return;
+            foreach (Artifact a in s.EnumerateAllArtifacts())
+            {
+                if (a is EquilynxCleoArtifact)
+                {
+                    a.Pulse();
+                    __instance.statusAmount += __instance.status == Elestrals.Instance.KokoroApiV2.DriveStatus.Underdrive ? -1 : 1;
+                }
+            }
+        }
+    }
 }

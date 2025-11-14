@@ -66,26 +66,25 @@ internal sealed class EquilynxGrunanArtifact : Artifact, IElestralsArtifact
 		Fireball.discount -= 1;
         return [new TTCard { card = Fireball, showCardTraitTooltips = true }];
     }
-}
-
-internal sealed class EquilynxGrunanArtifactManager
-{
-    public EquilynxGrunanArtifactManager()
+    internal sealed class EquilynxGrunanArtifactManager
     {
-        Elestrals.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(Elestrals.Instance.DuoApis.echoesOfTheFutureApi!.Fireball.Configuration.CardType, nameof(Card.GetActions)),
-            postfix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(Fireball_GetActions_Postfix))
-        );
-    }
-    
-    private static void Fireball_GetActions_Postfix(ref List<CardAction> __result, State s, Combat c)
-    {
-        if (!s.EnumerateAllArtifacts().Any(a => a is EquilynxGrunanArtifact)) return;
-        __result.Add(new AStatus
+        public EquilynxGrunanArtifactManager()
         {
-            status = Status.overdrive,
-            statusAmount = -1,
-            targetPlayer = true
-        });
+            Elestrals.Instance.Harmony.Patch(
+                original: AccessTools.DeclaredMethod(Elestrals.Instance.DuoApis.echoesOfTheFutureApi!.Fireball.Configuration.CardType, nameof(Card.GetActions)),
+                postfix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(Fireball_GetActions_Postfix))
+            );
+        }
+
+        private static void Fireball_GetActions_Postfix(ref List<CardAction> __result, State s, Combat c)
+        {
+            if (!s.EnumerateAllArtifacts().Any(a => a is EquilynxGrunanArtifact)) return;
+            __result.Add(new AStatus
+            {
+                status = Status.overdrive,
+                statusAmount = -1,
+                targetPlayer = true
+            });
+        }
     }
 }

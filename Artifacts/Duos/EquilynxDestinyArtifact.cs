@@ -27,8 +27,8 @@ internal sealed class EquilynxDestinyArtifact : Artifact, IElestralsArtifact
 		IDuoArtifactsApi api = Elestrals.Instance.DuoApis.DuoArtifactsApi!;
 		destinyApi = _destinyApi;
 
-		Sprite = Elestrals.Instance.DefaultDuoArtifactSprite;
-        //Sprite = helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile("assets/artifacts/Duos/Test.png"));
+		//Sprite = Elestrals.Instance.DefaultDuoArtifactSprite;
+        Sprite = helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile("assets/artifacts/Duos/Destiny.png"));
 
 		helper.Content.Artifacts.RegisterArtifact("EquilynxDestiny", new()
 		{
@@ -64,19 +64,19 @@ internal sealed class EquilynxDestinyArtifact : Artifact, IElestralsArtifact
 		=> [.. destinyApi.ExplosiveTrait.Configuration.Tooltips?.Invoke(MG.inst.g?.state ?? DB.fakeState, null) ?? [],
 			.. StatusMeta.GetTooltips(Elestrals.Instance.HyperFocus.Status, 1),
 			new TTCard { card = new EquilynxDestinySteadyFocusCard() }];
-}
 
-public sealed class EquilynxDestinyArtifactManager : IDestinyApi.IHook
-{
-    public void ModifyExplosiveDamage(IModifyExplosiveDamageArgs args)
-	{
-		foreach (Artifact a in args.State.EnumerateAllArtifacts())
+    public sealed class EquilynxDestinyArtifactManager : IDestinyApi.IHook
+    {
+        public void ModifyExplosiveDamage(IModifyExplosiveDamageArgs args)
         {
-            if (a is EquilynxDestinyArtifact EDA && args.State.ship.Get(Elestrals.Instance.HyperFocus.Status) > 0)
+            foreach (Artifact a in args.State.EnumerateAllArtifacts())
             {
-				args.CurrentDamage += 4;
-				EDA.Pulse();
-			}
+                if (a is EquilynxDestinyArtifact EDA && args.State.ship.Get(Elestrals.Instance.HyperFocus.Status) > 0)
+                {
+                    args.CurrentDamage += 4;
+                    //EDA.Pulse();
+                }
+            }
         }
-	}
+    }
 }

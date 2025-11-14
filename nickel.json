@@ -1,6 +1,6 @@
 {
   "UniqueName": "JyGein.Elestrals",
-  "Version": "1.0.0",
+  "Version": "{{ModVersion}}",
   "Author": "JyGein",
   "RequiredApiVersion": "2.0.0",
   "EntryPointAssembly": "Equilynx.dll",
@@ -9,10 +9,6 @@
     {
       "UniqueName": "Shockah.Kokoro",
       "Version": "1.11.2"
-    },
-    {
-      "UniqueName": "JyGein.Energy",
-      "Version": "1.0.0"
     },
     {
       "UniqueName": "TheJazMaster.MoreDifficulties",

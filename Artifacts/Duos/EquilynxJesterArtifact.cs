@@ -45,8 +45,9 @@ internal sealed class EquilynxJesterArtifact : Artifact, IElestralsArtifact, IRu
 		api.RegisterDuoArtifact(MethodBase.GetCurrentMethod()!.DeclaringType!, [Elestrals.Instance.Equilynx_Deck.Deck, jesterApi.JesterDeck.Deck]);
     }
 
-	public void OnRuptureMiss(State s, Combat c)
+	public void OnRuptureMiss(State s, Combat c, bool fromPlayer)
 	{
+		if (!fromPlayer) return;
 		c.QueueImmediate(new AStatus
 		{
 			status = Status.energyFragment,

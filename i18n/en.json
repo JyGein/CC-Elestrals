@@ -114,6 +114,30 @@
       "Bucket": {
         "name": "METICULOUS AIM",
         "description": "At the end of your turn, if you only shot once during your turn, gain 2 <c=status>redraw</c>. If it was a 9+ damage shot gain 10 instead."
+      },
+      "Nola": {
+        "name": "EFFICIENT POISON",
+        "description": "When you play 5 0-cost cards in a turn, gain a <c=status>weaken charge</c>."
+      },
+      "Isabelle": {
+        "name": "WICKED WALTZ",
+        "description": "If you <c=action>launched</c>, <c=action>attacked</c>, <c=action>moved</c>, and <c=action>ruptured</c> in a turn gain 1 <c=status>overdrive next turn</c>."
+      },
+      "Ilya": {
+        "name": "THERMAL FEEDBACK",
+        "description": "When you lose overdrive lose heat instead if possible."
+      },
+      "Jost": {
+        "name": "BROKEN MEDAL",
+        "description": "When you lose <c=status>shield</c> gain 1 <c=status>overdrive</c>. When you lose <c=status>overdrive</c> gain 1 <c=status>shield</c>."
+      },
+      "Gauss": {
+        "name": "DESTRUCTION PLANS",
+        "description": "At the start of combat gain 1 <c=status>autocurrent</c>."
+      },
+      "Sorrel": {
+        "name": "A DROP OF WINE",
+        "description": "At the start of your turn gain 1 <c=status>bullet time</c> if you have none and force enemy attack."
       }
     }
   },
@@ -209,7 +233,7 @@
     },
     "EarthStoneDeposit": {
       "name": "Earth Stone Deposit",
-      "description": "Launch <c=boldPink>{0}</c> <c=midrow>Mini Earth Stones</c> at the start of every turn."
+      "description": "Launch <c=boldPink>{0}</c> <c=midrow>Mini Earth Stones</c> at the end of every turn."
     },
     "FlowerStoneDeposit": {
       "name": "Flower Stone Deposit",

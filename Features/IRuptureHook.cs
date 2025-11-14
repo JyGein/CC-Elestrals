@@ -8,7 +8,7 @@ namespace JyGein.Elestrals.Features;
 
 internal interface IRuptureHook
 {
-    public void OnRuptureMiss(State s, Combat c) { }
-    public void OnRuptureHit(State s, Combat c, StuffBase stuffHit) { }
-    public void OnRupture(State s, Combat c) { }
+    public void OnRuptureMiss(State s, Combat c, bool fromPlayer) { }
+    public void OnRuptureHit(State s, Combat c, StuffBase stuffHit, bool fromPlayer) { }
+    public void OnRupture(State s, Combat c, bool fromPlayer) { }
 }

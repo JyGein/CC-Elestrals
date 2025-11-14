@@ -28,7 +28,7 @@ internal sealed class EquilynxFoloiForestArtifact : Artifact, IElestralsArtifact
     public override List<Tooltip>? GetExtraTooltips()
         => new List<Tooltip>
         {
-            new TTGlossary($"status.{Elestrals.Instance.OverdriveNextTurn.Status}", new object[1] { 1 })
+            new TTGlossary($"status.{Elestrals.Instance.KokoroApiV2.StatusNextTurn.Overdrive}", new object[1] { 1 })
         }
         .ToList();
 
@@ -39,7 +39,7 @@ internal sealed class EquilynxFoloiForestArtifact : Artifact, IElestralsArtifact
         {
             combat.QueueImmediate(new AStatus()
             {
-                status = Elestrals.Instance.OverdriveNextTurn.Status,
+                status = Elestrals.Instance.KokoroApiV2.StatusNextTurn.Overdrive,
                 statusAmount = 1,
                 targetPlayer = true
             });

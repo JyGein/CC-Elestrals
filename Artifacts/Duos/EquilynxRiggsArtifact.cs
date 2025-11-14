@@ -73,6 +73,7 @@ internal sealed class EquilynxRiggsArtifact : Artifact, IElestralsArtifact
 		=> count == 0 ? ActiveSprite.Sprite : InactiveSprite.Sprite;
 
 	public override List<Tooltip> GetExtraTooltips()
-		=> [.. new ADrawCard { count = 1 }.GetTooltips(MG.inst.g?.state ?? DB.fakeState),
+		=> [.. new EarthStone().GetTooltips(),
+			.. new ADrawCard { count = 1 }.GetTooltips(MG.inst.g?.state ?? DB.fakeState),
 			.. StatusMeta.GetTooltips(Status.evade, 1)];
 }

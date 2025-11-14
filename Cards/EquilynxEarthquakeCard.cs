@@ -23,16 +23,17 @@ internal sealed class EquilynxEarthquakeCard : Card, IElestralsCard
             Name = Elestrals.Instance.AnyLocalizations.Bind(["card", "Earthquake", "name"]).Localize
         });
     }
-    public EquilynxEarthquakeCard()
-    {
-        Elestrals.Instance.EnergyApi.SetModdedEnergyCostBase(this, new Dictionary<Energy, int>() { { Energy.Calm, 1 } });
-    }
+    //public EquilynxEarthquakeCard()
+    //{
+    //    Elestrals.Instance.EnergyApi.SetModdedEnergyCostBase(this, new Dictionary<Energy, int>() { { Energy.Calm, 1 } });
+    //}
     public override CardData GetData(State state)
     {
         CardData data = new CardData()
         {
-            cost = upgrade != Upgrade.B ? 0 : 1,
-            exhaust = upgrade != Upgrade.A
+            cost = upgrade != Upgrade.B ? 0 : 2,
+            exhaust = upgrade != Upgrade.A,
+            retain = upgrade == Upgrade.B
         };
         if (upgrade == Upgrade.B)
         {

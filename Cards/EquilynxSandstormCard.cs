@@ -68,6 +68,10 @@ internal sealed class EquilynxSandstormCard : Card, IElestralsCard
                 {
                     damage = upgrade == Upgrade.A ? GetDmg(s, 3) : GetDmg(s, 2)
                 });
+                actions.Add(new ASpawn()
+                {
+                    thing = new EarthStone { StoneType = EarthStone.EarthStoneType.Mini }
+                });
                 actions.Add(new ADroneMove()
                 {
                     dir = 1,

@@ -50,26 +50,25 @@ internal sealed class EquilynxAngderArtifact : Artifact, IElestralsArtifact
 	public override List<Tooltip> GetExtraTooltips()
 		=> [.. StatusMeta.GetTooltips(echoesOfTheFutureApi.AngderIsMissing.Status, 1),
 			.. new ADroneMove().GetTooltips(MG.inst.g?.state ?? DB.fakeState)];
-}
+    internal sealed class EquilynxAngderArtifactManager
+    {
+        public EquilynxAngderArtifactManager()
+        {
+            Elestrals.Instance.Harmony.Patch(
+                original: AccessTools.DeclaredMethod(typeof(ADroneMove), nameof(ADroneMove.Begin)),
+                postfix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(ADroneMove_Begin_Postfix))
+            );
+        }
 
-internal sealed class EquilynxAngderArtifactManager
-{
-	public EquilynxAngderArtifactManager()
-	{
-		Elestrals.Instance.Harmony.Patch(
-			original: AccessTools.DeclaredMethod(typeof(ADroneMove), nameof(ADroneMove.Begin)),
-			postfix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(ADroneMove_Begin_Postfix))
-		);
-	}
-
-	private static void ADroneMove_Begin_Postfix(ADroneMove __instance, G g, State s, Combat c)
-	{
-		if (!s.EnumerateAllArtifacts().Any(a => a is EquilynxAngderArtifact) || __instance.dir == 0 || s.ship.Get(Elestrals.Instance.DuoApis.echoesOfTheFutureApi!.AngderIsMissing.Status) < 1) return;
-		c.QueueImmediate(new AHurt
-		{
-			hurtAmount = 1,
-			targetPlayer = false,
-			hurtShieldsFirst = false
-		});
-	}
+        private static void ADroneMove_Begin_Postfix(ADroneMove __instance, G g, State s, Combat c)
+        {
+            if (!s.EnumerateAllArtifacts().Any(a => a is EquilynxAngderArtifact) || __instance.dir == 0 || s.ship.Get(Elestrals.Instance.DuoApis.echoesOfTheFutureApi!.AngderIsMissing.Status) < 1) return;
+            c.QueueImmediate(new AHurt
+            {
+                hurtAmount = 1,
+                targetPlayer = false,
+                hurtShieldsFirst = false
+            });
+        }
+    }
 }

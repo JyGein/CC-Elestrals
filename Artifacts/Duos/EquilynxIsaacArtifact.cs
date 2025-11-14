@@ -53,47 +53,46 @@ internal sealed class EquilynxIsaacArtifact : Artifact, IElestralsArtifact
 			.. new FlowerStone().GetTooltips(),
 			.. new PowerStone().GetTooltips(),
 			.. new RepairKit().GetTooltips()];
-}
-
-internal sealed class EquilynxIsaacArtifactManager
-{
-	public EquilynxIsaacArtifactManager()
+    internal sealed class EquilynxIsaacArtifactManager
     {
-        Elestrals.Instance.Harmony.Patch(
-            original: AccessTools.DeclaredMethod(typeof(ASpawn), nameof(ASpawn.Begin)),
-            prefix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(ASpawn_Begin_Prefix))
-        );
-    }
+        public EquilynxIsaacArtifactManager()
+        {
+            Elestrals.Instance.Harmony.Patch(
+                original: AccessTools.DeclaredMethod(typeof(ASpawn), nameof(ASpawn.Begin)),
+                prefix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(ASpawn_Begin_Prefix))
+            );
+        }
 
-	private static void ASpawn_Begin_Prefix(ASpawn __instance, G g, State s, Combat c)
-	{
-		if (!s.EnumerateAllArtifacts().Any(a => a is EquilynxIsaacArtifact)) return;
-        EquilynxIsaacArtifact artifact = (s.EnumerateAllArtifacts().First(a => a is EquilynxIsaacArtifact) as EquilynxIsaacArtifact)!;
-        State s2 = s;
-		Ship ship = (__instance.fromPlayer ? s2.ship : c.otherShip);
-		if (!__instance.fromX.HasValue && ship.parts.FindIndex((Part p) => p.type == PType.missiles && p.active) == -1)
-		{
-			return;
-		}
+        private static void ASpawn_Begin_Prefix(ASpawn __instance, G g, State s, Combat c)
+        {
+            if (!s.EnumerateAllArtifacts().Any(a => a is EquilynxIsaacArtifact)) return;
+            EquilynxIsaacArtifact artifact = (s.EnumerateAllArtifacts().First(a => a is EquilynxIsaacArtifact) as EquilynxIsaacArtifact)!;
+            State s2 = s;
+            Ship ship = (__instance.fromPlayer ? s2.ship : c.otherShip);
+            if (!__instance.fromX.HasValue && ship.parts.FindIndex((Part p) => p.type == PType.missiles && p.active) == -1)
+            {
+                return;
+            }
 
-		if (__instance.fromPlayer && g.state.ship.GetPartTypeCount(PType.missiles) > 1 && !__instance.multiBayVolley)
-		{
-			return;
-		}
+            if (__instance.fromPlayer && g.state.ship.GetPartTypeCount(PType.missiles) > 1 && !__instance.multiBayVolley)
+            {
+                return;
+            }
 
-		StuffBase launchedThing = __instance.thing;
+            StuffBase launchedThing = __instance.thing;
 
-		if (!(launchedThing is EarthStone || launchedThing is FlowerStone || launchedThing is PowerStone || launchedThing is RepairKit || launchedThing is MiniRepairKit)) return;
+            if (!(launchedThing is EarthStone || launchedThing is FlowerStone || launchedThing is PowerStone || launchedThing is RepairKit || launchedThing is MiniRepairKit)) return;
 
-		int worldX = __instance.GetWorldX(s, c);
+            int worldX = __instance.GetWorldX(s, c);
 
-		if (c.stuff.TryGetValue(worldX, out StuffBase? existingThing))
-		{
-			if (!(existingThing is EarthStone || existingThing is RepairKit || existingThing is PowerStone || existingThing is MiniRepairKit))
-			{
-				artifact.Pulse();
-                existingThing.bubbleShield = true;
-                Audio.Play(new GUID?(FSPRO.Event.Status_PowerUp));
+            if (c.stuff.TryGetValue(worldX, out StuffBase? existingThing))
+            {
+                if (!(existingThing is EarthStone || existingThing is RepairKit || existingThing is PowerStone || existingThing is MiniRepairKit))
+                {
+                    artifact.Pulse();
+                    existingThing.bubbleShield = true;
+                    Audio.Play(new GUID?(FSPRO.Event.Status_PowerUp));
+                }
             }
         }
     }
