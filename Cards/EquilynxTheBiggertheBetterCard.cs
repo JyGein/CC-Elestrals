@@ -3,6 +3,7 @@ using JyGein.Elestrals.Features;
 using JyGein.Elestrals.Midrow;
 using Nickel;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace JyGein.Elestrals.Cards;
@@ -36,14 +37,7 @@ internal sealed class EquilynxTheBiggertheBetterCard : Card, IElestralsCard
     }
 
     public static int GetX(State s, Combat c)
-    {
-        int i = 0;
-        foreach(StuffBase stuff in c.stuff.Values)
-        {
-
-        }
-        return i;
-    }
+        => RuptureManager.GetObjectsAboveShip(c, s.ship).Count();
 
     public override List<CardAction> GetActions(State s, Combat c)
     {

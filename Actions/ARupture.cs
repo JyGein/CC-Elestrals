@@ -42,7 +42,7 @@ namespace JyGein.Elestrals.Actions
             Ship ship = (fromPlayer ? s2.ship : c.otherShip);
             if (ruptureType == RuptureType.All || ruptureType == RuptureType.Ship)
             {
-                foreach(StuffBase stuff in (ruptureType == RuptureType.All ? c.stuff.Values : Enumerable.Range(0, ship.parts.Count).Where(localX => ship.parts[localX].type != PType.empty && c.stuff.ContainsKey(ship.x + localX)).Select(localX => c.stuff[ship.x + localX])))
+                foreach(StuffBase stuff in ruptureType == RuptureType.All ? c.stuff.Values : RuptureManager.GetObjectsAboveShip(c, ship))
                 {
                     Enumerable.Range(0, ship.parts.Count).Any(localX => ship.parts[localX].type != PType.empty && c.stuff.ContainsKey(ship.x + localX));
                     if (stuff.Invincible())
@@ -199,6 +199,20 @@ namespace JyGein.Elestrals.Actions
                         Description = string.Format(Elestrals.Instance.Localizations.Localize(["action", "Rupture", offset == 0 ? "notOffset" : "offset", "description"]), Math.Abs(offset).ToString(), offset < 0 ? "left" : "right", "missile bay")
                     });
                     break;
+                case RuptureType.Ship:
+                    if (s.route is Combat c)
+                    {
+                        foreach (StuffBase stuffBase in RuptureManager.GetObjectsAboveShip(c, s.ship))
+                            stuffBase.hilight = 2;
+                    }
+                    list.Add(new GlossaryTooltip($"{Elestrals.Instance.Package.Manifest.UniqueName}::{GetType()}")
+                    {
+                        Icon = Elestrals.Instance.RuptureSIcon.Sprite,
+                        TitleColor = Colors.action,
+                        Title = Elestrals.Instance.Localizations.Localize(["action", "Rupture", "name"]),
+                        Description = Elestrals.Instance.Localizations.Localize(["action", "Rupture", "ship", "description"])
+                    });
+                    break;
                 default:
                     if (s.route is Combat route)
                     {
@@ -240,6 +254,8 @@ namespace JyGein.Elestrals.Actions
                     return new Icon(Elestrals.Instance.RuptureCIcon.Sprite, null, Colors.textMain);
                 case RuptureType.Missile:
                     return new Icon(Elestrals.Instance.RuptureMIcon.Sprite, null, Colors.textMain);
+                case RuptureType.Ship:
+                    return new Icon(Elestrals.Instance.RuptureSIcon.Sprite, null, Colors.textMain);
                 default:
                     return new Icon(Elestrals.Instance.RuptureAIcon.Sprite, null, Colors.textMain);
             }

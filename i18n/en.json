@@ -291,6 +291,9 @@
       },
       "all": {
         "description": "Destroy all <c=midrow>objects</c>."
+      },
+      "ship": {
+        "description": "Destroy all <c=midrow>objects</c> above your non-empty ship parts."
       }
     },
     "VariableHintExhaust": {

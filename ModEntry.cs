@@ -4,6 +4,7 @@ using JyGein.Elestrals.Artifacts;
 using JyGein.Elestrals.Artifacts.Duos;
 using JyGein.Elestrals.Cards;
 using JyGein.Elestrals.Cards.Special;
+using JyGein.Elestrals.ExternalAPI;
 using JyGein.Elestrals.Features;
 using JyGein.Elestrals.Jester;
 using Microsoft.Extensions.Logging;
@@ -11,9 +12,9 @@ using Nanoray.PluginManager;
 using Nickel;
 using Nickel.Common;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using JyGein.Elestrals.ExternalAPI;
 
 namespace JyGein.Elestrals;
 
@@ -65,6 +66,7 @@ public sealed class Elestrals : SimpleMod
     internal ISpriteEntry RuptureAIcon { get; }
     internal ISpriteEntry RuptureCIcon { get; }
     internal ISpriteEntry RuptureMIcon { get; }
+    internal ISpriteEntry RuptureSIcon { get; }
     internal ISpriteEntry BlossomIcon { get; }
     internal ISpriteEntry DefaultDuoArtifactSprite { get; }
     internal ISpriteEntry DefaultInactiveDuoArtifactSprite { get; }
@@ -213,6 +215,7 @@ public sealed class Elestrals : SimpleMod
         RuptureAIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureA.png"));
         RuptureCIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureC.png"));
         RuptureMIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureM.png"));
+        RuptureSIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/ruptureS.png"));
         BlossomIcon = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/icons/blossom.png"));
         DefaultDuoArtifactSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/Duos/DefaultSprite.png"));
         DefaultInactiveDuoArtifactSprite = helper.Content.Sprites.RegisterSprite(package.PackageRoot.GetRelativeFile("assets/artifacts/Duos/DefaultInactiveSprite.png"));
@@ -287,6 +290,13 @@ public sealed class Elestrals : SimpleMod
                 cards = [
                     new EquilynxEarthStoneCard(),
                     new EquilynxNexusBlastCard()
+                ]
+            },
+
+            SoloStarters = new()
+            {
+                cards = [
+
                 ]
             },
 
@@ -365,6 +375,18 @@ public sealed class Elestrals : SimpleMod
         JesterApi?.RegisterCharacterFlag("midrow", Equilynx_Deck.Deck);
         JesterApi?.RegisterCharacterFlag("destroyPositive", Equilynx_Deck.Deck);
         JesterApi?.RegisterProvider(new EquilynxJesterProvider());
+
+        helper.ModRegistry.AwaitApi<ICustomRunOptionsApi>("Shockah.CustomRunOptions", cro =>
+        {
+            cro.RegisterPartialDuoDeck(Equilynx_Deck.Deck, new StarterDeck
+            {
+                cards = [
+                    new ShuffleStep(),
+                    new SwitchShot(),
+                    new Stack()
+                ]
+            });
+        });
 
         helper.Events.OnModLoadPhaseFinished += (_, phase) =>
         {

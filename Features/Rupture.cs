@@ -39,6 +39,9 @@ public class RuptureManager
         return !ModData.GetModDataOrDefault<bool>(thing, NaturalKey, false);
     }
 
+    public static IEnumerable<StuffBase> GetObjectsAboveShip(Combat c, Ship ship)
+        => Enumerable.Range(0, ship.parts.Count).Where(localX => ship.parts[localX].type != PType.empty && c.stuff.ContainsKey(ship.x + localX)).Select(localX => c.stuff[ship.x + localX]);
+
     public static void ApplyPatches(Harmony harmony)
     {
         RuptureOffsetLeftArrowIcon = Elestrals.Instance.Helper.Content.Sprites.RegisterSprite(Elestrals.Instance.Package.PackageRoot.GetRelativeFile("assets/icons/ruptureOffsetLeft.png"));
