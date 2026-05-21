@@ -15,7 +15,8 @@ namespace JyGein.Elestrals.Actions
         {
             Cannon,
             Missile,
-            All
+            All,
+            Ship
         }
         public RuptureType ruptureType { get; set; }
 
@@ -39,10 +40,11 @@ namespace JyGein.Elestrals.Actions
         {
             State s2 = s;
             Ship ship = (fromPlayer ? s2.ship : c.otherShip);
-            if (ruptureType == RuptureType.All)
+            if (ruptureType == RuptureType.All || ruptureType == RuptureType.Ship)
             {
-                foreach(StuffBase stuff in c.stuff.Values)
+                foreach(StuffBase stuff in (ruptureType == RuptureType.All ? c.stuff.Values : Enumerable.Range(0, ship.parts.Count).Where(localX => ship.parts[localX].type != PType.empty && c.stuff.ContainsKey(ship.x + localX)).Select(localX => c.stuff[ship.x + localX])))
                 {
+                    Enumerable.Range(0, ship.parts.Count).Any(localX => ship.parts[localX].type != PType.empty && c.stuff.ContainsKey(ship.x + localX));
                     if (stuff.Invincible())
                     {
                         c.QueueImmediate(stuff.GetActionsOnBonkedWhileInvincible(s2, c, fromPlayer, new StuffBase()));

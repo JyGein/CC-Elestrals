@@ -13,6 +13,7 @@ public interface IEquilynxApi
     public IARupture ABayRupure { get; }
     public IARupture ACannonRupture { get; }
     public IARupture AAllRupture { get; }
+    public IARupture AShipRupture { get; }
     interface IARupture : IKokoroApi.IV2.ICardAction<CardAction>
     {
         public int? fromX { get; set; }

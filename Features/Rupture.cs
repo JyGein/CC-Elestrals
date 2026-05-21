@@ -17,18 +17,26 @@ public class RuptureManager
     private static Elestrals Instance => Elestrals.Instance;
     private static IModData ModData => Elestrals.Instance.Helper.ModData;
 
-    internal static readonly string NaturalKey = "IsntNatural";
+    internal static readonly string NaturalKey = "IsNatural";
     internal static ISpriteEntry RuptureArrowIcon { get; private set; } = null!;
     internal static ISpriteEntry RuptureOffsetLeftArrowIcon { get; private set; } = null!;
     internal static ISpriteEntry RuptureOffsetRightArrowIcon { get; private set; } = null!;
     public static void SetNatural(StuffBase thing, bool IsNatural)
     {
-        ModData.SetModData(thing, NaturalKey, !IsNatural);
+        ModData.SetModData(thing, NaturalKey, IsNatural);
+    }
+    public static void SetArtificial(StuffBase thing, bool IsArtificial)
+    {
+        ModData.SetModData(thing, NaturalKey, !IsArtificial);
     }
 
     public static bool IsNatural(StuffBase thing)
     {
-        return (ModData.TryGetModData<bool>(thing, NaturalKey, out var data) && data);
+        return ModData.GetModDataOrDefault<bool>(thing, NaturalKey, false);
+    }
+    public static bool IsArtificial(StuffBase thing)
+    {
+        return !ModData.GetModDataOrDefault<bool>(thing, NaturalKey, false);
     }
 
     public static void ApplyPatches(Harmony harmony)
@@ -49,9 +57,9 @@ public class RuptureManager
 
     private static void ASpawn_Begin_Postfix(ASpawn __instance, Combat c)
     {
-        if(c.turn>0)
+        if(c.turn<=0)
         {
-            RuptureManager.SetNatural(__instance.thing, false);
+            RuptureManager.SetNatural(__instance.thing, true);
         }
     }
     private static bool Card_RenderAction_Prefix(G g, State state, CardAction action, bool dontDraw, ref int __result)

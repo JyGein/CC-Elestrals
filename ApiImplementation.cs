@@ -18,6 +18,8 @@ public class ApiImplementation : IEquilynxApi
 
     public IARupture AAllRupture => new AAllRupture();
 
+    public IARupture AShipRupture => new AShipRupture();
+
     public CardAction ABlossom => new ABlossom();
 
     public StuffBase MiniEarthStone => new EarthStone { StoneType = Midrow.EarthStone.EarthStoneType.Mini };

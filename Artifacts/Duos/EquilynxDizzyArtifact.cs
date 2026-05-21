@@ -50,13 +50,20 @@ internal sealed class EquilynxDizzyArtifact : Artifact, IElestralsArtifact
                 status = Status.maxShield,
                 statusAmount = 1,
                 timer = 0
-            },
+            }
+        ]);
+    }
+
+    public override void OnTurnEnd(State state, Combat combat)
+    {
+        Pulse();
+        combat.QueueImmediate([
             new AStatus()
             {
                 targetPlayer = true,
-                status = Status.shield,
-                statusAmount = 1,
-                timer = 0.5
+                status = Status.maxShield,
+                statusAmount = -1,
+                timer = 0
             }
         ]);
     }
@@ -65,6 +72,5 @@ internal sealed class EquilynxDizzyArtifact : Artifact, IElestralsArtifact
 		=> Sprite.Sprite;
 
 	public override List<Tooltip> GetExtraTooltips()
-		=> [.. StatusMeta.GetTooltips(Status.maxShield, 1),
-			.. StatusMeta.GetTooltips(Status.shield, 1)];
+		=> [.. StatusMeta.GetTooltips(Status.maxShield, 1)];
 }

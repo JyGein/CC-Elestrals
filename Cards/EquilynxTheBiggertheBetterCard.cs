@@ -40,27 +40,25 @@ internal sealed class EquilynxTheBiggertheBetterCard : Card, IElestralsCard
         int i = 0;
         foreach(StuffBase stuff in c.stuff.Values)
         {
-            if (RuptureManager.IsNatural(stuff))
-            {
-                i++;
-            }
+
         }
         return i;
     }
 
     public override List<CardAction> GetActions(State s, Combat c)
     {
-        List<CardAction> actions = new();
+        List<CardAction> actions = [];
         int amt = GetX(s, c);
 
         actions.Add(new AVariableHintObjects
         {
             setAmount = amt
         });
+        actions.Add(new AShipRupture());
         actions.Add(new AAttack()
         {
-            damage = GetDmg(s, amt * (upgrade == Upgrade.B ? 6 : 3)),
-            xHint = upgrade == Upgrade.B ? 6 : 3
+            damage = GetDmg(s, amt * (upgrade == Upgrade.B ? 3 : 2)),
+            xHint = upgrade == Upgrade.B ? 3 : 2
         });
         if (upgrade != Upgrade.A)
         {

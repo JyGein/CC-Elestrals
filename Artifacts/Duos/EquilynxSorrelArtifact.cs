@@ -47,14 +47,19 @@ internal sealed class EquilynxSorrelArtifact : Artifact, IElestralsArtifact
     {
 		CardAction ForceEnemyAttack = (CardAction)twosCompanySudoApi.AForceEnemyAttack.CreateInstance();
 		ForceEnemyAttack.timer = 0.5;
-        combat.Queue([new AStatus()
-        {
-            targetPlayer = true,
-            status = twosCompanySudoApi.BullettimeStatus.Status,
-            statusAmount = 1,
-            timer = 0.5
-        },
-		ForceEnemyAttack]);
+		List<CardAction> actions = [];
+		if (state.ship.Get(twosCompanySudoApi.BullettimeStatus.Status) < 1)
+		{
+			actions.Add(new AStatus()
+			{
+				targetPlayer = true,
+				status = twosCompanySudoApi.BullettimeStatus.Status,
+				statusAmount = 1,
+				timer = 0.5
+			});
+        }
+		actions.Add(ForceEnemyAttack);
+        combat.Queue(actions);
         Pulse();
     }
 

@@ -37,7 +37,7 @@
       },
       "Dizzy": {
         "name": "EARTH WALL",
-        "description": "When you destroy an <c=midrow>object</c> gain 1 <c=status>MAX SHIELD</c> and 1 <c=status>SHIELD</c>."
+        "description": "When you destroy an <c=midrow>object</c> gain 1 <c=status>MAX SHIELD</c>. At end of turn Lose 1 <c=status>MAX SHIELD</c>."
       },
       "Riggs": {
         "name": "EARTH THRUSTERS",
@@ -137,7 +137,7 @@
       },
       "Sorrel": {
         "name": "A DROP OF WINE",
-        "description": "At the start of your turn gain 1 <c=status>bullet time</c> if you have none and force enemy attack."
+        "description": "At the start of your turn gain 1 <c=status>BULLET TIME</c> if you have none and force enemy attack."
       }
     }
   },
@@ -297,7 +297,7 @@
       "description": "X = Cards Exhausted{{Amount}}"
     },
     "VariableHintObjects": {
-      "description": "X = Artificial <c=midrow>objects</c>{{Amount}}"
+      "description": "X = <c=midrow>Objects</c> above your non-empty ship parts.{{Amount}}"
     },
     "Blossom": {
       "name": "Blossom",

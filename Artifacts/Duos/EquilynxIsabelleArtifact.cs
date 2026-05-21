@@ -154,7 +154,8 @@ internal sealed class EquilynxIsabelleArtifact : Artifact, IElestralsArtifact, I
 		=> [new TTGlossary("action.spawn"),
 			.. new AAttack().GetTooltips(MG.inst.g?.state ?? DB.fakeState),
 			.. new AMove() { targetPlayer = true }.GetTooltips(MG.inst.g?.state ?? DB.fakeState),
-			.. new ABayRupture().GetTooltips(MG.inst.g?.state ?? DB.fakeState)];
+			.. new ABayRupture().GetTooltips(MG.inst.g?.state ?? DB.fakeState),
+            .. StatusMeta.GetTooltips(Elestrals.Instance.KokoroApiV2.StatusNextTurn.Overdrive, 1)];
 
 
     internal sealed class EquilynxIsabelleArtifactManager
