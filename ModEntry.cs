@@ -7,6 +7,7 @@ using JyGein.Elestrals.Cards.Special;
 using JyGein.Elestrals.ExternalAPI;
 using JyGein.Elestrals.Features;
 using JyGein.Elestrals.Jester;
+using JyGein.Elestrals.Midrow;
 using Microsoft.Extensions.Logging;
 using Nanoray.PluginManager;
 using Nickel;
@@ -296,7 +297,12 @@ public sealed class Elestrals : SimpleMod
             SoloStarters = new()
             {
                 cards = [
-
+                    new EquilynxEarthStoneCard(),
+                    new EquilynxNexusBlastCard(),
+                    new EquilynxFlowerStoneCard(),
+                    new EquilynxNexusShotCard(),
+                    new DodgeColorless(),
+                    new DroneshiftColorless()
                 ]
             },
 
@@ -381,11 +387,12 @@ public sealed class Elestrals : SimpleMod
             cro.RegisterPartialDuoDeck(Equilynx_Deck.Deck, new StarterDeck
             {
                 cards = [
-                    new ShuffleStep(),
-                    new SwitchShot(),
-                    new Stack()
+                    new EquilynxEarthStoneCard(),
+                    new EquilynxNexusBlastCard(),
+                    new EquilynxSandstormCard()
                 ]
             });
+            AltDuoStarterManager.ApplyPatches(Harmony, logger);
         });
 
         helper.Events.OnModLoadPhaseFinished += (_, phase) =>
