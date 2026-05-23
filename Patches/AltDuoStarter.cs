@@ -25,7 +25,9 @@ public class AltDuoStarterManager
             return;
         }
 
+
         CustomRunOptionsApi = Elestrals.Instance.Helper.ModRegistry.GetApi<ICustomRunOptionsApi>("Shockah.CustomRunOptions")!;
+        Elestrals.Instance.Helper.Events.OnSaveLoaded += (_, s) => CustomRunOptionsApi.RegisterPartialDuoDeck(Elestrals.Instance.Equilynx_Deck.Deck, new StarterDeck { cards = DuoStarterDecks[Elestrals.Instance.MoreDifficultiesApi!.AreAltStartersEnabled(s, Elestrals.Instance.Equilynx_Deck.Deck)] }); ;
         harmony.Patch(
             original: AccessTools.DeclaredMethod(AltStartersType, "SetAltStarters"),
             postfix: new HarmonyMethod(MethodBase.GetCurrentMethod()!.DeclaringType!, nameof(AltStarters_SetAltStarters_Postfix))

@@ -8,6 +8,7 @@ namespace JyGein.Elestrals
 {
     public interface IMoreDifficultiesApi
     {
+        bool AreAltStartersEnabled(State state, Deck deck);
         void RegisterAltStarters(Deck deck, StarterDeck starterDeck);
     }
 }

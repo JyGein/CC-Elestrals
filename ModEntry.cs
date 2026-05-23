@@ -29,6 +29,7 @@ public sealed class Elestrals : SimpleMod
     internal IKokoroApi.IV2 KokoroApiV2 { get; }
     //internal IEnergyApi EnergyApi { get; }
     internal IJesterApi? JesterApi { get; }
+    internal IMoreDifficultiesApi? MoreDifficultiesApi { get; }
     internal ILocalizationProvider<IReadOnlyList<string>> AnyLocalizations { get; }
     internal ILocaleBoundNonNullLocalizationProvider<IReadOnlyList<string>> Localizations { get; }
     internal ISpriteEntry Equilynx_Character_DefaultCardBackground { get; }
@@ -312,7 +313,8 @@ public sealed class Elestrals : SimpleMod
             ExeCardType = typeof(EquilynxExeCard)
         });
 
-        helper.ModRegistry.GetApi<IMoreDifficultiesApi>("TheJazMaster.MoreDifficulties", new SemanticVersion(1, 4, 4))?.RegisterAltStarters(
+        MoreDifficultiesApi = helper.ModRegistry.GetApi<IMoreDifficultiesApi>("TheJazMaster.MoreDifficulties", new SemanticVersion(1, 4, 4));
+        MoreDifficultiesApi?.RegisterAltStarters(
             deck: Equilynx_Deck.Deck,
             starterDeck: new StarterDeck
             {
